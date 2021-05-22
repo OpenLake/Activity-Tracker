@@ -11,7 +11,7 @@
 - Cut a branch and make your commits into that branch.
 
 ## Raising a PR
-- While raising a pull request from your branch, please follow the [PR-name-style-guide]().
+- While raising a pull request from your branch, please follow the [PR-name-style-guide](https://github.com/OpenLake/Cross-Platform-Activity-Tracker/wiki/PR-name-style-guide).
 - While submitting your PR, please follow [this template]().
 
 
