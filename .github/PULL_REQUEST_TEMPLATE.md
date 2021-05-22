@@ -1,13 +1,7 @@
 ## Description
 
 _Give a summary of the change that you have made_
-
-## Fixes #[ISSUENO.]
-
-## Type of Change:
-- [ ] Documentation
-- [ ] User Interface
-- [ ] Code(Bug Fix/New feature)
+Fixes #[ISSUENO.]
 
 ## Dependencies 
 
