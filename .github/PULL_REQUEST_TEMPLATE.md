@@ -1,7 +1,8 @@
 ## Description
 
-_Give a summary of the change that you have made_
-Fixes #[ISSUENO.]
+_Give a summary of the change that you have made_ <br />
+
+Fixes #[ISSUENO]
 
 ## Dependencies 
 
