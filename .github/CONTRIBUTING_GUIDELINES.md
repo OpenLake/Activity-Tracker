@@ -2,7 +2,7 @@
 
 ## Getting started
 - If it is your first time working on this project, it is recommended to start working on issues labelled "First Timers Only". 
-- Choose an issue from "Issues" that is labelled "Available" and claim it in the comment section of the respective issue. 
+- Choose an issue that is labelled "Available" and claim it in the comment section of the respective issue. 
 - Once the maintainer of the repository assigns it to you, you can start working on it.
 - Make sure you keep updating us on your work.
 
