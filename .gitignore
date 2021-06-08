@@ -1,0 +1,4 @@
+node_modules
+
+# log files
+.pnpm-debug.log
