@@ -12,6 +12,10 @@ We spend a lot of their time on screens and it's quite easy to lose track of the
 - Once a simple product is ready, we'll work on features to summarize our weeks and discover patterns in our behaviour.
 - Tech Stack : React, NodeJS, Django, Flutter/Kotlin
 
+## How to contribute?
+
+Please read the [contributing guidelines](https://github.com/OpenLake/Cross-Platform-Activity-Tracker/blob/main/.github/CONTRIBUTING_GUIDELINES.md) and you are good to go.
+
 ## Maintainers
 
 - 👤 **Kumar Shivendu** [@KShivendu](https://github.com/KShivendu)
