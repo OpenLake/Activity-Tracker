@@ -18,5 +18,10 @@
 	"homepage": "https://github.com/OpenLake/Cross-Platform-Activity-Tracker#readme",
 	"devDependencies": {
 		"prettier": "^2.3.1"
+	},
+	"dependencies": {
+		"fs-extra": "^10.0.0",
+		"lodash": "^4.17.21",
+		"path": "^0.12.7"
 	}
 }
