@@ -11,3 +11,51 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
 }
+
+.App {
+	background-color: rgb(18, 31, 48);
+}
+
+.donut {
+	margin-top: 15px;
+}
+.date-component {
+	background-color: rgb(11, 21, 32);
+	border-radius: 25px;
+	height: 74px;
+	padding: 10px;
+	margin-top: 32px;
+	margin-bottom: 16px;
+}
+
+.top-used-items {
+	padding: 15px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+
+.top-used-heading {
+	color: #bdbdbd;
+	font-size: 30px;
+}
+
+.top-app-heading {
+	margin-top: 10px;
+	margin-bottom: 0;
+	color: rgb(136, 135, 135);
+	font-size: 24px;
+	text-align: left;
+	width: 180px;
+}
+
+.top-app-details {
+	color: rgb(87, 87, 87);
+	text-align: left;
+}
+
+.hour-icon {
+	margin-left: 120px;
+	margin-top: 20px;
+}
