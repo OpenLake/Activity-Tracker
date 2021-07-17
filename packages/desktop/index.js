@@ -1,5 +1,7 @@
-import activeWin from 'active-win';
+import ActiveWindowObject from './tracker.js';
 
-// log active window twice (this would give error in active-win from npm)
-console.log(activeWin.sync().title);
-console.log(activeWin.sync().title);
+const filePath = process.cwd() + '/activites.json';
+const interval = 2000;
+
+const activeWindowObject = new ActiveWindowObject(filePath, interval);
+activeWindowObject.initialize();
