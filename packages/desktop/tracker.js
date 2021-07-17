@@ -1,22 +1,19 @@
 import activeWin from 'active-win';
-import fs from 'fs-extra';
-import _ from 'lodash';
-import path from 'path';
-
-//const __dirname = path.resolve();
-//const filePath = path.join(__dirname, "activites.json")
-//const interval = 2000
+import { existsSync, writeFileSync, readFileSync } from 'fs';
 
 class ActiveWindowObject {
 	constructor(filePath, interval) {
-		(this.startTime = null), //Storing the start time of the active window
-			(this.app = null); //Collecting data of the window which will be active
+		(this.startTime = null), (this.app = null);
 		this.filePath = filePath;
 		this.interval = interval;
 	}
 
-	async storeTime() {
-		const file = await fs.readJSON(this.filePath);
+	/*Storing the start time of the active window
+  Collecting data of the window which will be active */
+
+	storeTime() {
+		let rawdata = readFileSync(this.filePath);
+		const file = JSON.parse(rawdata);
 		let endTime = new Date();
 		let startTime = this.startTime;
 
@@ -26,17 +23,19 @@ class ActiveWindowObject {
 			title,
 			url,
 		} = this.app;
-		_.defaultsDeep(file, { [name]: { [title]: { timeSpent: 0, url } } });
+
+		file[name] = file[name] ?? {};
+		file[name][title] = file[name][title] ?? { timeSpent: 0, url };
+
 		const timeDifferernce =
 			Math.abs(startTime.getTime() - endTime.getTime()) / 1000;
 		file[name][title].timeSpent += Math.round(timeDifferernce);
-		await fs.writeJSON(this.filePath, file, { spaces: 2 });
+		writeFileSync(this.filePath, JSON.stringify(file, null, 2));
 	}
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//    Checks the active window is specific time interval                                              ///
-	// and whenever the active window changes stores the time difference by calling storeTime() function ////
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/*     Checks the active window is specific time interval
+	and whenever the active window changes stores the time difference by calling storeTime() function */
+
 	tracker() {
 		setInterval(async () => {
 			const activewindow = await activeWin();
@@ -48,18 +47,18 @@ class ActiveWindowObject {
 
 			//If the active window is changed store the used time data.
 			if (activewindow.title !== this.app.title) {
-				await this.storeTime();
+				this.storeTime();
 				this.app = null;
 			}
 			console.log(activewindow.title);
 		}, this.interval);
 	}
 
-	async initialize() {
-		const isFilePresent = await fs.pathExists(this.filePath);
+	initialize() {
+		const isFilePresent = existsSync(this.filePath);
 
 		if (!isFilePresent) {
-			await fs.writeJSON(this.filePath, {});
+			writeFileSync(this.filePath, '{}');
 		}
 
 		this.tracker();

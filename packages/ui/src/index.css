@@ -17,7 +17,7 @@ code {
 }
 
 .donut {
-	margin-top: 15px;
+	margin-top: 30px;
 }
 .date-component {
 	background-color: rgb(11, 21, 32);
@@ -31,6 +31,7 @@ code {
 .top-used-items {
 	padding: 15px;
 	margin-top: 10px;
+	margin-bottom: 20px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
