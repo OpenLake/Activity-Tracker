@@ -14,7 +14,8 @@ class ActiveWindowObject {
 	storeTime() {
 		let rawdata = readFileSync(this.filePath);
 		const file = JSON.parse(rawdata);
-		let endTime = new Date();
+		let endDate = new Date();
+		let endTime = Date.now();
 		let startTime = this.startTime;
 
 		//writing the json file
@@ -24,12 +25,20 @@ class ActiveWindowObject {
 			url,
 		} = this.app;
 
-		file[name] = file[name] ?? {};
-		file[name][title] = file[name][title] ?? { timeSpent: 0, url };
+		function appDataObject(startTime, endTime) {
+			return {
+				name,
+				title: title ?? 'No data',
+				url,
+				startTime,
+				endTime,
+			};
+		}
 
-		const timeDifferernce =
-			Math.abs(startTime.getTime() - endTime.getTime()) / 1000;
-		file[name][title].timeSpent += Math.round(timeDifferernce);
+		let data = appDataObject(startTime, endTime);
+
+		file.push(data);
+
 		writeFileSync(this.filePath, JSON.stringify(file, null, 2));
 	}
 
@@ -41,7 +50,8 @@ class ActiveWindowObject {
 			const activewindow = await activeWin();
 
 			if (!this.app) {
-				this.startTime = new Date();
+				let newdate = new Date();
+				this.startTime = Date.now();
 				this.app = activewindow;
 			}
 
@@ -58,7 +68,7 @@ class ActiveWindowObject {
 		const isFilePresent = existsSync(this.filePath);
 
 		if (!isFilePresent) {
-			writeFileSync(this.filePath, '{}');
+			writeFileSync(this.filePath, '[]');
 		}
 
 		this.tracker();
