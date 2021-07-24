@@ -4,10 +4,11 @@ import Button from '@material-ui/core/Button';
 import { useTheme } from '@material-ui/core/styles';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import DoughnutChart from '../Components/DonutChart';
+import { ActivityDonutChart } from '../Components/ActivityDonut';
 import RedditIcon from '@material-ui/icons/Reddit';
 import HourglassFullRoundedIcon from '@material-ui/icons/HourglassFullRounded';
 import HourglassEmptyRoundedIcon from '@material-ui/icons/HourglassEmptyRounded';
+import { durationToString } from '../utils';
 
 export const HomePage = () => {
 	const theme = useTheme();
@@ -27,24 +28,28 @@ export const HomePage = () => {
 				<RedditIcon style={{ fontSize: 50, color: 'white', marginRight: 10 }} />
 			),
 			name: 'Reddit',
-			usage: '3h 46m',
+			usage: 3 * 60 + 46,
 			status: 'red',
 		},
 		{
-			icon: (
-				<RedditIcon style={{ fontSize: 50, color: 'white', marginRight: 10 }} />
-			),
 			name: 'Google Chrome',
-			usage: '3h 46m',
+			usage: 3 * 60 + 46,
 			status: 'grey',
 		},
 		{
-			icon: (
-				<RedditIcon style={{ fontSize: 50, color: 'white', marginRight: 10 }} />
-			),
 			name: 'VS Code',
-			usage: '3h 46m',
+			usage: 3 * 60 + 46,
 			status: 'green',
+		},
+		{
+			name: 'Twitter',
+			usage: 3 * 60 + 46,
+			status: 'red',
+		},
+		{
+			name: 'Nautilus',
+			usage: 3 * 60 + 46,
+			status: 'grey',
 		},
 	];
 
@@ -76,7 +81,7 @@ export const HomePage = () => {
 		<div className="App d-flex flex-column justify-content-center">
 			<div className="d-flex flex-column align-items-center">
 				{/* <h1 className="text-white">Activity Tracker</h1> */}
-				<DoughnutChart />
+				<ActivityDonutChart />
 				<div className="date-component d-flex justify-content-center align-items-center">
 					<Button color="default" onClick={previousDay}>
 						<NavigateBeforeIcon style={{ color: 'white' }} />
@@ -124,10 +129,16 @@ export const HomePage = () => {
 						<div key={index}>
 							<Button style={{ textTransform: 'none' }}>
 								<div className="d-flex">
-									{app.icon}
+									{app.icon ?? (
+										<RedditIcon
+											style={{ fontSize: 50, color: 'white', marginRight: 10 }}
+										/>
+									)}
 									<div>
 										<h2 className="top-app-heading">{app.name}</h2>
-										<p className="top-app-details">{app.usage}</p>
+										<p className="top-app-details">
+											{durationToString(app.duration)}
+										</p>
 									</div>
 									{hourglassIcon}
 								</div>
