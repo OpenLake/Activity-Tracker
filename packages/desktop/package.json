@@ -9,7 +9,8 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"active-win": "workspace:^7.2.0"
+		"active-win": "workspace:^7.2.0",
+		"axios": "^0.21.1"
 	},
 	"type": "module"
 }
