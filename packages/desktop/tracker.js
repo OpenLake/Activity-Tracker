@@ -70,7 +70,7 @@ class ActiveWindowObject {
 		if (!isFilePresent) {
 			writeFileSync(this.filePath, '[]');
 		}
-
+		console.log("Initializing tracker: ⌛⌚")
 		this.tracker();
 	}
 }

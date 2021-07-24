@@ -4,7 +4,10 @@
 	"description": "<h1 align=\"center\">Welcome to the Digital Life Tracker 👋</h1>",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"tracker": "cd packages/desktop/ && pnpm run tracker",
+		"ui:dev": "cd packages/ui/ && pnpm run dev",
+		"ui:build": "cd packages/ui/ && pnpm run build",
+		"ui:serve": "cd packages/ui/ && pnpm run serve"
 	},
 	"repository": {
 		"type": "git",
@@ -18,6 +21,5 @@
 	"homepage": "https://github.com/OpenLake/Cross-Platform-Activity-Tracker#readme",
 	"devDependencies": {
 		"prettier": "^2.3.1"
-	},
-	"dependencies": {}
+	}
 }
