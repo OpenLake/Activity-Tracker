@@ -42,7 +42,7 @@ const parseLinux = ({ stdout, boundsStdout, activeWindowId }) => {
 	const processId = Number.parseInt(result['_NET_WM_PID(CARDINAL)'], 10);
 
 	if (Number.isNaN(processId)) {
-		throw new Error('Failed to parse process ID'); // eslint-disable-line unicorn/prefer-type-error
+		throw new Error('Failed to parse process ID');
 	}
 
 	return {

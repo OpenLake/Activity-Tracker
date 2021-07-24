@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import React from 'react';
 import RedditIcon from '@material-ui/icons/Reddit';
 

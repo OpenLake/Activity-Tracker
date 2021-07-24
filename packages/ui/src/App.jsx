@@ -3,7 +3,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core/';
 
 import { HomePage, AppUsagePage } from './pages';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const theme = createMuiTheme({
 	palette: {
@@ -22,17 +22,17 @@ const theme = createMuiTheme({
 	},
 });
 
-function App () {
+function App() {
 	return (
 		<Router>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<Switch>
-					<Route path='/about'></Route>
-					<Route path='/usage'>
+					<Route path="/about"></Route>
+					<Route path="/usage">
 						<AppUsagePage />
 					</Route>
-					<Route path='/'>
+					<Route path="/">
 						<HomePage />
 					</Route>
 				</Switch>
