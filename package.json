@@ -7,7 +7,8 @@
 		"tracker": "cd packages/desktop/ && pnpm run tracker",
 		"ui:dev": "cd packages/ui/ && pnpm run dev",
 		"ui:build": "cd packages/ui/ && pnpm run build",
-		"ui:serve": "cd packages/ui/ && pnpm run serve"
+		"ui:serve": "cd packages/ui/ && pnpm run serve",
+		"ui": "pnpm run ui:dev"
 	},
 	"repository": {
 		"type": "git",
