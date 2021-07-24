@@ -1,4 +1,5 @@
 import activeWin from 'active-win';
+import axios from 'axios';
 import { existsSync, writeFileSync, readFileSync } from 'fs';
 
 export class ActiveWindowWatcher {
@@ -37,6 +38,22 @@ export class ActiveWindowWatcher {
 		}
 
 		const data = appDataObject(startTime, endTime);
+
+		// Making a post request to '/store'
+		axios
+			.post('http://localhost:3000/store', {
+				'name': name,
+				'title': title,
+				'startTime': startTime,
+				'endTime': endTime
+			})
+			.then(res => {
+				console.log(`statusCode: ${res.status}`)
+				console.log(res.data)
+			})
+			.catch(error => {
+				console.error(error)
+			})
 
 		file.push(data);
 
