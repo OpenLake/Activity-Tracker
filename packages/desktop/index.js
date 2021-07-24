@@ -1,7 +1,7 @@
-import ActiveWindowObject from './tracker.js';
+import { ActiveWindowWatcher } from './tracker.js';
 
-const filePath = process.cwd() + '/activites.json';
+const filePath = process.cwd() + '/activities.json';
 const interval = 2000;
 
-const activeWindowObject = new ActiveWindowObject(filePath, interval);
-activeWindowObject.initialize();
+const activeWindowWatcher = new ActiveWindowWatcher(filePath, interval);
+activeWindowWatcher.initialize();

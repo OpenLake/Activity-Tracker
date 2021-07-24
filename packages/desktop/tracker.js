@@ -1,22 +1,23 @@
 import activeWin from 'active-win';
 import { existsSync, writeFileSync, readFileSync } from 'fs';
 
-class ActiveWindowObject {
+export class ActiveWindowWatcher {
 	constructor(filePath, interval) {
-		(this.startTime = null), (this.app = null);
+		this.startTime = null;
+		this.app = null;
 		this.filePath = filePath;
 		this.interval = interval;
 	}
 
-	/*Storing the start time of the active window
-  Collecting data of the window which will be active */
-
+	/**
+	 * Storing the start time of the active window
+	 * Collecting data of the window which will be active
+	 */
 	storeTime() {
-		let rawdata = readFileSync(this.filePath);
-		const file = JSON.parse(rawdata);
-		let endDate = new Date();
-		let endTime = Date.now();
-		let startTime = this.startTime;
+		const rawData = readFileSync(this.filePath);
+		const file = JSON.parse(rawData);
+		const endTime = Date.now();
+		const startTime = this.startTime;
 
 		//writing the json file
 		const {
@@ -35,32 +36,32 @@ class ActiveWindowObject {
 			};
 		}
 
-		let data = appDataObject(startTime, endTime);
+		const data = appDataObject(startTime, endTime);
 
 		file.push(data);
 
 		writeFileSync(this.filePath, JSON.stringify(file, null, 2));
 	}
 
-	/*     Checks the active window is specific time interval
-	and whenever the active window changes stores the time difference by calling storeTime() function */
-
+	/**
+	 * Checks the active window is specific time interval
+	 * and whenever the active window changes stores the time difference by calling {@link ActiveWindowWatcher.storeTime} function
+	 */
 	tracker() {
 		setInterval(async () => {
-			const activewindow = await activeWin();
+			const activeWindow = await activeWin();
 
 			if (!this.app) {
-				let newdate = new Date();
 				this.startTime = Date.now();
-				this.app = activewindow;
+				this.app = activeWindow;
 			}
 
 			//If the active window is changed store the used time data.
-			if (activewindow.title !== this.app.title) {
+			if (activeWindow.title !== this.app.title) {
 				this.storeTime();
 				this.app = null;
 			}
-			console.log(activewindow.title);
+			console.log(activeWindow.title);
 		}, this.interval);
 	}
 
@@ -70,9 +71,7 @@ class ActiveWindowObject {
 		if (!isFilePresent) {
 			writeFileSync(this.filePath, '[]');
 		}
-		console.log("Initializing tracker: ⌛⌚")
+
 		this.tracker();
 	}
 }
-
-export default ActiveWindowObject;
