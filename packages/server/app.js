@@ -10,6 +10,7 @@ const url = 'mongodb://127.0.0.1:27017';
 
 const activity = require('./routes/activity.routes');
 const app_usage = require('./routes/app.routes');
+const root = require('./routes/root.routes');
 
 // Connect to the database
 mongoose.connect(
@@ -29,6 +30,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use('/', root);
 app.use('/activities', activity);
 app.use('/apps', app_usage);
 
