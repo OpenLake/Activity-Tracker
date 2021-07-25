@@ -2,11 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
-const activity = require('./routes/activity.routes');
 
 const hostname = '127.0.0.1';
 const port = 3000;
 const url = 'mongodb://127.0.0.1:27017';
+
+const activity = require('./routes/activity.routes');
+const app_usage = require('./routes/app.routes');
 
 // Connect to the database
 mongoose.connect(
@@ -26,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/activities', activity);
-// app.use('/apps', activity);
+app.use('/apps', app_usage);
 
 app.listen(port, hostname, function () {
 	console.log(`Nodejs server running at http://${hostname}:${port}/`);
