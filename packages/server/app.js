@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express();
 
 const hostname = '127.0.0.1';
@@ -24,6 +25,7 @@ mongoose.connect(
 );
 
 app.use(morgan('combined'));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

@@ -5,7 +5,8 @@ exports.all_apps = async (req, res, next) => {
 		{
 			$group: {
 				_id: '$name',
-				name: { $addToSet: '$title' },
+				name: { $first: '$name' },
+				title: { $addToSet: '$title' },
 				duration: { $sum: { $subtract: ['$endTime', '$startTime'] } },
 			},
 		},
