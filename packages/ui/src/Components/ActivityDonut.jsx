@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import { durationToString } from '../utils';
 
@@ -31,7 +31,7 @@ export const ActivityDonutChart = ({ data }) => {
 							show: true,
 							color: '#757575',
 							formatter: function (val) {
-								return durationToString(val);
+								return durationToString(val, true);
 							},
 						},
 						total: {
@@ -43,6 +43,7 @@ export const ActivityDonutChart = ({ data }) => {
 									w.globals.seriesTotals.reduce((a, b) => {
 										return a + b;
 									}, 0),
+									true,
 								);
 							},
 						},
@@ -52,19 +53,16 @@ export const ActivityDonutChart = ({ data }) => {
 		},
 	};
 
-	const [state] = useState({
-		options: {
-			...defaultOptions,
-			labels: data.map(app => app.name),
-		},
-		series: data.map(app => Math.floor(app.duration)),
-	});
+	useEffect(() => {}, [data]);
 
 	return (
 		<div className="donut">
 			<Chart
-				options={state.options}
-				series={state.series}
+				options={{
+					...defaultOptions,
+					labels: data.map(app => app.name),
+				}}
+				series={data.map(app => Math.floor(app.duration / 1000))}
 				type="donut"
 				width={400}
 				height={280}
