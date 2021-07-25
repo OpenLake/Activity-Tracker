@@ -41,19 +41,19 @@ export class ActiveWindowWatcher {
 
 		// Making a post request to '/store'
 		axios
-			.post('http://localhost:3000/store', {
-				'name': name,
-				'title': title,
-				'startTime': startTime,
-				'endTime': endTime
+			.post('http://localhost:3000/activities', {
+				name: name,
+				title: title,
+				startTime: startTime,
+				endTime: endTime,
 			})
 			.then(res => {
-				console.log(`statusCode: ${res.status}`)
-				console.log(res.data)
+				console.log(`statusCode: ${res.status}`);
+				console.log(res.data);
 			})
 			.catch(error => {
-				console.error(error)
-			})
+				console.error(error);
+			});
 
 		file.push(data);
 
