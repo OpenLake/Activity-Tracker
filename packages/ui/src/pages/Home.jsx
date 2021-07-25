@@ -22,38 +22,24 @@ export const HomePage = () => {
 			date.getFullYear(),
 	);
 
-	const data = [
+	const [appList, setAppList] = useState([
 		{
 			icon: (
 				<RedditIcon style={{ fontSize: 50, color: 'white', marginRight: 10 }} />
 			),
 			name: 'Reddit',
-			usage: 3 * 60 + 46,
+			duration: 3 * 60 + 46,
 			status: 'red',
 		},
-		{
-			name: 'Google Chrome',
-			usage: 3 * 60 + 46,
-			status: 'grey',
-		},
-		{
-			name: 'VS Code',
-			usage: 3 * 60 + 46,
-			status: 'green',
-		},
-		{
-			name: 'Twitter',
-			usage: 3 * 60 + 46,
-			status: 'red',
-		},
-		{
-			name: 'Nautilus',
-			usage: 3 * 60 + 46,
-			status: 'grey',
-		},
-	];
+	]);
 
-	useEffect(() => {}, [currentDate]);
+	useEffect(() => {
+		fetch('http://127.0.0.1:3000/apps')
+			.then(res => res.json())
+			.then(res => {
+				setAppList(res);
+			});
+	}, [currentDate]);
 
 	const nextDay = () => {
 		date.setDate(date.getDate() + 1);
@@ -81,7 +67,7 @@ export const HomePage = () => {
 		<div className="App d-flex flex-column justify-content-center">
 			<div className="d-flex flex-column align-items-center">
 				{/* <h1 className="text-white">Activity Tracker</h1> */}
-				<ActivityDonutChart />
+				<ActivityDonutChart data={appList} />
 				<div className="date-component d-flex justify-content-center align-items-center">
 					<Button color="default" onClick={previousDay}>
 						<NavigateBeforeIcon style={{ color: 'white' }} />
@@ -94,7 +80,7 @@ export const HomePage = () => {
 			</div>
 			<div className="top-used-items d-flex flex-column">
 				<h1 className="top-used-heading">Top Used</h1>
-				{data.map((app, index) => {
+				{appList.map((app, index) => {
 					let hourglassIcon;
 					if (app.status == 'red') {
 						hourglassIcon = (

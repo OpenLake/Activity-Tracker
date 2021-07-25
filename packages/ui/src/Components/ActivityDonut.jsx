@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Chart from 'react-apexcharts';
+import { durationToString } from '../utils';
 
-export const ActivityDonutChart = () => {
+export const ActivityDonutChart = ({ data }) => {
 	const defaultOptions = {
 		dataLabels: {
 			enabled: false,
@@ -30,7 +31,7 @@ export const ActivityDonutChart = () => {
 							show: true,
 							color: '#757575',
 							formatter: function (val) {
-								return val + ' hrs';
+								return durationToString(val);
 							},
 						},
 						total: {
@@ -38,10 +39,10 @@ export const ActivityDonutChart = () => {
 							label: 'Today',
 							color: '#757575',
 							formatter: function (w) {
-								return (
+								return durationToString(
 									w.globals.seriesTotals.reduce((a, b) => {
 										return a + b;
-									}, 0) + ' hrs'
+									}, 0),
 								);
 							},
 						},
@@ -54,9 +55,9 @@ export const ActivityDonutChart = () => {
 	const [state] = useState({
 		options: {
 			...defaultOptions,
-			labels: ['Nautilus', 'Chrome', 'Reddit', 'Vscode', 'Twitter'],
+			labels: data.map(app => app.name),
 		},
-		series: [30, 40, 35, 50, 20],
+		series: data.map(app => Math.floor(app.duration)),
 	});
 
 	return (
