@@ -4,7 +4,7 @@
 	"description": "<h1 align=\"center\">Welcome to the Digital Life Tracker 👋</h1>",
 	"main": "index.js",
 	"scripts": {
-		"server": "cd packages/desktop/ && pnpm run start",
+		"server": "cd packages/server/ && pnpm run server",
 		"tracker": "cd packages/desktop/ && pnpm run tracker",
 		"ui:dev": "cd packages/ui/ && pnpm run dev",
 		"ui:build": "cd packages/ui/ && pnpm run build",
