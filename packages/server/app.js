@@ -16,7 +16,7 @@ const root = require('./routes/root.routes');
 mongoose.connect(
 	url,
 	{ useNewUrlParser: true, useUnifiedTopology: true },
-	(err, client) => {
+	err => {
 		if (err) {
 			console.log("Couldn't connect to MongoDB");
 			return console.error(err);
