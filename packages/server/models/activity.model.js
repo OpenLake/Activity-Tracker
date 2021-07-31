@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const schema = mongoose.Schema;
 
 const ActivitySchema = new schema({
@@ -8,4 +8,4 @@ const ActivitySchema = new schema({
 	endTime: { type: Number, required: true },
 });
 
-module.exports = mongoose.model('Activity', ActivitySchema);
+export default mongoose.model('Activity', ActivitySchema);
