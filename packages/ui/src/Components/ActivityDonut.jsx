@@ -62,7 +62,7 @@ export const ActivityDonutChart = ({ data }) => {
 					...defaultOptions,
 					labels: data.map(app => app.name),
 				}}
-				series={data.map(app => Math.floor(app.duration / 1000))}
+				series={data.map(app => Math.floor(app.duration / 1000 / 60))}
 				type="donut"
 				width={400}
 				height={280}
