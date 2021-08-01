@@ -1,6 +1,6 @@
-const Activity = require('../models/activity.model');
+import Activity from '../models/activity.model.js';
 
-exports.all_apps = async (req, res, next) => {
+export const all_apps = async (req, res) => {
 	let apps = await Activity.aggregate([
 		{
 			$group: {

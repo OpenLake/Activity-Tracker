@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Nodejs server",
 	"main": "app.js",
+	"type": "module",
 	"scripts": {
 		"server": "node app.js"
 	},

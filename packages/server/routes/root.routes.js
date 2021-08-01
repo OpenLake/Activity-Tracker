@@ -1,11 +1,11 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
 	res.json({
 		apps: 'http://localhost:3000/apps',
 		activities: 'http://localhost:3000/activities',
 	});
 });
 
-module.exports = router;
+export default router;

@@ -1,22 +1,23 @@
-const express = require('express');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-const cors = require('cors');
+import express from 'express';
+import morgan from 'morgan';
+import mongoose from 'mongoose';
+import cors from 'cors';
+
+import activity from './routes/activity.routes.js';
+import app_usage from './routes/app.routes.js';
+import root from './routes/root.routes.js';
+
 const app = express();
 
 const hostname = '127.0.0.1';
 const port = 3000;
 const url = 'mongodb://127.0.0.1:27017';
 
-const activity = require('./routes/activity.routes');
-const app_usage = require('./routes/app.routes');
-const root = require('./routes/root.routes');
-
 // Connect to the database
 mongoose.connect(
 	url,
 	{ useNewUrlParser: true, useUnifiedTopology: true },
-	(err, client) => {
+	err => {
 		if (err) {
 			console.log("Couldn't connect to MongoDB");
 			return console.error(err);

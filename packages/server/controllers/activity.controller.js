@@ -1,6 +1,6 @@
-const Activity = require('../models/activity.model');
+import Activity from '../models/activity.model.js';
 
-exports.activity_create = (req, res, next) => {
+export const activity_create = (req, res, next) => {
 	const { name, title, startTime, endTime } = req.body;
 	const activity = new Activity({ name, title, startTime, endTime });
 
@@ -11,7 +11,7 @@ exports.activity_create = (req, res, next) => {
 	res.send('Activity created succecssfully');
 };
 
-exports.all_activities = (req, res, next) => {
+export const all_activities = (req, res, next) => {
 	Activity.find({}, (err, activity) => {
 		if (err) return next(err);
 		res.json(activity);
