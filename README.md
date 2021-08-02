@@ -8,9 +8,9 @@ We spend a lot of their time on screens and it's quite easy to lose track of the
 
 - PWA Dashboard to display all the collected data from different devices.
 - Background application for data collection from Desktop using NodeJS and from Mobiles using Flutter/Kotlin(To be decided).
-- Backend built with Django
+- NodeJS in the backend with MongoDB as the database
 - Once a simple product is ready, we'll work on features to summarize our weeks and discover patterns in our behaviour.
-- Tech Stack : React, NodeJS, Django, Flutter/Kotlin
+- Tech Stack : React, NodeJS, Flutter/Kotlin
 
 ## How to contribute?
 
