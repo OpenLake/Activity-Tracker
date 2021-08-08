@@ -106,7 +106,7 @@ export const HomePage = () => {
 						hourglassIcon = (
 							<HourglassEmptyRoundedIcon
 								className="hour-icon"
-								style={{ fontSize: 35, color: 'white' }}
+								style={{ fontSize: 35, color: '#8997B1' }}
 							/>
 						);
 					}

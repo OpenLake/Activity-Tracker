@@ -12,8 +12,8 @@ code {
 		monospace;
 }
 
-.App {
-	background-color: rgb(18, 31, 48);
+body {
+	background-color: rgb(18, 31, 48) !important;
 }
 
 .donut {
@@ -38,21 +38,21 @@ code {
 }
 
 .top-used-heading {
-	color: #bdbdbd;
+	color: #afbdd1;
 	font-size: 30px;
 }
 
 .top-app-heading {
 	margin-top: 10px;
 	margin-bottom: 0;
-	color: rgb(136, 135, 135);
+	color: #8997b1;
 	font-size: 24px;
 	text-align: left;
 	width: 180px;
 }
 
 .top-app-details {
-	color: rgb(87, 87, 87);
+	color: #56657f;
 	text-align: left;
 }
 
