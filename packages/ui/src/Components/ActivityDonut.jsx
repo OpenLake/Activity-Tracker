@@ -7,6 +7,14 @@ export const ActivityDonutChart = ({ data }) => {
 		dataLabels: {
 			enabled: false,
 		},
+		tooltip: {
+			enabled: true,
+			y: {
+				formatter: val => {
+					return durationToString(val, true);
+				},
+			},
+		},
 		legend: {
 			show: true,
 			position: 'bottom',
@@ -29,16 +37,16 @@ export const ActivityDonutChart = ({ data }) => {
 						},
 						value: {
 							show: true,
-							color: '#757575',
-							formatter: function (val) {
+							color: '#FFFFFF',
+							formatter: val => {
 								return durationToString(val, true);
 							},
 						},
 						total: {
 							show: true,
 							label: 'Today',
-							color: '#757575',
-							formatter: function (w) {
+							color: '#AFBDD1',
+							formatter: w => {
 								return durationToString(
 									w.globals.seriesTotals.reduce((a, b) => {
 										return a + b;
@@ -65,7 +73,7 @@ export const ActivityDonutChart = ({ data }) => {
 				series={data.map(app => Math.floor(app.duration / 1000 / 60))}
 				type="donut"
 				width={400}
-				height={280}
+				height={375}
 			/>
 		</div>
 	);
