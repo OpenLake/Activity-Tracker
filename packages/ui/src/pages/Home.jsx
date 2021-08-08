@@ -9,6 +9,8 @@ import RedditIcon from '@material-ui/icons/Reddit';
 import HourglassFullRoundedIcon from '@material-ui/icons/HourglassFullRounded';
 import HourglassEmptyRoundedIcon from '@material-ui/icons/HourglassEmptyRounded';
 import { durationToString } from '../utils';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 export const HomePage = () => {
 	const theme = useTheme();
@@ -34,7 +36,7 @@ export const HomePage = () => {
 	]);
 
 	useEffect(() => {
-		fetch('http://127.0.0.1:3000/apps')
+		fetch('http://192.168.43.90:3000/apps')
 			.then(res => res.json())
 			.then(res => {
 				setAppList(res);
@@ -64,75 +66,132 @@ export const HomePage = () => {
 	};
 
 	return (
-		<div className="App d-flex flex-column justify-content-center">
-			<div className="d-flex flex-column align-items-center">
-				{/* <h1 className="text-white">Activity Tracker</h1> */}
+		<Grid container direction="column" alignItems="center">
+			<Grid item>
 				<ActivityDonutChart data={appList} />
-				<div className="date-component d-flex justify-content-center align-items-center">
+			</Grid>
+			<Grid item>
+				<Grid
+					container
+					direction="row"
+					className="date-component"
+					justify="center"
+				>
 					<Button color="default" onClick={previousDay}>
 						<NavigateBeforeIcon style={{ color: 'white' }} />
 					</Button>
-					<h2 className="text-white">{currentDate}</h2>
+					<Typography variant="h6" style={{ color: 'white' }}>
+						{currentDate}
+					</Typography>
 					<Button color="default" onClick={nextDay}>
 						<NavigateNextIcon style={{ color: 'white' }} />
 					</Button>
-				</div>
-			</div>
-			<div className="top-used-items d-flex flex-column">
-				<h1 className="top-used-heading">Top Used</h1>
-				{appList.map((app, index) => {
-					let hourglassIcon;
-					if (app.status == 'red') {
-						hourglassIcon = (
-							<HourglassFullRoundedIcon
-								className="hour-icon"
-								style={{
-									fontSize: 35,
-									color: theme.palette.secondary.main,
-								}}
-							/>
-						);
-					} else if (app.status == 'green') {
-						hourglassIcon = (
-							<HourglassFullRoundedIcon
-								className="hour-icon"
-								style={{
-									fontSize: 35,
-									color: '#8bc34a',
-								}}
-							/>
-						);
-					} else {
-						hourglassIcon = (
-							<HourglassEmptyRoundedIcon
-								className="hour-icon"
-								style={{ fontSize: 35, color: '#8997B1' }}
-							/>
-						);
-					}
+				</Grid>
+			</Grid>
+			<Grid item>
+				<div className="top-used-items">
+					<Typography variant="subtitle1" className="top-used-heading">
+						Top Used
+					</Typography>
+					<Grid container direction="column" spacing={1}>
+						{appList.map((app, index) => {
+							let hourglassIcon;
+							if (app.status == 'red') {
+								hourglassIcon = (
+									<HourglassFullRoundedIcon
+										style={{
+											fontSize: 35,
+											color: theme.palette.secondary.main,
+										}}
+									/>
+								);
+							} else if (app.status == 'green') {
+								hourglassIcon = (
+									<HourglassFullRoundedIcon
+										style={{
+											fontSize: 35,
+											color: '#8bc34a',
+										}}
+									/>
+								);
+							} else {
+								hourglassIcon = (
+									<HourglassEmptyRoundedIcon
+										style={{ fontSize: 35, color: '#8997B1' }}
+									/>
+								);
+							}
 
-					return (
-						<div key={index}>
-							<Button style={{ textTransform: 'none' }}>
-								<div className="d-flex">
-									{app.icon ?? (
-										<RedditIcon
-											style={{ fontSize: 50, color: 'white', marginRight: 10 }}
-										/>
-									)}
-									<div>
-										<h2 className="top-app-heading">{app.name}</h2>
-										<p className="top-app-details">
-											{durationToString(app.duration)}
-										</p>
-									</div>
-									{hourglassIcon}
-								</div>
-							</Button>
-						</div>
-					);
-				})}
-			</div>
-		</div>
+							return (
+								<Grid item key={index}>
+									<Button style={{ textTransform: 'none', minWidth: 400 }}>
+										<Grid
+											container
+											direction="row"
+											justify="flex-start"
+											alignItems="center"
+										>
+											<Grid item xs={3}>
+												{app.icon ?? (
+													<RedditIcon
+														style={{
+															fontSize: 50,
+															color: 'white',
+														}}
+													/>
+												)}
+											</Grid>
+											<Grid item xs={7}>
+												<div>
+													<Typography
+														variant="h6"
+														color="initial"
+														className="top-app-heading"
+													>
+														{app.name}
+													</Typography>
+													<Typography
+														variant="subtitle1"
+														color="initial"
+														className="top-app-details"
+													>
+														{durationToString(app.duration)}
+													</Typography>
+												</div>
+											</Grid>
+											<Grid xs={2}>{hourglassIcon}</Grid>
+										</Grid>
+									</Button>
+								</Grid>
+							);
+						})}
+					</Grid>
+				</div>
+			</Grid>
+		</Grid>
 	);
 };
+
+{
+	/* <Grid container>
+										<Grid item xs={9}>
+											
+												<Grid item>
+													{app.icon ?? (
+														<RedditIcon
+															style={{
+																fontSize: 50,
+																color: 'white',
+															}}
+														/>
+													)}
+												</Grid>
+												<Grid item>
+													
+												</Grid>
+										</Grid>
+										<Grid item xs={3}>
+											
+										</Grid>
+									</Grid> */
+}

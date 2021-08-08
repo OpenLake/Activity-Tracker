@@ -22,7 +22,7 @@ body {
 .date-component {
 	background-color: rgb(11, 21, 32);
 	border-radius: 25px;
-	height: 74px;
+	width: fit-content;
 	padding: 10px;
 	margin-top: 32px;
 	margin-bottom: 16px;
@@ -38,8 +38,8 @@ body {
 }
 
 .top-used-heading {
-	color: #afbdd1;
-	font-size: 30px;
+	color: #6b7581;
+	font-size: 20px;
 }
 
 .top-app-heading {
@@ -54,9 +54,4 @@ body {
 .top-app-details {
 	color: #56657f;
 	text-align: left;
-}
-
-.hour-icon {
-	margin-left: 120px;
-	margin-top: 20px;
 }
