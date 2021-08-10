@@ -1,6 +1,7 @@
 import activeWin from 'active-win';
 import axios from 'axios';
 import { existsSync, writeFileSync, readFileSync } from 'fs';
+import getIcon from './getIcon.js';
 
 export class ActiveWindowWatcher {
 	constructor(filePath, interval) {
@@ -38,6 +39,8 @@ export class ActiveWindowWatcher {
 		}
 
 		const data = appDataObject(startTime, endTime);
+
+		console.log(getIcon(name));
 
 		// Making a post request to '/store'
 		axios
