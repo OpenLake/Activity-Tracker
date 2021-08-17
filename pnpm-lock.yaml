@@ -39,10 +39,10 @@ importers:
 
   packages/desktop:
     specifiers:
-      active-win: workspace:^7.2.0
+      active-win: ^7.6.1
       axios: ^0.21.1
     dependencies:
-      active-win: link:../active-win
+      active-win: 7.6.1
       axios: 0.21.1
 
   packages/server:
@@ -1016,6 +1016,18 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
+
+  /active-win/7.6.1:
+    resolution: {integrity: sha512-yYvh5aFpPleNLu2g2HqKjudO8VG0bBC74q3VbzuPoITv5euhDeqh+J7SyViUVml/EI5KeeHl3dPB3huumTssHQ==}
+    engines: {node: '>=10'}
+    optionalDependencies:
+      ffi-napi: 4.0.3
+      ref-napi: 3.0.3
+      ref-struct-di: 1.1.1
+      ref-wchar-napi: 1.0.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /aggregate-error/3.1.0:
     resolution: {integrity: sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==}
@@ -2025,6 +2037,7 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
+    dev: true
 
   /debug/4.3.1_supports-color@7.2.0:
     resolution: {integrity: sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==}
@@ -2049,7 +2062,6 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
-    dev: true
 
   /decamelize-keys/1.1.0:
     resolution: {integrity: sha1-0XGoeTMlKAfrPLYdwcFEXQeN8tk=}
@@ -2998,7 +3010,7 @@ packages:
     engines: {node: '>=10'}
     requiresBuild: true
     dependencies:
-      debug: 4.3.1
+      debug: 4.3.2
       get-uv-event-loop-napi-h: 1.0.6
       node-addon-api: 3.2.1
       node-gyp-build: 4.2.3
@@ -5756,7 +5768,7 @@ packages:
     engines: {node: '>= 10.0'}
     requiresBuild: true
     dependencies:
-      debug: 4.3.1
+      debug: 4.3.2
       get-symbol-from-current-process-h: 1.0.2
       node-addon-api: 3.2.1
       node-gyp-build: 4.2.3
