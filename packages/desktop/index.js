@@ -1,7 +1,21 @@
+import { JSONStorage } from './storage/json.js';
+import { ServerStorage } from './storage/server.js';
 import { ActiveWindowWatcher } from './tracker.js';
+import getIcon from './getIcon.js';
 
-const filePath = process.cwd() + '/activities.json';
 const interval = 2000;
 
-const activeWindowWatcher = new ActiveWindowWatcher(filePath, interval);
+const storages = [
+	new JSONStorage(),
+	new ServerStorage('http://localhost:3000'),
+];
+
+const activeWindowWatcher = new ActiveWindowWatcher(interval, activity => {
+	for (const storage of storages) {
+		storage.saveActivity(activity);
+	}
+
+	console.log(getIcon(activity.name));
+});
+
 activeWindowWatcher.initialize();
