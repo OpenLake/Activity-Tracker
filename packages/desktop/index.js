@@ -5,3 +5,5 @@ const interval = 2000;
 
 const activeWindowWatcher = new ActiveWindowWatcher(filePath, interval);
 activeWindowWatcher.initialize();
+
+//console.log(process.cwd());

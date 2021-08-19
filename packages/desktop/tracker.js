@@ -24,6 +24,7 @@ export class ActiveWindowWatcher {
 		//writing the json file
 		const {
 			owner: { name },
+			owner: { path },
 			title,
 			url,
 		} = this.app;
@@ -40,7 +41,7 @@ export class ActiveWindowWatcher {
 
 		const data = appDataObject(startTime, endTime);
 
-		console.log(getIcon(name));
+		console.log(getIcon(name, path));
 
 		// Making a post request to '/store'
 		axios

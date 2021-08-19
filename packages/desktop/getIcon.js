@@ -1,6 +1,10 @@
 import { existsSync } from 'fs';
+import pkg from 'file-icon-extractor';
+const { extract } = pkg;
 
-const getIcon = appName => {
+const filePath = 'C:/Users/Public/Documents';
+
+const getIcon = (appName, appPath) => {
 	if (process.platform === 'linux') {
 		const iconDirs = [
 			'/usr/share/pixmaps/',
@@ -19,15 +23,18 @@ const getIcon = appName => {
 		}
 
 		return null;
+	} else if (process.platform === 'win32') {
+		const icon = extract(appPath, filePath);
+		return icon;
 	} else {
 		try {
-			// import { extract } from 'file-icon-extractor';
-			// extract('/usr/bin/code');
-			throw new Error('Not Implemented icon extractor for Non-Linux OSes');
+			throw new Error('Not a supported OS currently');
 		} catch (error) {
 			return null;
 		}
 	}
 };
+
+// Extract singluar icon
 
 export default getIcon;
