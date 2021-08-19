@@ -1,8 +1,13 @@
-import { existsSync } from 'fs';
+import fs from 'fs';
+import path from 'path';
+import envPaths from 'env-paths';
 import pkg from 'file-icon-extractor';
 const { extract } = pkg;
 
-const filePath = 'C:/Users/Public/Documents';
+const defaultDir = envPaths('ActivityTracker').data;
+
+const activityDir = path.join(defaultDir, '/icons');
+fs.mkdirSync(activityDir, { recursive: true });
 
 const getIcon = (appName, appPath) => {
 	if (process.platform === 'linux') {
@@ -14,7 +19,7 @@ const getIcon = (appName, appPath) => {
 		const iconPaths = iconDirs
 			.map(path => {
 				const fullPath = `${path}${appName.toLowerCase()}.png`;
-				return existsSync(fullPath) ? fullPath : null;
+				return fs.existsSync(fullPath) ? fullPath : null;
 			})
 			.filter(path => path !== null);
 
@@ -24,7 +29,7 @@ const getIcon = (appName, appPath) => {
 
 		return null;
 	} else if (process.platform === 'win32') {
-		const icon = extract(appPath, filePath);
+		const icon = extract(appPath, activityDir);
 		return icon;
 	} else {
 		try {

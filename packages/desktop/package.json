@@ -9,8 +9,9 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"active-win": "workspace:^7.2.0",
+		"active-win": "^7.6.1",
 		"axios": "^0.21.1",
+		"env-paths": "^2.2.1",
 		"file-icon-extractor": "^1.0.4"
 	},
 	"type": "module"
