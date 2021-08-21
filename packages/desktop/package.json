@@ -2,25 +2,40 @@
 	"name": "desktop",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
-	"bin": "build/index.js",
+	"main": "src/index.js",
+	"bin": ".babel/index.js",
 	"scripts": {
 		"tracker": "node src/index.js",
-		"dist": "babel src -d dist",
-		"pkg": "pnpm run dist && pkg dist/index.js --out-path build"
+		"babel": "babel src -d .babel",
+		"build": "pnpm babel && pkg ."
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"active-win": "^7.6.1",
 		"axios": "^0.21.1",
-		"env-paths": "^2.2.1",
-		"regenerator-runtime": "^0.13.9"
+		"env-paths": "^2.2.1"
 	},
 	"type": "module",
 	"devDependencies": {
 		"@babel/cli": "^7.14.8",
 		"@babel/core": "^7.15.0",
-		"@babel/preset-env": "^7.15.0"
+		"@babel/plugin-transform-modules-commonjs": "^7.15.0",
+		"pkg": "^5.3.1"
+	},
+	"pkg": {
+		"options": [
+			"experimental-modules"
+		],
+		"assets": [
+			"../../node_modules/**/*.node",
+			"./node_modules/active-win/main"
+		],
+		"targets": [
+			"node14-win-x64",
+			"node14-linux-x64",
+			"node14-macos"
+		],
+		"outputPath": "build"
 	}
 }
