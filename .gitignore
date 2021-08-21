@@ -1,5 +1,5 @@
 # data
-/packages/desktop/activities.json
+/packages/desktop/src/activities.json
 database
 
 node_modules

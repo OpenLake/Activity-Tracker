@@ -3,15 +3,24 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"bin": "build/index.js",
 	"scripts": {
-		"tracker": "node index.js"
+		"tracker": "node src/index.js",
+		"dist": "babel src -d dist",
+		"pkg": "pnpm run dist && pkg dist/index.js --out-path build"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"active-win": "^7.6.1",
 		"axios": "^0.21.1",
-		"env-paths": "^2.2.1"
+		"env-paths": "^2.2.1",
+		"regenerator-runtime": "^0.13.9"
 	},
-	"type": "module"
+	"type": "module",
+	"devDependencies": {
+		"@babel/cli": "^7.14.8",
+		"@babel/core": "^7.15.0",
+		"@babel/preset-env": "^7.15.0"
+	}
 }

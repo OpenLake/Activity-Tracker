@@ -1,7 +1,7 @@
 import { JSONStorage } from './storage/json.js';
 import { ServerStorage } from './storage/server.js';
 import { ActiveWindowWatcher } from './tracker.js';
-import getIcon from './getIcon.js';
+// import getIcon from './getIcon.js';
 
 const interval = 2000;
 
@@ -15,7 +15,7 @@ const activeWindowWatcher = new ActiveWindowWatcher(interval, activity => {
 		storage.saveActivity(activity);
 	}
 
-	console.log(getIcon(activity.name));
+	// console.log(getIcon(activity.name));
 });
 
 activeWindowWatcher.initialize();

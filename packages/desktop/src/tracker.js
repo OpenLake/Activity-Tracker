@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime'; // Required for packaging async/await
 import activeWin from 'active-win';
 
 export class ActiveWindowWatcher {
