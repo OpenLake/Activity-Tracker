@@ -2,18 +2,14 @@ import Activity from '../models/activity.model.js';
 
 export const all_apps = async (req, res) => {
 	const today = new Date();
-	const tomorrow = new Date(today);
-	tomorrow.setDate(tomorrow.getDate() + 1);
+	const yesterday = new Date(today);
+	yesterday.setDate(yesterday.getDate() - 1);
 
-	const after = req.query.after ?? today.getTime();
-	const before = req.query.before ?? tomorrow.getTime();
+	const after = new Date(req.query.after ?? yesterday.toISOString());
+	const before = new Date(req.query.before ?? today.toISOString());
+	const name = req.query.name;
 
 	const query = [
-		{
-			$match: {
-				startTime: { $gte: after, $lt: before },
-			},
-		},
 		{
 			$group: {
 				_id: '$name',
@@ -24,7 +20,10 @@ export const all_apps = async (req, res) => {
 		},
 		{ $sort: { duration: -1, _id: 1 } },
 	];
-	if (req.query.name) query.unshift({ $match: { name: req.query.name } });
+
+	if (name) query.unshift({ $match: { name: name } });
+	if (before) query.unshift({ $match: { startTime: { $lt: before } } });
+	if (after) query.unshift({ $match: { startTime: { $gte: after } } });
 
 	const apps = await Activity.aggregate(query);
 

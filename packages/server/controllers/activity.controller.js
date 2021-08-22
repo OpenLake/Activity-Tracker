@@ -13,12 +13,13 @@ export const activity_create = (req, res, next) => {
 
 export const all_activities = (req, res, next) => {
 	const today = new Date();
-	const tomorrow = new Date(today);
-	tomorrow.setDate(tomorrow.getDate() + 1);
+	const yesterday = new Date(today);
+	yesterday.setDate(yesterday.getDate() - 1);
 
-	const after = req.query.after ?? today.getTime();
-	const before = req.query.before ?? tomorrow.getTime();
+	const after = req.query.after ?? yesterday.toISOString();
+	const before = req.query.before ?? today.toISOString();
 
+	// TODO: Paginate results
 	Activity.find(
 		{ startTime: { $gte: after, $lt: before } },
 		(err, activity) => {
