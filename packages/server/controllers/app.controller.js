@@ -1,7 +1,19 @@
 import Activity from '../models/activity.model.js';
 
 export const all_apps = async (req, res) => {
+	const today = new Date();
+	const tomorrow = new Date(today);
+	tomorrow.setDate(tomorrow.getDate() + 1);
+
+	const after = req.query.after ?? today.getTime();
+	const before = req.query.before ?? tomorrow.getTime();
+
 	const query = [
+		{
+			$match: {
+				startTime: { $gte: after, $lt: before },
+			},
+		},
 		{
 			$group: {
 				_id: '$name',
