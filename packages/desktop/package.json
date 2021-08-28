@@ -14,7 +14,9 @@
 	"dependencies": {
 		"active-win": "^7.6.1",
 		"axios": "^0.21.1",
-		"env-paths": "^2.2.1"
+		"env-paths": "^2.2.1",
+		"express": "^4.17.1",
+		"node-machine-id": "^1.1.12"
 	},
 	"type": "module",
 	"devDependencies": {
