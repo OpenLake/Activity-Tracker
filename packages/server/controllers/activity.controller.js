@@ -2,7 +2,8 @@ import Activity from '../models/activity.model.js';
 
 export const activity_create = (req, res, next) => {
 	const { name, title, startTime, endTime } = req.body;
-	const activity = new Activity({ name, title, startTime, endTime });
+	const _owner = req.user._id;
+	const activity = new Activity({ _owner, name, title, startTime, endTime });
 
 	activity.save(err => {
 		if (err) return next(err);
@@ -21,7 +22,10 @@ export const all_activities = (req, res, next) => {
 
 	// TODO: Paginate results
 	Activity.find(
-		{ startTime: { $gte: after, $lt: before } },
+		{
+			_owner: req.user._id,
+			startTime: { $gte: after, $lt: before },
+		},
 		(err, activity) => {
 			if (err) return next(err);
 			res.json(activity);

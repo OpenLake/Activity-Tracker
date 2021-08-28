@@ -6,20 +6,28 @@ import joi from 'joi';
 const UserSchema = new schema({
 	name: {
 		type: String,
-		required: true,
 	},
 	email: {
 		type: String,
-		required: true,
 	},
 	password: {
 		type: String,
-		required: true,
 	},
+	enabled: {
+		type: Boolean,
+		default: false,
+	},
+	otp: {
+		type: String,
+	},
+	_devices: [{ type: schema.Types.ObjectId, ref: 'Device' }],
 });
 
-UserSchema.methods.generateAuthToken = function () {
-	return jwt.sign({ _id: this._id }, process.env.JWTPRIVATEKEY);
+UserSchema.methods.generateAuthToken = function (deviceId) {
+	const content = { _id: this._id };
+	if (deviceId) content._device = deviceId;
+	console.log(`Sigining token with content: ${JSON.stringify(content)}`);
+	return jwt.sign(content, process.env.JWTPRIVATEKEY);
 };
 
 export const User = mongoose.model('User', UserSchema);
@@ -35,7 +43,7 @@ const loginSchema = joi.object({
 	password: joi.string().required(),
 });
 
-export const loginValidate = user => loginSchema.validate(user);
 export const registerValidate = user => registerSchema.validate(user);
+export const loginValidate = user => loginSchema.validate(user);
 
 export default User;
