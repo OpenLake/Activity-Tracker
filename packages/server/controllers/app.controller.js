@@ -11,6 +11,11 @@ export const all_apps = async (req, res) => {
 
 	const query = [
 		{
+			$match: {
+				_owner: req.user._id,
+			},
+		},
+		{
 			$group: {
 				_id: '$name',
 				name: { $first: '$name' },
