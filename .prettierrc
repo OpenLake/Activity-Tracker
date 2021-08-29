@@ -3,5 +3,6 @@
 	"useTabs": true,
 	"trailingComma": "all",
 	"semi": true,
-	"arrowParens": "avoid"
+	"arrowParens": "avoid",
+	"quoteProps": "consistent"
 }
