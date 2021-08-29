@@ -9,12 +9,13 @@ export class ServerStorage {
 	}
 
 	saveActivity(activity) {
-		const { name, title, startTime, endTime } = activity;
+		const { name, path, title, startTime, endTime } = activity;
 
 		axios
 			.post(`${this.serverURL}/activities`, {
 				name,
 				title,
+				path,
 				startTime,
 				endTime,
 			})
