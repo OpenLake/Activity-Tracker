@@ -1,4 +1,4 @@
-import Activity from '../models/activity.model.js';
+import Activity from '../../models/activity.model.js';
 
 export const all_apps = async (req, res) => {
 	const today = new Date();

@@ -1,15 +1,15 @@
+import './config.js';
+
 import mongoose from 'mongoose';
 import express from 'express';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
 import cors from 'cors';
 
-import activity from './routes/activity.routes.js';
-import app_usage from './routes/app.routes.js';
 import root from './routes/root.routes.js';
 import user from './routes/user.routes.js';
+import activity from './routes/activity.routes.js';
+import app_usage from './routes/app.routes.js';
 
-dotenv.config({ path: `./dev.env` });
 const app = express();
 
 const hostname = process.env.HOSTNAME || '0.0.0.0';
