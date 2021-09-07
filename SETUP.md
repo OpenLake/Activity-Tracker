@@ -19,12 +19,12 @@
 ## Step 2
 
 - Install `nodejs` and `npm` on your local machine. For [windows](https://www.geeksforgeeks.org/installation-of-node-js-on-windows/) and [linux](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04)
-- Install `pnpm` by opening your terminal with administrative privileges and type 
+- Install `pnpm` by opening your terminal with administrative (sudo) privileges and typing 
     ```
     npm i -g pnpm
     ``` 
 
-- Install `doceker-compose` by following the [official guide](https://docs.docker.com/compose/install/)
+- Install `docker-compose` by following the [official guide](https://docs.docker.com/compose/install/)
 
 ## Step 3
 - Navigate to `/Cross-Platform-Activity-Tracker` directory and with administrative privileges run 
@@ -44,4 +44,4 @@
 
 </br>
 
-If you face any issuse while setting up feel free to ask the moderators in [issues](https://github.com/OpenLake/Cross-Platform-Activity-Tracker/issues) and if you are a new to open scource reffer to this [link](https://github.com/firstcontributions/first-contributions)
+If you face any issuse while setting up feel free to ask the moderators in [issues](https://github.com/OpenLake/Cross-Platform-Activity-Tracker/issues) and if you are new to open scource reffer to this [link](https://github.com/firstcontributions/first-contributions)
