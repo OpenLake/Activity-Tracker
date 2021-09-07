@@ -9,9 +9,9 @@
     ```
     git clone https://github.com/<your-username>/Cross-Platform-Activity-Tracker.git
     ``` 
-    in your terminal(for _mac/linux_) or Git Bash ( for _windows_)
+    in your terminal(for _mac/linux_) or Git Bash (for _windows_)
 
-- Now creat a new branch using 
+- Now create a new branch using 
     ```
     git checkout -b <your-new-branch-name>
     ```
@@ -27,12 +27,12 @@
 - Install `docker-compose` by following the [official guide](https://docs.docker.com/compose/install/)
 
 ## Step 3
-- Navigate to `/Cross-Platform-Activity-Tracker` directory and with administrative privileges run 
+- Navigate to `/Cross-Platform-Activity-Tracker` directory and with administrative (sudo) privileges run 
     ```
     docker-compose up -d
     ```
 
-- To start the  application run 
+- To start the application run 
     ```
     npm run dev
     ```
@@ -44,4 +44,4 @@
 
 </br>
 
-If you face any issuse while setting up feel free to ask the moderators in [issues](https://github.com/OpenLake/Cross-Platform-Activity-Tracker/issues) and if you are new to open scource reffer to this [link](https://github.com/firstcontributions/first-contributions)
+If you face any issues while setting up feel free to ask the moderators in [issues](https://github.com/OpenLake/Cross-Platform-Activity-Tracker/issues) and if you are new to open source refer to this [link](https://github.com/firstcontributions/first-contributions)
