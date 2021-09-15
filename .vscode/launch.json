@@ -9,6 +9,7 @@
 			"request": "launch",
 			"name": "Activity-Tracker Server",
 			"skipFiles": ["<node_internals>/**"],
+			"envFile": "${workspaceFolder}/packages/server/dev.env",
 			"program": "${cwd}/packages/server/app.js"
 		}
 	]
