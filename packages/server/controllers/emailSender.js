@@ -1,16 +1,11 @@
+import { apiCredentials } from './credentials';
 import nodemailer from 'nodemailer';
 import googleapis from 'googleapis';
 const { google } = googleapis;
 const OAuth2 = google.auth.OAuth2;
 
 //tokens generated from google authenticator
-const clientId =
-	'972207074661-sur9ghdgj3uocmmj1lp7s79gqftd6ok1.apps.googleusercontent.com';
-const clientSecret = 'TVnIb89BdddWZnvHUQpBO6Oh';
-const redirectUrl = 'https://developers.google.com/oauthplayground';
-const refreshToken =
-	'1//04h4QwqkGF8B9CgYIARAAGAQSNwF-L9Ir1KCIMMRR8wr8cev6GKN55ohFgKDCAh17ZCjg-Br_ehP1Kdw7DvBgE3sBN5oWjcA8FmQ';
-
+const { clientId, clientSecret, redirectUrl, refreshToken } = apiCredentials;
 //new Authorized client
 const OAuth2Client = new OAuth2(clientId, clientSecret, redirectUrl);
 OAuth2Client.setCredentials({ refresh_token: refreshToken });

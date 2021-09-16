@@ -12,3 +12,6 @@ node_modules
 
 # .idea
 .idea/
+
+#google OAuth2 credentials
+/packages/server/controllers/credentials.js
