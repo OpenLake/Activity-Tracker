@@ -18,7 +18,7 @@ export const AppUsagePage = () => {
 	};
 
 	useEffect(() => {
-		fetch(`http://192.168.43.90:3000/apps/usage?name=${query.get('name')}`)
+		fetch(`http://localhost:3000/apps/usage?name=${query.get('name')}`)
 			.then(res => res.json())
 			.then(res => {
 				setData(res);
