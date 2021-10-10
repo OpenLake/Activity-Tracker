@@ -5,9 +5,14 @@ export default async (req, res, next) => {
 	try {
 		const token = req.get('X-Auth-Token');
 		if (!token) {
-			return res.status(403).send('Access denied');
-			// const user = await User.findOne({});
-			// req.user = { _id: user._id };
+			// We are still in the development phase so we are assuming that
+			// every request is made by the first user that exists in the DB
+			if (process.env.USE_DEFAULT_USER) {
+				const user = await User.findOne({});
+				req.user = { _id: user._id };
+			} else {
+				return res.status(403).send('Access denied');
+			}
 		} else {
 			const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
 			req.user = decoded;
