@@ -45,6 +45,8 @@ export class ActiveWindowWatcher {
 		setInterval(async () => {
 			const activeWindow = await activeWin();
 
+			if (activeWindow === undefined) return;
+
 			if (!this.app) {
 				this.startTime = Date.now();
 				this.app = activeWindow;
