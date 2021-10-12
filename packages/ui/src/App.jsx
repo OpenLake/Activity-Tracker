@@ -1,11 +1,15 @@
 import React from 'react';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { CssBaseline } from '@material-ui/core/';
+import {
+	createTheme,
+	ThemeProvider,
+	StyledEngineProvider,
+} from '@mui/material/styles';
+import { CssBaseline } from '@mui/material/';
 
 import { HomePage, AppUsagePage, UsageTimeline } from './pages';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-const theme = createMuiTheme({
+const theme = createTheme({
 	palette: {
 		primary: {
 			light: '#757ce8',
@@ -25,21 +29,23 @@ const theme = createMuiTheme({
 function App() {
 	return (
 		<Router>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<Switch>
-					<Route path="/about"></Route>
-					<Route path="/usage">
-						<AppUsagePage />
-					</Route>
-					<Route path="/timeline">
-						<UsageTimeline />
-					</Route>
-					<Route path="/">
-						<HomePage />
-					</Route>
-				</Switch>
-			</ThemeProvider>
+			<StyledEngineProvider injectFirst>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					<Switch>
+						<Route path="/about"></Route>
+						<Route path="/usage">
+							<AppUsagePage />
+						</Route>
+						<Route path="/timeline">
+							<UsageTimeline />
+						</Route>
+						<Route path="/">
+							<HomePage />
+						</Route>
+					</Switch>
+				</ThemeProvider>
+			</StyledEngineProvider>
 		</Router>
 	);
 }
