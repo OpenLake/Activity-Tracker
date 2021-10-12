@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { createUser } from '../controllers/user.controller.js';
+import { createUser } from '../controllers/mongo/user.controller.js';
 import { User } from '../models/user.model.js';
 import { useLocal } from '../config.js';
 
