@@ -7,9 +7,9 @@ export const sendOtp = async user => {
 	// TODO: Send actual OTP using nodemailer
 
 	//send email to user for otp
-	emailSender(user.email)
-		.then(result => console.log('Email sent', result))
-		.catch(error => console.log(error.message));
+	emailSender(user.email);
+
+	return 'DEFAULT_OTP';
 };
 
 export const register_user = async (req, res) => {
