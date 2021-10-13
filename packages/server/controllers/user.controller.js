@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 const sendOtp = user => {
 	// TODO: Send actual OTP using nodemailer
-	return 'DEFAULT_OTP';
+	return `DEFAULT_OTP for ${user}`;
 };
 
 export const createUser = async data => {

@@ -21,13 +21,14 @@ export class ActiveWindowWatcher {
 		const startTime = this.startTime;
 
 		const {
-			owner: { name },
+			owner: { name, path },
 			title,
 			url,
 		} = this.app;
 
 		const data = {
 			name,
+			path,
 			title: title ?? 'No Title',
 			url,
 			startTime,

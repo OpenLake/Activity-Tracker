@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { useTheme } from '@material-ui/core/styles';
 import { ActivityDonutChart } from '../components/ActivityDonut';
