@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { useTheme } from '@material-ui/core/styles';
 import { ActivityDonutChart } from '../components/ActivityDonut';
@@ -28,7 +28,7 @@ export const HomePage = () => {
 
 	const dateOnChange = newDate => {
 		console.log(newDate);
-		fetch('http://192.168.43.90:3000/apps')
+		fetch('http://localhost:3000/apps')
 			.then(res => res.json())
 			.then(res => {
 				setAppList(res);

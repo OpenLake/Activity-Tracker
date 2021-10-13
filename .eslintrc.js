@@ -21,4 +21,12 @@ module.exports = {
 			version: '17',
 		},
 	},
+	overrides: [
+		{
+			files: ['**/*.spec.js'],
+			env: {
+				jest: true,
+			},
+		},
+	],
 };

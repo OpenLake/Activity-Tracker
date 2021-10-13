@@ -32,6 +32,9 @@ export class ServerStorage {
 
 				let oldToken = null;
 				app.get('/login', (req, res) => {
+					// This endpoint is supposed to be hit by the register device feature in the web dashboard of the platform
+					// Also the register device feature will pass a 'token' via the GET request.
+					// This token would contain info about the user
 					oldToken = req.query.token;
 					res.send('Recieved token.');
 
@@ -51,7 +54,6 @@ export class ServerStorage {
 							const data = res.data;
 							this.jwtToken = data.token;
 							// this token is newly generated(and has encrypted information about the device as well as the user)
-
 							fs.writeFileSync(this.tokenPath, data.token);
 
 							console.log('Generated new token from server');

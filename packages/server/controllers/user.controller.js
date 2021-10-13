@@ -4,7 +4,19 @@ import bcrypt from 'bcrypt';
 
 const sendOtp = user => {
 	// TODO: Send actual OTP using nodemailer
-	return 'DEFAULT_OTP';
+	return `DEFAULT_OTP for ${user}`;
+};
+
+export const createUser = async data => {
+	const user = new User(data);
+
+	const salt = await bcrypt.genSalt(Number(process.env.SALT));
+	user.password = await bcrypt.hash(user.password, salt);
+
+	// Generate OTP and save user
+	user.otp = sendOtp(user);
+	await user.save();
+	return user;
 };
 
 export const register_user = async (req, res) => {
@@ -12,15 +24,7 @@ export const register_user = async (req, res) => {
 		const { error } = registerValidate(req.body);
 		if (error) return res.status(400).send(error.details[0].message);
 
-		const user = new User(req.body);
-
-		const salt = await bcrypt.genSalt(Number(process.env.SALT));
-		user.password = await bcrypt.hash(user.password, salt);
-
-		// Generate OTP and save user
-		user.otp = sendOtp(user);
-		await user.save();
-
+		const user = await createUser(req.body);
 		const { email, name } = user;
 		res.send({ email, name });
 	} catch (error) {
