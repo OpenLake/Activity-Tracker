@@ -1,14 +1,13 @@
-import React from 'react';
-import { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import { useTheme } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
 import { ActivityDonutChart } from '../components/ActivityDonut';
-import RedditIcon from '@material-ui/icons/Reddit';
-import HourglassFullRoundedIcon from '@material-ui/icons/HourglassFullRounded';
-import HourglassEmptyRoundedIcon from '@material-ui/icons/HourglassEmptyRounded';
+import RedditIcon from '@mui/icons-material/Reddit';
+import HourglassFullRoundedIcon from '@mui/icons-material/HourglassFullRounded';
+import HourglassEmptyRoundedIcon from '@mui/icons-material/HourglassEmptyRounded';
 import { durationToString } from '../utils';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { DatePicker } from '../components/DatePicker';
 
@@ -87,7 +86,7 @@ export const HomePage = () => {
 										<Grid
 											container
 											direction="row"
-											justify="flex-start"
+											justifyContent="flex-start"
 											alignItems="center"
 										>
 											<Grid item xs={3}>

@@ -1,10 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Button from '@material-ui/core/Button';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { IconButton, Typography, Grid } from '@mui/material';
 
 export const DatePicker = ({ onChange }) => {
 	const [date] = useState(new Date());
@@ -43,16 +41,22 @@ export const DatePicker = ({ onChange }) => {
 	};
 
 	return (
-		<Grid container direction="row" className="date-component" justify="center">
-			<Button color="default" onClick={previousDay}>
+		<Grid
+			container
+			direction="row"
+			className="date-component"
+			justifyContent="center"
+			alignItems="center"
+		>
+			<IconButton onClick={previousDay}>
 				<NavigateBeforeIcon style={{ color: 'white' }} />
-			</Button>
+			</IconButton>
 			<Typography variant="h6" style={{ color: 'white' }}>
 				{currentDate}
 			</Typography>
-			<Button color="default" onClick={nextDay}>
+			<IconButton onClick={nextDay}>
 				<NavigateNextIcon style={{ color: 'white' }} />
-			</Button>
+			</IconButton>
 		</Grid>
 	);
 };

@@ -1,11 +1,16 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { Button as MuiButton } from '@material-ui/core/Button';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { Button as MuiButton } from '@mui/material/Button';
 
-export const Button = ({ onChange, children }) => {
+export const Button = ({ children }) => {
 	return (
-		<Grid container direction="row" className="date-component" justify="center">
+		<Grid
+			container
+			direction="row"
+			className="date-component"
+			justifyContent="center"
+		>
 			<MuiButton color="default">
 				<Typography variant="h6" style={{ color: 'white' }}>
 					{children}

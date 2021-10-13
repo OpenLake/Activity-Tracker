@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import RedditIcon from '@material-ui/icons/Reddit';
+import RedditIcon from '@mui/icons-material/Reddit';
 import { useQuery } from '../hooks/common';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import { ActivityHistogram } from '../components/ActivityHistogram';
 import { durationToString } from '../utils';
 import { DatePicker } from '../components/DatePicker';
@@ -30,12 +30,17 @@ export const AppUsagePage = () => {
 			container
 			direction="column"
 			alignItems="center"
-			justify="center"
+			justifyContent="center"
 			spacing={2}
 			style={{ marginTop: 50 }}
 		>
 			<Grid item>
-				<Grid container direction="column" justify="center" alignItems="center">
+				<Grid
+					container
+					direction="column"
+					justifyContent="center"
+					alignItems="center"
+				>
 					<Grid item>
 						<RedditIcon
 							style={{ fontSize: 50, color: 'white', marginRight: 10 }}
