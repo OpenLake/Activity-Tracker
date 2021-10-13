@@ -5,6 +5,8 @@ import { emailSender } from '../utils.js';
 
 export const sendOtp = async user => {
 	// TODO: Send actual OTP using nodemailer
+
+	//function to send email using nodemailer
 	emailSender(user.email);
 	return `DEFAULT_OTP`;
 };
