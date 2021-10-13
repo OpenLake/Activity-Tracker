@@ -1,10 +1,11 @@
 import { User, registerValidate, loginValidate } from '../models/user.model.js';
 import Device from '../models/device.model.js';
 import bcrypt from 'bcrypt';
-import { emailSender } from './emailSender.js';
+import { emailSender } from '../utils.js';
 
 export const sendOtp = async user => {
 	// TODO: Send actual OTP using nodemailer
+
 	//send email to user for otp
 	emailSender(user.email)
 		.then(result => console.log('Email sent', result))

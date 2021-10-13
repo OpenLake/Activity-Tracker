@@ -56,16 +56,20 @@ const getIcon = (appName, appPath) => {
 		return null;
 	} else if (process.platform === 'win32') {
 		let iconsData = getIconsdata();
+
 		var iconObj = {
-			[appName]: `${iconsDir}\\${appName}.png`.replace('.exe', ''),
+			[appName]: `${appName}.png`.replace('.exe', ''),
 		};
+
 		if (containsObject(iconObj, iconsData)) {
 			return 'not extracted';
 		} else {
 			extract(appPath, iconsDir);
+
 			iconsData.push({
-				[appName]: `${iconsDir}\\${appName}.png`.replace('.exe', ''),
+				[appName]: `${appName}.png`.replace('.exe', ''),
 			});
+
 			fs.writeFileSync(filename, JSON.stringify(iconsData));
 			console.log(iconsDir);
 			return `extracted ${appName}`;
@@ -80,5 +84,4 @@ const getIcon = (appName, appPath) => {
 };
 
 // Extract singluar icon
-
 export default getIcon;
