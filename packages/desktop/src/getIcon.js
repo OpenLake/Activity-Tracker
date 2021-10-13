@@ -8,8 +8,10 @@ const defaultDir = envPaths('ActivityTracker').data;
 
 const iconsDir = path.join(defaultDir, '/icons');
 const filename = path.join(defaultDir, '/iconmapping.json');
+
 fs.mkdirSync(iconsDir, { recursive: true });
 
+//function to read the data of icons extracted before
 function getIconsdata() {
 	let data = [];
 	try {
@@ -21,11 +23,14 @@ function getIconsdata() {
 			throw error;
 		}
 	}
+
 	return data;
 }
 
+//function to check whether the icon is extracted before or not
 function containsObject(obj, list) {
 	var i;
+
 	for (i = 0; i < list.length; i++) {
 		if (JSON.stringify(list[i]) === JSON.stringify(obj)) {
 			return true;
@@ -35,7 +40,9 @@ function containsObject(obj, list) {
 	return false;
 }
 
+//function to extract the icons
 const getIcon = (appName, appPath) => {
+	//icon extraction for linux
 	if (process.platform === 'linux') {
 		const iconDirs = [
 			'/usr/share/pixmaps/',
@@ -54,18 +61,22 @@ const getIcon = (appName, appPath) => {
 		}
 
 		return null;
+
+		//icon extraction for windows
 	} else if (process.platform === 'win32') {
 		let iconsData = getIconsdata();
 		var iconObj = {
-			[appName]: `${iconsDir}\\${appName}.png`.replace('.exe', ''),
+			[appName]: `${appName}.png`.replace('.exe', ''),
 		};
 		if (containsObject(iconObj, iconsData)) {
 			return 'not extracted';
 		} else {
 			extract(appPath, iconsDir);
+
 			iconsData.push({
-				[appName]: `${iconsDir}\\${appName}.png`.replace('.exe', ''),
+				[appName]: `${appName}.png`.replace('.exe', ''),
 			});
+
 			fs.writeFileSync(filename, JSON.stringify(iconsData));
 			console.log(iconsDir);
 			return `extracted ${appName}`;
