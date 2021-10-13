@@ -82,11 +82,7 @@ const getIcon = (appName, appPath) => {
 			return `extracted ${appName}`;
 		}
 	} else {
-		try {
-			throw new Error('Not a supported OS currently');
-		} catch (error) {
-			return null;
-		}
+		return null;
 	}
 };
 
