@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "concurrently pnpm:tracker pnpm:server pnpm:ui:dev",
+		"test": "pnpm -r test",
 		"server": "cd packages/server/ && pnpm run server",
 		"tracker": "cd packages/desktop/ && pnpm run tracker",
 		"ui:dev": "cd packages/ui/ && pnpm run dev",

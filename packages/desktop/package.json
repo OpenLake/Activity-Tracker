@@ -16,6 +16,7 @@
 		"axios": "^0.21.1",
 		"env-paths": "^2.2.1",
 		"express": "^4.17.1",
+		"file-icon-extractor": "^1.0.4",
 		"node-machine-id": "^1.1.12"
 	},
 	"type": "module",
