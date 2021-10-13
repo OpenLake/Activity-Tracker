@@ -71,12 +71,13 @@ export class ServerStorage {
 			// TODO: Open authentication page in browser (and local express server)
 			return;
 		}
-		const { name, title, startTime, endTime } = activity;
+		const { name, title, path, startTime, endTime } = activity;
 
 		axios
 			.post(`${this.serverURL}/activities`, {
 				name,
 				title,
+				path,
 				startTime,
 				endTime,
 			})

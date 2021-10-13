@@ -27,6 +27,7 @@ importers:
       axios: ^0.21.1
       env-paths: ^2.2.1
       express: ^4.17.1
+      file-icon-extractor: ^1.0.4
       node-machine-id: ^1.1.12
       pkg: ^5.3.1
     dependencies:
@@ -34,6 +35,7 @@ importers:
       axios: 0.21.1
       env-paths: 2.2.1
       express: 4.17.1
+      file-icon-extractor: 1.0.4
       node-machine-id: 1.1.12
     devDependencies:
       '@babel/cli': 7.14.8_@babel+core@7.15.0
@@ -1365,6 +1367,7 @@ packages:
 
   /@nicolo-ribaudo/chokidar-2/2.1.8-no-fsevents.2:
     resolution: {integrity: sha512-Fb8WxUFOBQVl+CX4MWet5o7eCc6Pj04rXIwVKZ6h1NnqTo45eOQW6aWyhG25NIODvWFwTDMwBsYxrQ3imxpetg==}
+    requiresBuild: true
     dependencies:
       anymatch: 2.0.0
       async-each: 1.0.3
@@ -2176,6 +2179,7 @@ packages:
   /chokidar/3.5.2:
     resolution: {integrity: sha512-ekGhOnNVPgT77r4K/U3GDhu+FQ2S8TnK/s2KbIGXi0SZWuwkZ2QNyfWdZW+TVfn84DpEP7rLeCt2UI6bJ8GwbQ==}
     engines: {node: '>= 8.10.0'}
+    requiresBuild: true
     dependencies:
       anymatch: 3.1.2
       braces: 3.0.2
@@ -3100,6 +3104,12 @@ packages:
     dependencies:
       flat-cache: 3.0.4
     dev: true
+
+  /file-icon-extractor/1.0.4:
+    resolution: {integrity: sha512-hFg/CTeTkcJ+pJXHyh/W6isa48eW+sFVOEzL+zK6AKb84PUQtE6Hbu8MPlxp09tw0Nq8WgG4DgfKL6z41nMCzA==}
+    dependencies:
+      node-powershell: 4.0.0
+    dev: false
 
   /fill-range/4.0.0:
     resolution: {integrity: sha1-1USBHUKPmOsGpj3EAtJAPDKMOPc=}
@@ -5065,6 +5075,10 @@ packages:
     dev: false
     optional: true
 
+  /nanoid/2.1.11:
+    resolution: {integrity: sha512-s/snB+WGm6uwi0WjsZdaVcuf3KJXlfGl2LcxgwkEwJF0D/BWzVWAZW/XY4bFaiR7s0Jk3FPvlnepg1H1b1UwlA==}
+    dev: false
+
   /nanoid/3.1.23:
     resolution: {integrity: sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -5134,6 +5148,13 @@ packages:
     resolution: {integrity: sha1-jZ2+KJZKSsVxLpExZCEHxx6Q7EA=}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /node-powershell/4.0.0:
+    resolution: {integrity: sha512-WCZMLgwkjW9G/DZsZwyCEAXhMMzShLRUlnYS+EETRqRLSdUMbuO4xiQxIOeAutwQgvj75NvC58CorHFlx0olIA==}
+    dependencies:
+      chalk: 2.4.2
+      shortid: 2.2.16
+    dev: false
 
   /node-releases/1.1.73:
     resolution: {integrity: sha512-uW7fodD6pyW2FZNZnp/Z3hvWKeEW1Y8R1+1CnErE8cXFXzl5blBOoVB41CvMer6P6Q0S5FXDwcHgFd1Wj0U9zg==}
@@ -5832,6 +5853,7 @@ packages:
 
   /ref-wchar-napi/1.0.3:
     resolution: {integrity: sha512-rx8b0pVfz/jShQPS288Rox/A0DQkcw6La+4YC3FgV4F9KUQ/VTxFrVpKOKGuj5yBvVoHdejbX6/BlHSkKHj9Lg==}
+    requiresBuild: true
     dependencies:
       iconv: 2.3.5
       ref-napi: 3.0.3
@@ -6006,6 +6028,7 @@ packages:
   /saslprep/1.0.3:
     resolution: {integrity: sha512-/MY/PEMbk2SuY5sScONwhUDsV2p77Znkb/q3nSVstq/yQzYJOH/Azh29p9oJLsl3LnQwSvZDKagDGBsBwSooag==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dependencies:
       sparse-bitfield: 3.0.3
     dev: false
@@ -6101,6 +6124,12 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
     dev: true
+
+  /shortid/2.2.16:
+    resolution: {integrity: sha512-Ugt+GIZqvGXCIItnsL+lvFJOiN7RYqlGy7QE41O3YC1xbNSeDGIRO7xg2JJXIAj1cAGnOeC1r7/T9pgrtQbv4g==}
+    dependencies:
+      nanoid: 2.1.11
+    dev: false
 
   /side-channel/1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
