@@ -11,7 +11,7 @@ const OAuth2Client = new OAuth2(
 );
 OAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
 
-export async function emailSender(receiverEmail) {
+export async function emailSender(emailContent) {
 	// TODO: Send actual OTP using nodemailer
 	try {
 		// getting the access token each time to send emails
@@ -33,13 +33,15 @@ export async function emailSender(receiverEmail) {
 			},
 		});
 
+		const { to, subject, text, html } = emailContent;
+
 		// email option
 		const mailOptions = {
 			from: 'Activity Tracker <activitytrackercpat@gmail.com>',
-			to: receiverEmail,
-			subject: 'Hello from Activity Tracker',
-			text: 'Hello',
-			html: '<b>Your OTP is 123456<b/>',
+			to: to,
+			subject: subject,
+			text: text,
+			html: html,
 		};
 
 		// Send the emails
