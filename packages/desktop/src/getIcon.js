@@ -87,5 +87,4 @@ const getIcon = (appName, appPath) => {
 };
 
 // Extract singluar icon
-
 export default getIcon;
