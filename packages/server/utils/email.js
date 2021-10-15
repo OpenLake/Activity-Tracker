@@ -7,12 +7,11 @@ const OAuth2 = google.auth.OAuth2;
 const OAuth2Client = new OAuth2(
 	process.env.CLIENT_ID,
 	process.env.CLIENT_SECRET,
-	process.env.REDIREC_URL,
+	process.env.REDIRECT_URL,
 );
 OAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
 
 export async function emailSender(emailContent) {
-	// TODO: Send actual OTP using nodemailer
 	try {
 		// getting the access token each time to send emails
 		const accessToken = await OAuth2Client.getAccessToken();
