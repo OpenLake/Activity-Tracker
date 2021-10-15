@@ -31,6 +31,13 @@
 
 - Install `nodejs` and `npm` on your local machine. For [windows](https://www.geeksforgeeks.org/installation-of-node-js-on-windows/), [linux](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04) and [mac](https://nodesource.com/blog/installing-nodejs-tutorial-mac-os-x/)
 
+- Install `Visual Studio` on your local machine, only for [windows](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools). (Please note that this is different from Visual Studio Code)
+- Mac useer install `Xcode Command Line Tools` by running
+
+  ```git
+  xcode-select –install
+  ```
+
 - Install `pnpm` by opening your terminal with administrative (sudo) privileges and type
 
   ```git
@@ -43,9 +50,11 @@
   pnpm i
   ```
 
+### Step 3
+
 - Install docker on your machine. For [windows](https://docs.docker.com/desktop/windows/install/), [linux](https://docs.docker.com/engine/install/ubuntu/) and [mac](https://docs.docker.com/desktop/mac/install/)
 
-### Step 3
+- Install wsl on your machine, only for [windows] (https://docs.microsoft.com/en-us/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package) and also download ubuntu from microsoft store.
 
 - Install `docker-compose` by following the [official guide](https://docs.docker.com/compose/install/)
 
@@ -53,6 +62,32 @@
 
   ```docker
   docker-compose up -d
+  ```
+
+  If docker installation is giving you an error, you can install [mongoDB](https://www.mongodb.com/try/download/compass)
+
+### Step 4
+
+- Navigate to `Cross-Platform-Activity-Tracker` directory and type
+
+  ```pnpm
+  pnpm tracker
+  ```
+
+- If you get an error, type these commands
+
+  ```pnpm
+  pnpm dlx rimraf node_modules
+  ```
+
+  ```pnpm
+  pnpm install
+  ```
+
+  Now try to run the command again.
+
+  ```pnpm
+  pnpm tracker
   ```
 
 - To start the application run
