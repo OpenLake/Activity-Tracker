@@ -1,8 +1,9 @@
 {
-	"name": "cross-platform-activity-tracker",
+	"name": "activity-tracker",
 	"version": "1.0.0",
 	"description": "<h1 align=\"center\">Welcome to the Digital Life Tracker 👋</h1>",
 	"main": "index.js",
+	"bin": "main.js",
 	"scripts": {
 		"dev": "concurrently pnpm:tracker pnpm:server pnpm:ui:dev",
 		"test": "pnpm -r test",
@@ -12,6 +13,7 @@
 		"ui:build": "cd packages/ui/ && pnpm run build",
 		"ui:serve": "cd packages/ui/ && pnpm run serve",
 		"ui": "pnpm run ui:dev",
+		"build": "pnpm run babel -r && pkg .",
 		"lint": "eslint --ext js,jsx .",
 		"prettier": "prettier . --write",
 		"prepare": "husky install"
@@ -30,12 +32,25 @@
 		"concurrently": "^6.2.0",
 		"eslint": "^7.31.0",
 		"eslint-plugin-react": "^7.24.0",
-		"husky": "^7.0.0",
+		"husky": "^7.0.1",
 		"lint-staged": "^11.1.0",
+		"pkg": "^5.4.0",
 		"prettier": "^2.3.1"
 	},
 	"lint-staged": {
 		"*.{js,jsx}": "eslint --cache --fix",
 		"*.{js,css,md}": "prettier --write"
+	},
+	"pkg": {
+		"assets": [
+			"./node_modules/**/*.node",
+			"./packages/desktop/node_modules/active-win/main"
+		],
+		"targets": [
+			"node14-win-x64",
+			"node14-linux-x64",
+			"node14-macos"
+		],
+		"outputPath": "build"
 	}
 }

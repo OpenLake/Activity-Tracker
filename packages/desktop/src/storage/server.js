@@ -1,7 +1,7 @@
 import axios from 'axios';
 import express from 'express';
 import fs from 'fs';
-import nodeMachineId from 'node-machine-id';
+import * as nodeMachineId from 'node-machine-id';
 const { machineIdSync } = nodeMachineId;
 
 const app = express();
