@@ -6,7 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"tracker": "node src/index.js",
-		"babel": "babel src -d .babel --plugins=@babel/plugin-transform-modules-commonjs && echo {\"type\":\"commonjs\"} > .babel/package.json"
+		"babel": "babel src -d .babel --plugins=@babel/plugin-transform-modules-commonjs && echo {\\\"type\\\":\\\"commonjs\\\"} > .babel/package.json"
 	},
 	"author": "",
 	"license": "ISC",
