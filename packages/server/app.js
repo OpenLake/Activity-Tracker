@@ -14,7 +14,7 @@ const app = express();
 
 const hostname = process.env.HOSTNAME || '0.0.0.0';
 const port = process.env.PORT || 8080;
-const mongoUrl = process.env.mongodb;
+const mongoUrl = process.env.mongodb || 'mongodb://127.0.0.1:27017';
 
 // Connect to the database
 mongoose.connect(

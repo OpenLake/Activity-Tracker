@@ -1,7 +1,7 @@
 # data
-/packages/desktop/src/activities.json
 database
 
+/build
 node_modules
 
 # log files
@@ -12,4 +12,3 @@ node_modules
 
 # .idea
 .idea/
-
