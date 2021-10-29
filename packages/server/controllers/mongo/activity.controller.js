@@ -1,4 +1,4 @@
-import Activity from '../models/activity.model.js';
+import Activity from '../../models/activity.model.js';
 
 export const activity_create = (req, res, next) => {
 	const { name, title, startTime, endTime } = req.body;

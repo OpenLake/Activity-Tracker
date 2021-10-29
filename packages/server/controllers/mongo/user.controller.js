@@ -1,7 +1,11 @@
-import { User, registerValidate, loginValidate } from '../models/user.model.js';
-import Device from '../models/device.model.js';
+import {
+	User,
+	registerValidate,
+	loginValidate,
+} from '../../models/user.model.js';
+import Device from '../../models/device.model.js';
 import bcrypt from 'bcrypt';
-import { emailSender } from '../utils/email.js';
+import { emailSender } from '../../utils/email.js';
 
 export const sendOtp = async user => {
 	let emailContent = {
@@ -92,7 +96,7 @@ export const user_list = async (req, res) => {
 		const user = await User.find({})
 			.populate('_devices', 'fingerprint')
 			.select('-password -__v');
-		res.send(user);
+		res.json(user);
 	} catch (error) {
 		console.log(error);
 		res.send('Something went wrong');
