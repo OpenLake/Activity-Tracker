@@ -8,6 +8,7 @@ if (isBundled) {
 	const autolauncher = new AutoLaunch({
 		name: 'Activity-Tracker',
 		path: process.execPath,
+		isHidden: true,
 	});
 	autolauncher
 		.isEnabled()
