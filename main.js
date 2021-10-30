@@ -1,7 +1,9 @@
 require('./packages/desktop/.babel');
 require('./packages/server/.babel/app');
 
-const isBundled = __dirname.startsWith('/snapshot');
+const isBundled = ['/snapshot', 'C:\\snapshot'].some(prefix =>
+	__dirname.startsWith(prefix),
+);
 
 if (isBundled) {
 	const AutoLaunch = require('auto-launch');
