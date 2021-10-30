@@ -37,9 +37,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/', root);
-app.use('/users', user);
-app.use('/activities', activity);
-app.use('/apps', app_usage);
+app.use('/api/', root);
+app.use('/api/users', user);
+app.use('/api/activities', activity);
+app.use('/api/apps', app_usage);
 
 app.listen(port, hostname, function () {
 	console.log(`Nodejs server running at http://${hostname}:${port}/`);

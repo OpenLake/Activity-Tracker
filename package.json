@@ -45,6 +45,7 @@
 		"assets": [
 			"./node_modules/**/*.node",
 			"./packages/**/.babel/*.env",
+			"./packages/server/.babel/static/",
 			"./packages/desktop/node_modules/active-win/main"
 		],
 		"targets": [
@@ -53,5 +54,8 @@
 			"node14-macos"
 		],
 		"outputPath": "build"
+	},
+	"dependencies": {
+		"express": "^4.17.1"
 	}
 }

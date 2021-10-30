@@ -27,7 +27,7 @@ export const HomePage = () => {
 
 	const dateOnChange = newDate => {
 		console.log(newDate);
-		fetch('http://localhost:3000/apps')
+		fetch('http://localhost:3000/api/apps')
 			.then(res => res.json())
 			.then(res => {
 				setAppList(res);

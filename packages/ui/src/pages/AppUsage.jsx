@@ -18,7 +18,7 @@ export const AppUsagePage = () => {
 	};
 
 	useEffect(() => {
-		fetch(`http://localhost:3000/apps/usage?name=${query.get('name')}`)
+		fetch(`http://localhost:3000/api/apps/usage?name=${query.get('name')}`)
 			.then(res => res.json())
 			.then(res => {
 				setData(res);
