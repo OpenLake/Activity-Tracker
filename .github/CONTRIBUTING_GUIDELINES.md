@@ -32,7 +32,7 @@
 - Install `nodejs` and `npm` on your local machine. For [windows](https://www.geeksforgeeks.org/installation-of-node-js-on-windows/), [linux](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04) and [mac](https://nodesource.com/blog/installing-nodejs-tutorial-mac-os-x/)
 
 - Install `Visual Studio` on your local machine, only for [windows](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools). (Please note that this is different from Visual Studio Code)
-- Mac useer install `Xcode Command Line Tools` by running
+- Mac user install `Xcode Command Line Tools` by running
 
   ```git
   xcode-select –install
@@ -44,7 +44,7 @@
   npm i -g pnpm
   ```
 
-- Open your terminal in your current working directory (i.e, `Cross-Platform-Activity-Tracker`) and run the following command to install all dependencies for the project
+- Open your terminal in your current working directory (i.e, `Activity-Tracker`) and run the following command to install all dependencies for the project
 
   ```pnpm
   pnpm i
@@ -52,23 +52,7 @@
 
 ### Step 3
 
-- Install docker on your machine. For [windows](https://docs.docker.com/desktop/windows/install/), [linux](https://docs.docker.com/engine/install/ubuntu/) and [mac](https://docs.docker.com/desktop/mac/install/)
-
-- Install wsl on your machine, only for [windows] (https://docs.microsoft.com/en-us/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package) and also download ubuntu from microsoft store.
-
-- Install `docker-compose` by following the [official guide](https://docs.docker.com/compose/install/)
-
-- Navigate to `Cross-Platform-Activity-Tracker` directory and with administrative privileges run
-
-  ```docker
-  docker-compose up -d
-  ```
-
-  If docker installation is giving you an error, you can install [mongoDB](https://www.mongodb.com/try/download/compass)
-
-### Step 4
-
-- Navigate to `Cross-Platform-Activity-Tracker` directory and type
+- Navigate to `Activity-Tracker` directory and type
 
   ```pnpm
   pnpm tracker
@@ -103,6 +87,29 @@
   ```
 
   at this address the web application will be running
+
+### Step 4 (Optional)
+
+If you want to use MongoDB, you can either
+
+- Download [MongoDB](https://www.mongodb.com/try/download/community) locally.
+  Linux user can use these steps for [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) installation.
+
+  OR
+
+- Install wsl on your machine, only for [windows] (https://docs.microsoft.com/en-us/windows/wsl/install) and also download ubuntu from microsoft store.
+  wsl and ubuntu installation is not required for windows 10 pro.
+
+- Install docker on your machine. We are using docker container to run MongoDB so that it remains isolated from rest of the system and is easy to setup. For [windows](https://docs.docker.com/desktop/windows/install/), [linux](https://docs.docker.com/engine/install/ubuntu/) and [mac](https://docs.docker.com/desktop/mac/install/).
+
+- Install `docker-compose` by following the [official guide](https://docs.docker.com/compose/install/).
+  `docker-compose` is already installed when using docker desktop for Windows/macOS.
+
+- Navigate to `Activity-Tracker` directory and with administrative privileges run
+
+  ```docker
+  docker-compose up -d
+  ```
 
 </br>
 
