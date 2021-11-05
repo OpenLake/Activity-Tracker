@@ -79,46 +79,54 @@ export const HomePage = () => {
 							return (
 								<Grid item key={index}>
 									<Link
-										component={Button}
-										style={{ textTransform: 'none', minWidth: 400 }}
 										to={`/usage?name=${app.name}`}
+										style={{ textDecoration: 'none' }}
 									>
-										<Grid
-											container
-											direction="row"
-											justifyContent="flex-start"
-											alignItems="center"
+										<Button
+											style={{
+												textTransform: 'none',
+												minWidth: 400,
+											}}
 										>
-											<Grid item xs={3}>
-												{app.icon ?? (
-													<RedditIcon
-														style={{
-															fontSize: 50,
-															color: 'white',
-														}}
-													/>
-												)}
+											<Grid
+												container
+												direction="row"
+												justifyContent="flex-start"
+												alignItems="center"
+											>
+												<Grid item xs={3}>
+													{app.icon ?? (
+														<RedditIcon
+															style={{
+																fontSize: 50,
+																color: 'white',
+															}}
+														/>
+													)}
+												</Grid>
+												<Grid item xs={7}>
+													<div>
+														<Typography
+															variant="h6"
+															color="initial"
+															className="top-app-heading"
+														>
+															{app.name}
+														</Typography>
+														<Typography
+															variant="subtitle1"
+															color="initial"
+															className="top-app-details"
+														>
+															{durationToString(app.duration)}
+														</Typography>
+													</div>
+												</Grid>
+												<Grid item xs={2}>
+													{hourglassIcon}
+												</Grid>
 											</Grid>
-											<Grid item xs={7}>
-												<div>
-													<Typography
-														variant="h6"
-														color="initial"
-														className="top-app-heading"
-													>
-														{app.name}
-													</Typography>
-													<Typography
-														variant="subtitle1"
-														color="initial"
-														className="top-app-details"
-													>
-														{durationToString(app.duration)}
-													</Typography>
-												</div>
-											</Grid>
-											<Grid xs={2}>{hourglassIcon}</Grid>
-										</Grid>
+										</Button>
 									</Link>
 								</Grid>
 							);

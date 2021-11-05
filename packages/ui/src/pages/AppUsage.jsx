@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RedditIcon from '@mui/icons-material/Reddit';
-import { useQuery } from '../hooks/common';
+import { useSearchParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { ActivityHistogram } from '../components/ActivityHistogram';
@@ -8,7 +8,8 @@ import { durationToString } from '../utils';
 import { DatePicker } from '../components/DatePicker';
 
 export const AppUsagePage = () => {
-	let query = useQuery();
+	const [query] = useSearchParams();
+	const appName = query.get('name');
 
 	const timeRemaining = 0;
 	const [data, setData] = useState([]);
@@ -18,12 +19,12 @@ export const AppUsagePage = () => {
 	};
 
 	useEffect(() => {
-		fetch(`http://localhost:3000/apps/usage?name=${query.get('name')}`)
+		fetch(`http://localhost:3000/apps/usage?name=${appName}`)
 			.then(res => res.json())
 			.then(res => {
 				setData(res);
 			});
-	}, [query.get('name')]);
+	}, [appName]);
 
 	return (
 		<Grid
@@ -48,7 +49,7 @@ export const AppUsagePage = () => {
 					</Grid>
 					<Grid item>
 						<Typography variant="h6" className="top-app-details">
-							{query.get('name')}
+							{appName}
 						</Typography>
 					</Grid>
 				</Grid>
