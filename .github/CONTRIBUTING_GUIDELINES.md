@@ -16,7 +16,7 @@
 - Clone the repository in your local machine by typing
 
   ```sh
-  git clone https://github.com/<your-username>/Cross-Platform-Activity-Tracker.git
+  git clone https://github.com/<your-username>/Activity-Tracker.git
   ```
 
   in your terminal(for _mac/linux_) or Git Bash (for _windows_)
