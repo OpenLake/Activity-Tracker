@@ -105,10 +105,10 @@ If you want to use MongoDB (instead of the default JSON storage), you can either
 
 </br>
 
-If you face any issues while setting up feel free to ask the moderators in [issues](https://github.com/OpenLake/Cross-Platform-Activity-Tracker/issues) and if you are new to open source refer to this [link](https://github.com/firstcontributions/first-contributions)
+If you face any issues while setting up feel free to ask the moderators in [issues](https://github.com/OpenLake/Activity-Tracker/issues) and if you are new to open source refer to this [link](https://github.com/firstcontributions/first-contributions)
 
 ## Raising a PR
 
-- You can find a step-by-step proceducre on how to create a PR [here](https://github.com/OpenLake/Cross-Platform-Activity-Tracker/wiki/A-step-by-step-procedure-for-creating-a-PR)
-- While raising a pull request from your branch, please follow the [PR-name-style-guide](https://github.com/OpenLake/Cross-Platform-Activity-Tracker/wiki/PR-name-style-guide).
-- While submitting your PR, please follow [this template](https://github.com/OpenLake/Cross-Platform-Activity-Tracker/blob/main/.github/PULL_REQUEST_TEMPLATE.md)
+- You can find a step-by-step proceducre on how to create a PR [here](https://github.com/OpenLake/Activity-Tracker/wiki/A-step-by-step-procedure-for-creating-a-PR)
+- While raising a pull request from your branch, please follow the [PR-name-style-guide](https://github.com/OpenLake/Activity-Tracker/wiki/PR-name-style-guide).
+- While submitting your PR, please follow [this template](https://github.com/OpenLake/Activity-Tracker/blob/main/.github/PULL_REQUEST_TEMPLATE.md)
