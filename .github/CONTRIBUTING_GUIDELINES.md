@@ -15,7 +15,7 @@
 
 - Clone the repository in your local machine by typing
 
-  ```git
+  ```sh
   git clone https://github.com/<your-username>/Cross-Platform-Activity-Tracker.git
   ```
 
@@ -23,7 +23,7 @@
 
 - Now create a new branch using
 
-  ```git
+  ```sh
   git checkout -b <your-new-branch-name>
   ```
 
@@ -31,22 +31,26 @@
 
 - Install `nodejs` and `npm` on your local machine. For [windows](https://www.geeksforgeeks.org/installation-of-node-js-on-windows/), [linux](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04) and [mac](https://nodesource.com/blog/installing-nodejs-tutorial-mac-os-x/)
 
-- Install `Visual Studio` on your local machine, only for [windows](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools). (Please note that this is different from Visual Studio Code)
-- Mac user install `Xcode Command Line Tools` by running
+- Windows users need to install **Visual Studio Build Tools** with **Desktop development with C++** workload checked. (Please note that this is different from Visual Studio Code)
+  [Download Visual Studio Build Tools](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools).
 
-  ```git
+  ![visual studio installer](assets/vs-installer.png)
+
+- Mac users need to install `Xcode Command Line Tools` by running
+
+  ```sh
   xcode-select –install
   ```
 
 - Install `pnpm` by opening your terminal with administrative (sudo) privileges and type
 
-  ```git
+  ```sh
   npm i -g pnpm
   ```
 
 - Open your terminal in your current working directory (i.e, `Activity-Tracker`) and run the following command to install all dependencies for the project
 
-  ```pnpm
+  ```sh
   pnpm i
   ```
 
@@ -54,43 +58,31 @@
 
 - Navigate to `Activity-Tracker` directory and type
 
-  ```pnpm
-  pnpm tracker
+  ```sh
+  pnpm run dev
   ```
 
 - If you get an error, type these commands
 
-  ```pnpm
+  ```sh
   pnpm dlx rimraf node_modules
   ```
 
-  ```pnpm
+  ```sh
   pnpm install
   ```
 
-  Now try to run the command again.
+  Now start the application by running
 
-  ```pnpm
-  pnpm tracker
+  ```sh
+  pnpm run dev
   ```
 
-- To start the application run
-
-  ```npm
-  npm run dev
-  ```
-
-- Open a browser and enter
-
-  ```link
-  http://localhost:3001/
-  ```
-
-  at this address the web application will be running
+- Open http://localhost:3001/ in a browser and enter. At this address, the web application will be running
 
 ### Step 4 (Optional)
 
-If you want to use MongoDB, you can either
+If you want to use MongoDB (instead of the default JSON storage), you can either:
 
 - Download [MongoDB](https://www.mongodb.com/try/download/community) locally.
   Linux user can use these steps for [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) installation.
@@ -107,7 +99,7 @@ If you want to use MongoDB, you can either
 
 - Navigate to `Activity-Tracker` directory and with administrative privileges run
 
-  ```docker
+  ```sh
   docker-compose up -d
   ```
 
