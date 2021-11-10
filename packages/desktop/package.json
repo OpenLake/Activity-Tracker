@@ -2,17 +2,18 @@
 	"name": "desktop",
 	"version": "1.0.0",
 	"description": "",
-	"main": "src/index.js",
+	"main": ".babel/index.js",
 	"type": "module",
 	"scripts": {
 		"tracker": "node src/index.js",
-		"babel": "babel src -d .babel --plugins=@babel/plugin-transform-modules-commonjs && node scripts/postbabel.js"
+		"babel": "babel electron -d .babel --plugins=@babel/plugin-transform-modules-commonjs && node scripts/postbabel.js"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"active-win": "^7.6.1",
 		"axios": "^0.21.1",
+		"electron-is-dev": "^2.0.0",
 		"env-paths": "^2.2.1",
 		"express": "^4.17.1",
 		"file-icon-extractor": "^1.0.4",
@@ -21,6 +22,7 @@
 	"devDependencies": {
 		"@babel/cli": "^7.15.7",
 		"@babel/core": "^7.15.8",
-		"@babel/plugin-transform-modules-commonjs": "^7.15.4"
+		"@babel/plugin-transform-modules-commonjs": "^7.15.4",
+		"electron": "^15.3.1"
 	}
 }
