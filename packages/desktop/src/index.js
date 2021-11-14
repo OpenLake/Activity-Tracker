@@ -7,7 +7,7 @@ const interval = 2000;
 
 const storages = [
 	new JSONStorage(),
-	new ServerStorage('http://localhost:3000'),
+	new ServerStorage('http://localhost:3000/api'),
 ];
 
 const activeWindowWatcher = new ActiveWindowWatcher(interval, activity => {
