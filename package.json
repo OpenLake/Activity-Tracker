@@ -13,7 +13,7 @@
 		"ui:build": "cd packages/ui/ && pnpm run build",
 		"ui:serve": "cd packages/ui/ && pnpm run serve",
 		"ui": "pnpm run ui:dev",
-		"build": "pnpm run babel -r && pkg .",
+		"build": "pnpm i && pnpm run babel -r && pkg .",
 		"lint": "eslint --ext js,jsx .",
 		"prettier": "prettier . --write",
 		"prepare": "husky install"
