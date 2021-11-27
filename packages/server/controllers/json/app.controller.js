@@ -2,8 +2,8 @@ import { getDataFromJson, groupBy } from './utils.js';
 
 export const all_apps = async (req, res) => {
 	const today = new Date();
-	const yesterday = new Date(today);
-	yesterday.setDate(yesterday.getDate() - 1);
+	const yesterday = new Date();
+	yesterday.setDate(today.getDate() - 1);
 
 	const after = new Date(req.query.after ?? yesterday.toISOString());
 	const before = new Date(req.query.before ?? today.toISOString());
@@ -39,10 +39,8 @@ export const all_apps = async (req, res) => {
 
 export const app_usage = async (req, res) => {
 	const today = new Date();
-	const yesterday = new Date(today);
-	yesterday.setDate(yesterday.getDate() - 1);
 
-	const after = new Date(req.query.after ?? yesterday.toISOString());
+	const after = new Date(req.query.after ?? today.toISOString());
 	const before = new Date(req.query.before ?? today.toISOString());
 
 	let activities = getDataFromJson(after, before); // get this list from json file as per the date
