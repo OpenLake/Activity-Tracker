@@ -25,8 +25,8 @@ export const ActivityDonutChart = ({ data }) => {
 		},
 		plotOptions: {
 			pie: {
-				startAngle: 30,
-				endAngle: 330,
+				startAngle: 0,
+				endAngle: 360,
 				donut: {
 					size: '85%',
 					background: 'transparent',

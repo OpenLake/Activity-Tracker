@@ -13,7 +13,7 @@
 		"ui:build": "cd packages/ui/ && pnpm run build",
 		"ui:serve": "cd packages/ui/ && pnpm run serve",
 		"ui": "pnpm run ui:dev",
-		"build": "pnpm run babel -r && pkg .",
+		"build": "pnpm i && pnpm run babel -r && pkg .",
 		"lint": "eslint --ext js,jsx .",
 		"prettier": "prettier . --write",
 		"prepare": "husky install"
@@ -45,6 +45,7 @@
 		"assets": [
 			"./node_modules/**/*.node",
 			"./packages/**/.babel/*.env",
+			"./packages/server/.babel/static/",
 			"./packages/desktop/node_modules/active-win/main"
 		],
 		"targets": [
@@ -55,6 +56,7 @@
 		"outputPath": "build"
 	},
 	"dependencies": {
-		"auto-launch": "^5.0.5"
+		"auto-launch": "^5.0.5",
+		"express": "^4.17.1"
 	}
 }

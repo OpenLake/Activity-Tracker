@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'path';
 
-let dirname;
+export let dirname;
 
 try {
 	dirname = __dirname;
