@@ -43,10 +43,13 @@
 		"vite": "^2.7.0"
 	},
 	"build": {
+		"appId": "com.openlake.activity-tracker",
+		"productName": "Activity Tracker",
 		"asar": true,
 		"npmRebuild": false,
 		"files": [
 			"main",
+			"assets",
 			"src/out"
 		],
 		"directories": {
