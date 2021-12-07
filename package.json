@@ -5,29 +5,27 @@
 	"main": "index.js",
 	"bin": "main.js",
 	"scripts": {
-		"dev": "pnpm -r --filter ./packages/desktop --filter ./packages/ui dev",
+		"dev": "pnpm dev --prefix packages/desktop",
 		"test": "pnpm -r test",
 		"server": "cd packages/server/ && pnpm run server",
 		"tracker": "cd packages/desktop/ && pnpm run tracker",
-		"ui:dev": "cd packages/ui/ && pnpm run dev",
-		"ui:build": "cd packages/ui/ && pnpm run build",
-		"ui:serve": "cd packages/ui/ && pnpm run serve",
+		"ui:dev": "pnpm vite:dev --prefix packages/desktop",
 		"ui": "pnpm run ui:dev",
-		"build": "pnpm i && pnpm run babel -r && pkg .",
+		"build": "pnpm dist --prefix packages/desktop",
 		"lint": "eslint --ext js,jsx .",
-		"prettier": "prettier . --write",
+		"format": "prettier . --write",
 		"prepare": "husky install"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/OpenLake/Cross-Platform-Activity-Tracker.git"
+		"url": "git+https://github.com/OpenLake/Activity-Tracker.git"
 	},
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/OpenLake/Cross-Platform-Activity-Tracker/issues"
+		"url": "https://github.com/OpenLake/Activity-Tracker/issues"
 	},
-	"homepage": "https://github.com/OpenLake/Cross-Platform-Activity-Tracker#readme",
+	"homepage": "https://github.com/OpenLake/Activity-Tracker#readme",
 	"devDependencies": {
 		"eslint": "^7.31.0",
 		"eslint-plugin-react": "^7.24.0",
