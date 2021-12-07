@@ -1,11 +1,13 @@
 import { join } from 'path';
-import { BrowserWindow, app, ipcMain } from 'electron';
-import isDev from 'electron-is-dev';
+import { BrowserWindow, app } from 'electron';
+import { startTracker } from './tracker';
 
+const isDev = !app.isPackaged;
 const height = 600;
 const width = 800;
 
 function createWindow() {
+	// Create the browser window.
 	const window = new BrowserWindow({
 		width,
 		height,
@@ -18,7 +20,7 @@ function createWindow() {
 		},
 	});
 
-	const port = process.env.PORT || 3001;
+	const port = process.env.UI_PORT || 3001;
 	const url = isDev
 		? `http://localhost:${port}`
 		: join(__dirname, '../src/out/index.html');
@@ -29,6 +31,7 @@ function createWindow() {
 	} else {
 		window?.loadFile(url);
 	}
+	window.setAutoHideMenuBar(true);
 }
 
 // This method will be called when Electron has finished
@@ -53,13 +56,27 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+startTracker();
+import '../../server/app';
+import AutoLaunch from 'auto-launch';
 
-// listen the channel `message` and resend the received message to the renderer process
-ipcMain.on(
-	'message',
-	/** @param {import('electron').IpcMainEvent} event */
-	(event, message) => {
-		console.log(message);
-		setTimeout(() => event.sender.send('message', 'hi from electron'), 500);
-	},
-);
+if (app.isPackaged) {
+	const autolauncher = new AutoLaunch({
+		name: 'Activity-Tracker',
+		path: process.execPath,
+		isHidden: true,
+	});
+	autolauncher
+		.isEnabled()
+		.then(isEnabled => {
+			if (isEnabled) {
+				return;
+			}
+			autolauncher.enable();
+			console.log('Enabled autolaunch');
+		})
+		.catch(err => {
+			console.error("Couldn't enable autolaunch");
+			console.error(err);
+		});
+}

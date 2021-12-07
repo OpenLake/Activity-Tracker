@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"bin": "main.js",
 	"scripts": {
-		"dev": "concurrently pnpm:tracker pnpm:server pnpm:ui:dev",
+		"dev": "pnpm -r --filter ./packages/desktop --filter ./packages/ui dev",
 		"test": "pnpm -r test",
 		"server": "cd packages/server/ && pnpm run server",
 		"tracker": "cd packages/desktop/ && pnpm run tracker",
@@ -29,12 +29,10 @@
 	},
 	"homepage": "https://github.com/OpenLake/Cross-Platform-Activity-Tracker#readme",
 	"devDependencies": {
-		"concurrently": "^6.2.0",
 		"eslint": "^7.31.0",
 		"eslint-plugin-react": "^7.24.0",
 		"husky": "^7.0.1",
 		"lint-staged": "^11.1.0",
-		"pkg": "^5.4.0",
 		"prettier": "^2.3.1"
 	},
 	"lint-staged": {
@@ -54,9 +52,5 @@
 			"node14-macos"
 		],
 		"outputPath": "build"
-	},
-	"dependencies": {
-		"auto-launch": "^5.0.5",
-		"express": "^4.17.1"
 	}
 }

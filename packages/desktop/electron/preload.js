@@ -7,19 +7,23 @@ export const api = {
 	 * without security problems.
 	 *
 	 * The function below can accessed using `window.Main.sayHello`
+	 * @param {string} message
 	 */
-	/** @param {string} message */
-	sendMessage(message) {
+	sendMessage: message => {
 		ipcRenderer.send('message', message);
 	},
 	/**
 	 * Provide an easier way to listen to events
 	 * @param {string} channel
-	 * @param {(data: any) => void} listener
+	 * @param {(data: any) => void} callback
 	 */
 	on: (channel, callback) => {
 		ipcRenderer.on(channel, (_, data) => callback(data));
 	},
 };
-
 contextBridge.exposeInMainWorld('Main', api);
+/**
+ * Using the ipcRenderer directly in the browser through the contextBridge ist not really secure.
+ * I advise using the Main/api way !!
+ */
+contextBridge.exposeInMainWorld('ipcRenderer', ipcRenderer);
