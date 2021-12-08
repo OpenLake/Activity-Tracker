@@ -7,7 +7,7 @@ import {
 import { CssBaseline } from '@mui/material/';
 
 import { HomePage, AppUsagePage, UsageTimeline } from './pages';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 
 const theme = createTheme({
 	palette: {
@@ -28,7 +28,7 @@ const theme = createTheme({
 
 function App() {
 	return (
-		<Router>
+		<HashRouter>
 			<StyledEngineProvider injectFirst>
 				<ThemeProvider theme={theme}>
 					<CssBaseline />
@@ -40,7 +40,7 @@ function App() {
 					</Routes>
 				</ThemeProvider>
 			</StyledEngineProvider>
-		</Router>
+		</HashRouter>
 	);
 }
 
