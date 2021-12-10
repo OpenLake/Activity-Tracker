@@ -58,7 +58,7 @@ export class ActiveWindowWatcher {
 			if (activeWindow.title !== this.app.title) {
 				this.storeTime();
 				this.app = null;
-				console.log("******WINDOW CHANGED*********");
+				console.log("");
 			}
 			process.stdout.write(".");
 		}, this.interval);
