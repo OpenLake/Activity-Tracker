@@ -45,7 +45,7 @@ export class ActiveWindowWatcher {
 	tracker() {
 		setInterval(async () => {
 			const activeWindow = await activeWin();
-			
+
 			if (activeWindow === undefined) return;
 
 			if (!this.app) {
@@ -56,11 +56,11 @@ export class ActiveWindowWatcher {
 
 			//If the active window is changed store the used time data.
 			if (activeWindow.title !== this.app.title) {
+				console.log('');
 				this.storeTime();
 				this.app = null;
-				console.log("");
 			}
-			process.stdout.write(".");
+			process.stdout.write('.');
 		}, this.interval);
 	}
 
