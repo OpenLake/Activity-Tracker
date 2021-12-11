@@ -54,13 +54,13 @@ export class ActiveWindowWatcher {
 				process.stdout.write(activeWindow.title);
 			}
 
+			process.stdout.write('.');
 			//If the active window is changed store the used time data.
 			if (activeWindow.title !== this.app.title) {
 				console.log('');
 				this.storeTime();
 				this.app = null;
 			}
-			process.stdout.write('.');
 		}, this.interval);
 	}
 
