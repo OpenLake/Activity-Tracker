@@ -2,8 +2,8 @@ import { getDataFromJson, groupBy } from './utils.js';
 
 export const all_apps = async (req, res) => {
 	const today = new Date();
-	const yesterday = new Date();
-	yesterday.setDate(today.getDate() - 1);
+	const yesterday = new Date(today);
+	yesterday.setDate(yesterday.getDate() - 1);
 
 	const after = new Date(req.query.after ?? yesterday.toISOString());
 	const before = new Date(req.query.before ?? today.toISOString());
