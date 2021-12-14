@@ -5,8 +5,7 @@
 	"main": "app.js",
 	"type": "module",
 	"scripts": {
-		"server": "node app.js",
-		"babel": "babel . -d .babel --ignore node_modules,.babel,postbabel.js --plugins=@babel/plugin-transform-modules-commonjs && node scripts/postbabel.js"
+		"server": "node app.js"
 	},
 	"author": "",
 	"license": "ISC",
@@ -22,10 +21,5 @@
 		"mongoose": "^5.13.3",
 		"morgan": "^1.10.0",
 		"nodemailer": "^6.6.3"
-	},
-	"devDependencies": {
-		"@babel/cli": "^7.15.7",
-		"@babel/core": "^7.15.8",
-		"@babel/plugin-transform-modules-commonjs": "^7.15.4"
 	}
 }
