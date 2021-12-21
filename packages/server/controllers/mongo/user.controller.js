@@ -4,7 +4,7 @@ import {
 	loginValidate,
 } from '../../models/user.model.js';
 import Device from '../../models/device.model.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { emailSender } from '../../utils/email.js';
 
 export const sendOtp = async user => {

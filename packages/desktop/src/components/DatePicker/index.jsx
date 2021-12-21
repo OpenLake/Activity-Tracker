@@ -15,7 +15,7 @@ export const DatePicker = ({ onChange }) => {
 	);
 
 	useEffect(() => {
-		onChange(date);
+		onChange?.(date);
 	}, [date]);
 
 	const nextDay = () => {
@@ -51,7 +51,11 @@ export const DatePicker = ({ onChange }) => {
 			<IconButton onClick={previousDay}>
 				<NavigateBeforeIcon style={{ color: 'white' }} />
 			</IconButton>
-			<Typography variant="h6" style={{ color: 'white' }}>
+			<Typography
+				variant="h6"
+				style={{ color: 'white' }}
+				data-testid="selected-date"
+			>
 				{currentDate}
 			</Typography>
 			<IconButton onClick={nextDay}>
