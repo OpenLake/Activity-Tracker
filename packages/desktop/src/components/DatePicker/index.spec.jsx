@@ -1,4 +1,4 @@
-import React from 'react';
+import { describe, expect, it } from 'vitest';
 import { DatePicker } from '.';
 import { render } from '@testing-library/react';
 

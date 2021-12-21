@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { durationToString } from './utils';
 
 describe('durationToString', () => {
