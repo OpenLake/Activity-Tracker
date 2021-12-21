@@ -1,10 +1,8 @@
 import nodemailer from 'nodemailer';
-import * as googleapis from 'googleapis';
-const { google } = googleapis;
-const OAuth2 = google.auth.OAuth2;
+import { auth } from '@googleapis/oauth2';
 
 // new Authorized client
-const OAuth2Client = new OAuth2(
+const OAuth2Client = new auth.OAuth2(
 	process.env.CLIENT_ID,
 	process.env.CLIENT_SECRET,
 	process.env.REDIRECT_URL,
