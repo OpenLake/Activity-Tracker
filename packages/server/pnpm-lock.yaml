@@ -1,12 +1,12 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@googleapis/oauth2': ^0.2.0
   bcryptjs: ^2.4.3
   cors: ^2.8.5
   dotenv: ^10.0.0
   env-paths: ^2.2.1
   express: ^4.17.1
-  googleapis: ^86.1.0
   joi: ^17.4.2
   jsonwebtoken: ^8.5.1
   mongoose: ^5.13.3
@@ -14,12 +14,12 @@ specifiers:
   nodemailer: ^6.6.3
 
 dependencies:
+  '@googleapis/oauth2': 0.2.0
   bcryptjs: 2.4.3
   cors: 2.8.5
   dotenv: 10.0.0
   env-paths: 2.2.1
   express: 4.17.1
-  googleapis: 86.1.0
   joi: 17.5.0
   jsonwebtoken: 8.5.1
   mongoose: 5.13.13
@@ -27,6 +27,15 @@ dependencies:
   nodemailer: 6.7.2
 
 packages:
+
+  /@googleapis/oauth2/0.2.0:
+    resolution: {integrity: sha512-QT+beWILtV1lVa//8+tDln3r7uz79EnrRsHf9hYOxZ/EAD61r0WaXo2/sODqQN0az2eR0Z1aldLRRZD7SLpTcQ==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      googleapis-common: 5.0.5
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@hapi/hoek/9.2.1:
     resolution: {integrity: sha512-gfta+H8aziZsm8pZa0vj04KO6biEiisppNgA1kbJvFrrWu9Vm7eaUEy76DIxsuTaWvti5fkJVhllWc6ZTE+Mdw==}
@@ -421,16 +430,6 @@ packages:
       qs: 6.10.1
       url-template: 2.0.8
       uuid: 8.3.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /googleapis/86.1.0:
-    resolution: {integrity: sha512-gcYXoH5/xXBLDyLYPZHtxw89DKqxtRhFOF907ph8HYpUeKDQARIhjOauYkX8Pp8fwhUvCFtydx7jOkYolthbbQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      google-auth-library: 7.10.3
-      googleapis-common: 5.0.5
     transitivePeerDependencies:
       - supports-color
     dev: false
