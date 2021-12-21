@@ -11,6 +11,23 @@
 			"skipFiles": ["<node_internals>/**"],
 			"envFile": "${workspaceFolder}/packages/server/dev.env",
 			"program": "${cwd}/packages/server/app.js"
+		},
+		{
+			"name": "Run Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}/packages/vscode-extension"
+			]
+		},
+		{
+			"name": "Extension Tests",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}/packages/vscode-extension",
+				"--extensionTestsPath=${workspaceFolder}/packages/vscode-extension/test/suite/index"
+			]
 		}
 	]
 }
