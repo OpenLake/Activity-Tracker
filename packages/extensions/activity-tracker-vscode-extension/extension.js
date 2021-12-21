@@ -99,6 +99,10 @@ function activate(context) {
 			},
 		),
 	);
+
+	vscode.commands.executeCommand(
+		'activity-tracker-vscode-extension.activitytracker',
+	);
 }
 
 // this method is called when your extension is deactivated

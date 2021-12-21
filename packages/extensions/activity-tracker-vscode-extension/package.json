@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:activity-tracker-vscode-extension.activitytracker"
+		"onStartupFinished"
 	],
 	"main": "./extension.js",
 	"contributes": {
