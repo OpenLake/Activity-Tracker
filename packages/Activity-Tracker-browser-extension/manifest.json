@@ -1,0 +1,29 @@
+{
+    "name":"Browser Activity Tracker",
+    "description": "Shows you your digital time based on your browser activity",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    
+    "action":{
+        "default_icon":{
+            "16": "images/icon16.png",
+            "32": "images/icon32.png",
+            "48": "images/icon48.png",
+            "128": "images/icon128.png"
+        },
+        "default_popup": "popup.html"
+    },
+
+    "background":{
+        "service_worker": "src/background.js"
+    },
+
+    "author": "",
+    "homepage_url": "https://github.com/OpenLake/Activity-Tracker#readme",
+
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "storage"
+    ]
+}
