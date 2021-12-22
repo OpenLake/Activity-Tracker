@@ -1,13 +1,13 @@
-import React from 'react';
+import { describe, expect, it } from 'vitest';
 import { DatePicker } from '.';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react';
 
 describe('DatePicker', () => {
-	const component = renderer.create(<DatePicker />);
+	const component = render(<DatePicker />);
 
 	it('should default to today', () => {
 		const defaultDate = new Date(
-			component.root.findByType('h6').children[0],
+			component.getByTestId('selected-date').textContent,
 		).toDateString();
 		const today = new Date().toDateString();
 

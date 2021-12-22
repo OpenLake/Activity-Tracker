@@ -23,4 +23,7 @@ export default defineConfig(({ command }) => ({
 	optimizeDeps: {
 		exclude: ['path'],
 	},
+	test: {
+		environment: 'jsdom',
+	},
 }));
