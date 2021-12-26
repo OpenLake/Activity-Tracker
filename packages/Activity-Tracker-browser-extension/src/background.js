@@ -1,55 +1,96 @@
-async function getCurrentTab() {
-    let queryOptions = { active: true, currentWindow: true}; // to get current active tab
+let tab=null;
+let url=null;
+let favicon=null;
+class ActiveWindowWatcher {
+	/**
+	 * @param {number} interval Polling interval
+	 * @param {(activity) => void} changeCallback
+	 */
+	constructor(interval = 1000) {
+		this.startTime = null;
+		this.tab = null; //Title
+		this.url = null;
+		this.favicon = null;
+		// this.changeCallback = changeCallback;
+		this.interval = interval;
+	}
 
-    // https://developer.chrome.com/docs/extensions/reference/tabs/#get-the-current-tab
-    chrome.tabs.query(queryOptions,function currentTab(tabs){ 
-      
-      let currentTab = tabs[0]; // take the object from the returned promise
-      let currentTitle = currentTab.title; // take object title
-      let currentUrl = currentTab.url; // take object URL
-      let hostName = currentUrl //store url string
-      let currentFaviconUrl = currentTab.favIconUrl
+	/**
+	 * Storing the start time of the active window
+	 * Collecting data of the window which will be active
+	 */
+	storeTime() {
+		const endTime = Date.now();
+		const startTime = this.startTime;
 
-      // Title
-      const activityTitle = document.getElementById('activityTitle');
-      const activityTitleUrl = document.getElementById('activityTitle');
-      activityTitle.innerHTML = "Title: "+currentTitle; //format it in html
-      activityTitleUrl.setAttribute("href",currentUrl)
+		const title = this.tab;
+		const url = this.url;
+		const favicon = this.favicon;
 
 
+		const data = {
+			title,
+			url,
+			favicon,
+			startTime,
+			endTime,
+		};
 
-      // URl
-      const activityUrl = document.getElementById('activityUrl');
-      const activityLink = document.getElementById('activityUrl');
+		// this.changeCallback(data);
+    console.log(data)
+	}
 
-      try{
-        let urlObject = new URL(currentUrl);
-        hostName = urlObject.hostname; //store only host name
-      }catch{
-        console.log(`couldn't construct url from ${currentUrl}`)
-      }
+	/**
+	 * Checks the active window is specific time interval
+	 * and whenever the active window changes stores the time difference by calling {@link ActiveWindowWatcher.storeTime} function
+	 */
+	tracker() {
+		setInterval(() => {
+			let queryOptions = { active: true, currentWindow: true}; // to get current active tab
+			chrome.tabs.query(queryOptions,function currentTab(tabs){
+				let currentTab = tabs[0]; // take the object from the returned promise
+				let currentTitle = currentTab.title; // take object title
+				let currentUrl = currentTab.url; // take object URL
+				let currentFavIcons = currentTab.favIconUrl
+    			tab = currentTitle;
+				url = currentUrl;
+				favicon = currentFavIcons;  
+		
+    			// Title
+    			// const activityTitle = document.getElementById('activityTitle');
+    			// const activityTitleUrl = document.getElementById('activityTitle');
+    			// activityTitle.innerHTML = "Title: "+currentTitle; //format it in html
+    			// activityTitleUrl.setAttribute("href",currentUrl);
+    			// console.log(activityTitle)
+		
+				
+    		});
 
-      activityUrl.innerHTML = "URL: "+hostName; //format it in html
-      activityLink.setAttribute("href",hostName);
+			if (tab === undefined) return;
 
-      // Favicon
-      const activityFavicon = document.getElementById("activityFavicon");
-      activityFavicon.setAttribute("src",currentFaviconUrl); //format Favicon in html
+			if (!this.tab) {
+				this.startTime = Date.now();
+				this.tab = tab;
+				this.url = url;
+				this.favicon = favicon;
+			}
 
-    // active time
-    let timeActive = new Date().getTime();
-    // let timeMil = timeActive.getSeconds()
-    const timeElement = document.getElementById('activetime');
-    timeElement.innerHTML = timeActive;
-    
-    
+			//If the active window is changed store the used time data.
+			if (tab !== this.tab) {
+				this.storeTime();
+				this.tab = null;
+				this.url = null;
+				this.favicon = null;
+			}
+			console.log(tab,url,favicon, this.startTime);
 
-    });
-  }
+		}, this.interval);
+	}
 
-getCurrentTab();
+	initialize() {
+		this.tracker();
+	}
+}
 
-console.log(chrome.tabs.onCreated.addListener(function timeCur(){
-  let timeActive = new Date();
-  return timeActive.setSeconds()
-}))
+const activityTracker = new ActiveWindowWatcher(1000);
+activityTracker.initialize();
