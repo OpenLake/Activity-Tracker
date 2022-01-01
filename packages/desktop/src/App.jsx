@@ -1,13 +1,15 @@
-import React from 'react';
 import {
 	createTheme,
 	ThemeProvider,
 	StyledEngineProvider,
 } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material/';
+import { Routes, Route, HashRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { HomePage, AppUsagePage, UsageTimeline } from './pages';
-import { Routes, Route, HashRouter } from 'react-router-dom';
+
+const queryClient = new QueryClient();
 
 const theme = createTheme({
 	palette: {
@@ -28,19 +30,21 @@ const theme = createTheme({
 
 function App() {
 	return (
-		<HashRouter>
+		<QueryClientProvider client={queryClient}>
 			<StyledEngineProvider injectFirst>
 				<ThemeProvider theme={theme}>
 					<CssBaseline />
-					<Routes>
-						<Route path="/" element={<HomePage />} />
-						<Route path="about" element={<h1>About</h1>} />
-						<Route path="usage" element={<AppUsagePage />} />
-						<Route path="timeline" element={<UsageTimeline />} />
-					</Routes>
+					<HashRouter>
+						<Routes>
+							<Route path="/" element={<HomePage />} />
+							<Route path="about" element={<h1>About</h1>} />
+							<Route path="usage" element={<AppUsagePage />} />
+							<Route path="timeline" element={<UsageTimeline />} />
+						</Routes>
+					</HashRouter>
 				</ThemeProvider>
 			</StyledEngineProvider>
-		</HashRouter>
+		</QueryClientProvider>
 	);
 }
 

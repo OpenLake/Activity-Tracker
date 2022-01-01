@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import { ActivityDonutChart } from '../components/ActivityDonut';
@@ -10,37 +9,21 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { DatePicker } from '../components/DatePicker';
+import { useAppList } from '../api';
 
 export const HomePage = () => {
 	const theme = useTheme();
+	const appListQuery = useAppList();
+	const appList = appListQuery.data;
 
-	const [appList, setAppList] = useState([
-		{
-			icon: (
-				<RedditIcon style={{ fontSize: 50, color: 'white', marginRight: 10 }} />
-			),
-			name: 'Reddit',
-			duration: 3 * 60 + 46,
-			status: 'red',
-		},
-	]);
-
-	const dateOnChange = newDate => {
-		console.log(newDate);
-		fetch('http://localhost:3000/api/apps')
-			.then(res => res.json())
-			.then(res => {
-				setAppList(res);
-			});
-	};
-
+	if (!appList) return null;
 	return (
 		<Grid container direction="column" alignItems="center">
 			<Grid item>
 				<ActivityDonutChart data={appList} />
 			</Grid>
 			<Grid item>
-				<DatePicker onChange={dateOnChange}></DatePicker>
+				<DatePicker></DatePicker>
 			</Grid>
 			<Grid item>
 				<div className="top-used-items">

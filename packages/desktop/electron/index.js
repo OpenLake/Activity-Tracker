@@ -25,7 +25,7 @@ function createWindow() {
 		},
 	});
 
-	const port = process.env.UI_PORT || 3001;
+	const port = process.env.UI_PORT || 3000;
 	const url = isDev
 		? `http://localhost:${port}`
 		: join(__dirname, '../src/out/index.html');
