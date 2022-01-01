@@ -1,19 +1,25 @@
-import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material/styles';
-import { ActivityDonutChart } from '../components/ActivityDonut';
-import RedditIcon from '@mui/icons-material/Reddit';
-import HourglassFullRoundedIcon from '@mui/icons-material/HourglassFullRounded';
-import HourglassEmptyRoundedIcon from '@mui/icons-material/HourglassEmptyRounded';
-import { durationToString } from '../utils';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+import { Button, useTheme, Grid, Typography, TextField } from '@mui/material';
+import { DatePicker } from '@mui/lab';
+import {
+	Reddit,
+	HourglassFullRounded,
+	HourglassEmptyRounded,
+} from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { DatePicker } from '../components/DatePicker';
-import { useAppList } from '../api';
+import dayjs from 'dayjs';
+
+import { ActivityDonutChart } from '../components/ActivityDonut';
+import { durationToString } from '../utils';
+import { useAllAppsUsage } from '../api';
 
 export const HomePage = () => {
 	const theme = useTheme();
-	const appListQuery = useAppList();
+	const [date, setDate] = useState(dayjs);
+	const appListQuery = useAllAppsUsage({
+		after: date.startOf('day').toISOString(),
+		before: date.endOf('day').toISOString(),
+	});
 	const appList = appListQuery.data;
 
 	if (!appList) return null;
@@ -23,7 +29,13 @@ export const HomePage = () => {
 				<ActivityDonutChart data={appList} />
 			</Grid>
 			<Grid item>
-				<DatePicker></DatePicker>
+				<DatePicker
+					label="Date"
+					value={date}
+					onChange={newValue => setDate(newValue)}
+					renderInput={params => <TextField {...params} />}
+					disableFuture
+				/>
 			</Grid>
 			<Grid item>
 				<div className="top-used-items">
@@ -35,7 +47,7 @@ export const HomePage = () => {
 							let hourglassIcon;
 							if (app.status == 'red') {
 								hourglassIcon = (
-									<HourglassFullRoundedIcon
+									<HourglassFullRounded
 										style={{
 											fontSize: 35,
 											color: theme.palette.secondary.main,
@@ -44,7 +56,7 @@ export const HomePage = () => {
 								);
 							} else if (app.status == 'green') {
 								hourglassIcon = (
-									<HourglassFullRoundedIcon
+									<HourglassFullRounded
 										style={{
 											fontSize: 35,
 											color: '#8bc34a',
@@ -53,7 +65,7 @@ export const HomePage = () => {
 								);
 							} else {
 								hourglassIcon = (
-									<HourglassEmptyRoundedIcon
+									<HourglassEmptyRounded
 										style={{ fontSize: 35, color: '#8997B1' }}
 									/>
 								);
@@ -79,7 +91,7 @@ export const HomePage = () => {
 											>
 												<Grid item xs={3}>
 													{app.icon ?? (
-														<RedditIcon
+														<Reddit
 															style={{
 																fontSize: 50,
 																color: 'white',

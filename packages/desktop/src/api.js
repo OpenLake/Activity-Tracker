@@ -2,16 +2,21 @@ import { useQuery } from 'react-query';
 
 const BASE_URL = import.meta.env.VITE_SERVER_URL;
 
-export function useAppList() {
-	return useQuery('AppList', () =>
-		fetch(`${BASE_URL}/api/apps`).then(res => res.json()),
+/** @param {{before:string, after:string}} */
+export function useAllAppsUsage({ before, after }) {
+	const url = new URL(`${BASE_URL}/api/apps`);
+	url.searchParams.append('before', before);
+	url.searchParams.append('after', after);
+
+	return useQuery(['AllAppsUsage', before, after], () =>
+		fetch(url.href).then(res => res.json()),
 	);
 }
 
 export function useAppUsage(appName) {
 	return useQuery(['AppUsage', appName], {
 		queryFn: () =>
-			fetch(`http://localhost:32768/api/apps/usage?name=${appName}`).then(res =>
+			fetch(`${BASE_URL}/api/apps/usage?name=${appName}`).then(res =>
 				res.json(),
 			),
 		enabled: appName,

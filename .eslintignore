@@ -1,3 +1,8 @@
 node_modules/
 dist/
 .babel/
+.vscode/
+.vscode-test/
+
+packages/desktop/src/out/
+packages/desktop/main/
