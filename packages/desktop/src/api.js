@@ -19,6 +19,6 @@ export function useAppUsage(appName) {
 			fetch(`${BASE_URL}/api/apps/usage?name=${appName}`).then(res =>
 				res.json(),
 			),
-		enabled: appName,
+		enabled: !!appName,
 	});
 }

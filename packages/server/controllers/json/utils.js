@@ -12,8 +12,8 @@ const getFilePath = date => {
 };
 
 export const getDataFromJson = (start, end) => {
-	start = new Date(start);
-	end = new Date(end);
+	start = new Date(getISODateString(new Date(start)));
+	end = new Date(getISODateString(new Date(end)));
 
 	let result = [];
 	let date = start;
@@ -22,7 +22,7 @@ export const getDataFromJson = (start, end) => {
 		try {
 			result.push(...JSON.parse(fs.readFileSync(getFilePath(date))));
 		} catch (error) {
-			console.log(`No data for ${date}`);
+			console.log(`No data for ${getISODateString(date)}`);
 		}
 		date.setDate(date.getDate() + 1);
 	}

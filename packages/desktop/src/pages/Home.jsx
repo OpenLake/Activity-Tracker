@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Button, useTheme, Grid, Typography, TextField } from '@mui/material';
-import { DatePicker } from '@mui/lab';
+import { Button, useTheme, Grid, Typography } from '@mui/material';
 import {
 	Reddit,
 	HourglassFullRounded,
@@ -10,6 +9,7 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 import { ActivityDonutChart } from '../components/ActivityDonut';
+import { DatePicker } from '../components/DatePicker';
 import { durationToString } from '../utils';
 import { useAllAppsUsage } from '../api';
 
@@ -33,8 +33,6 @@ export const HomePage = () => {
 					label="Date"
 					value={date}
 					onChange={newValue => setDate(newValue)}
-					renderInput={params => <TextField {...params} />}
-					disableFuture
 				/>
 			</Grid>
 			<Grid item>
