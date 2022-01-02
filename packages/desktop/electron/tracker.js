@@ -8,7 +8,7 @@ export function startTracker() {
 
 	const storages = [
 		new JSONStorage(),
-		new ServerStorage('http://localhost:3000/api'),
+		new ServerStorage('http://localhost:32768/api'),
 	];
 
 	const activeWindowWatcher = new ActiveWindowWatcher(interval, activity => {

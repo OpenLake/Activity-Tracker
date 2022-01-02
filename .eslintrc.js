@@ -4,7 +4,11 @@ module.exports = {
 		es2021: true,
 		node: true,
 	},
-	extends: ['eslint:recommended', 'plugin:react/recommended'],
+	extends: [
+		'eslint:recommended',
+		'plugin:react/recommended',
+		'plugin:react/jsx-runtime',
+	],
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: true,
@@ -14,19 +18,11 @@ module.exports = {
 	},
 	plugins: ['react'],
 	rules: {
-		'react/prop-types': 1,
+		'react/prop-types': 0,
 	},
 	settings: {
 		react: {
 			version: '17',
 		},
 	},
-	overrides: [
-		{
-			files: ['**/*.spec.js'],
-			env: {
-				jest: true,
-			},
-		},
-	],
 };

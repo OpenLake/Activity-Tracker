@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import dayjs from 'dayjs';
 import RedditIcon from '@mui/icons-material/Reddit';
 import { useSearchParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
@@ -6,26 +7,17 @@ import Typography from '@mui/material/Typography';
 import { ActivityHistogram } from '../components/ActivityHistogram';
 import { durationToString } from '../utils';
 import { DatePicker } from '../components/DatePicker';
+import { useAppUsage } from '../api';
 
 export const AppUsagePage = () => {
 	const [query] = useSearchParams();
 	const appName = query.get('name');
+	const [date, setDate] = useState(dayjs);
 
 	const timeRemaining = 0;
-	const [data, setData] = useState([]);
+	const data = useAppUsage(appName).data;
 
-	const onDateChange = newDate => {
-		console.log(newDate);
-	};
-
-	useEffect(() => {
-		fetch(`http://localhost:3000/api/apps/usage?name=${query.get('name')}`)
-			.then(res => res.json())
-			.then(res => {
-				setData(res);
-			});
-	}, [appName]);
-
+	if (!data) return null;
 	return (
 		<Grid
 			container
@@ -86,15 +78,12 @@ export const AppUsagePage = () => {
 				<Typography variant="h4" color="initial">
 					<ActivityHistogram
 						data={data?.map(weekDay => weekDay.duration)}
-						name="Brave"
+						name={appName}
 					/>
 				</Typography>
 			</Grid>
 			<Grid item>
-				<DatePicker onChange={onDateChange} />
-			</Grid>
-			<Grid item>
-				<DatePicker onChange={onDateChange} />
+				<DatePicker value={date} onChange={newDate => setDate(newDate)} />
 			</Grid>
 		</Grid>
 	);
