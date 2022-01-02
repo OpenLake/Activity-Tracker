@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import dayjs from 'dayjs';
 import RedditIcon from '@mui/icons-material/Reddit';
 import { useSearchParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
@@ -10,13 +12,10 @@ import { useAppUsage } from '../api';
 export const AppUsagePage = () => {
 	const [query] = useSearchParams();
 	const appName = query.get('name');
+	const [date, setDate] = useState(dayjs);
 
 	const timeRemaining = 0;
 	const data = useAppUsage(appName).data;
-
-	const onDateChange = newDate => {
-		console.log(newDate);
-	};
 
 	if (!data) return null;
 	return (
@@ -79,15 +78,12 @@ export const AppUsagePage = () => {
 				<Typography variant="h4" color="initial">
 					<ActivityHistogram
 						data={data?.map(weekDay => weekDay.duration)}
-						name="Brave"
+						name={appName}
 					/>
 				</Typography>
 			</Grid>
 			<Grid item>
-				<DatePicker onChange={onDateChange} />
-			</Grid>
-			<Grid item>
-				<DatePicker onChange={onDateChange} />
+				<DatePicker value={date} onChange={newDate => setDate(newDate)} />
 			</Grid>
 		</Grid>
 	);

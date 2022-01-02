@@ -13,14 +13,7 @@ export const ActivityDonutChart = ({ data }) => {
 				formatter: val => durationToString(val),
 			},
 		},
-		legend: {
-			show: true,
-			position: 'bottom',
-			labels: {
-				colors: undefined,
-				useSeriesColors: true,
-			},
-		},
+		legend: { show: false },
 		plotOptions: {
 			pie: {
 				startAngle: 0,
@@ -62,8 +55,8 @@ export const ActivityDonutChart = ({ data }) => {
 				}}
 				series={data.map(app => app.duration)}
 				type="donut"
-				width={400}
-				height={375}
+				width={300}
+				height={300}
 			/>
 		</div>
 	);
