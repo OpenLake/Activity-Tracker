@@ -19,7 +19,7 @@ export default defineConfig(({ command }) => ({
 		outDir: join(srcRoot, '/out'),
 		emptyOutDir: true,
 	},
-	server: { port: 3001 },
+	server: { port: 3000 },
 	optimizeDeps: {
 		exclude: ['path'],
 	},

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import { durationToString } from '../utils';
 
 export const ActivityDonutChart = ({ data }) => {
+	/** @type {ApexCharts.ApexOptions} */
 	const defaultOptions = {
 		dataLabels: {
 			enabled: false,
@@ -10,19 +10,10 @@ export const ActivityDonutChart = ({ data }) => {
 		tooltip: {
 			enabled: true,
 			y: {
-				formatter: val => {
-					return durationToString(val, true);
-				},
+				formatter: val => durationToString(val),
 			},
 		},
-		legend: {
-			show: true,
-			position: 'bottom',
-			labels: {
-				colors: undefined,
-				useSeriesColors: true,
-			},
-		},
+		legend: { show: false },
 		plotOptions: {
 			pie: {
 				startAngle: 0,
@@ -38,30 +29,22 @@ export const ActivityDonutChart = ({ data }) => {
 						value: {
 							show: true,
 							color: '#FFFFFF',
-							formatter: val => {
-								return durationToString(val, true);
-							},
+							formatter: val => durationToString(val),
 						},
 						total: {
 							show: true,
 							label: 'Today',
 							color: '#AFBDD1',
-							formatter: w => {
-								return durationToString(
-									w.globals.seriesTotals.reduce((a, b) => {
-										return a + b;
-									}, 0),
-									true,
-								);
-							},
+							formatter: w =>
+								durationToString(
+									w.globals.seriesTotals.reduce((a, b) => a + b, 0),
+								),
 						},
 					},
 				},
 			},
 		},
 	};
-
-	useEffect(() => {}, [data]);
 
 	return (
 		<div className="donut">
@@ -70,10 +53,10 @@ export const ActivityDonutChart = ({ data }) => {
 					...defaultOptions,
 					labels: data.map(app => app.name),
 				}}
-				series={data.map(app => Math.floor(app.duration / 1000 / 60))}
+				series={data.map(app => app.duration)}
 				type="donut"
-				width={400}
-				height={375}
+				width={300}
+				height={300}
 			/>
 		</div>
 	);
