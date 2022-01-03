@@ -22,17 +22,19 @@ export const all_apps = async (req, res) => {
 	activities = activities.filter(filterActivities);
 
 	let apps = groupBy(activities, 'name');
-	apps = Object.keys(apps).map(appName => {
-		const appActivities = apps[appName];
-		const durations = appActivities.map(a => a.endTime - a.startTime);
+	apps = Object.keys(apps)
+		.map(appName => {
+			const appActivities = apps[appName];
+			const durations = appActivities.map(a => a.endTime - a.startTime);
 
-		return {
-			_id: appName,
-			name: appName,
-			title: [...new Set(appActivities.map(a => a.title))],
-			duration: durations.reduce((a, b) => a + b),
-		};
-	});
+			return {
+				_id: appName,
+				name: appName,
+				title: [...new Set(appActivities.map(a => a.title))],
+				duration: durations.reduce((a, b) => a + b),
+			};
+		})
+		.sort((a, b) => b.duration - a.duration);
 
 	res.json(apps);
 };

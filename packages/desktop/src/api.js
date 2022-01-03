@@ -8,9 +8,10 @@ export function useAllAppsUsage({ before, after }) {
 	url.searchParams.append('before', before);
 	url.searchParams.append('after', after);
 
-	return useQuery(['AllAppsUsage', before, after], () =>
-		fetch(url.href).then(res => res.json()),
-	);
+	return useQuery(['AllAppsUsage', before, after], {
+		queryFn: () => fetch(url.href).then(res => res.json()),
+		keepPreviousData: true,
+	});
 }
 
 export function useAppUsage(appName) {
