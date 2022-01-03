@@ -1,46 +1,39 @@
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material/styles';
-import { ActivityDonutChart } from '../components/ActivityDonut';
-import RedditIcon from '@mui/icons-material/Reddit';
-import HourglassFullRoundedIcon from '@mui/icons-material/HourglassFullRounded';
-import HourglassEmptyRoundedIcon from '@mui/icons-material/HourglassEmptyRounded';
-import { durationToString } from '../utils';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+import { Button, useTheme, Grid, Typography } from '@mui/material';
+import {
+	Reddit,
+	HourglassFullRounded,
+	HourglassEmptyRounded,
+} from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+
+import { ActivityDonutChart } from '../components/ActivityDonut';
 import { DatePicker } from '../components/DatePicker';
+import { durationToString } from '../utils';
+import { useAllAppsUsage } from '../api';
 
 export const HomePage = () => {
 	const theme = useTheme();
+	const [date, setDate] = useState(dayjs);
+	const appListQuery = useAllAppsUsage({
+		after: date.startOf('day').toISOString(),
+		before: date.endOf('day').toISOString(),
+	});
+	const appList = appListQuery.data;
 
-	const [appList, setAppList] = useState([
-		{
-			icon: (
-				<RedditIcon style={{ fontSize: 50, color: 'white', marginRight: 10 }} />
-			),
-			name: 'Reddit',
-			duration: 3 * 60 + 46,
-			status: 'red',
-		},
-	]);
-
-	const dateOnChange = newDate => {
-		console.log(newDate);
-		fetch('http://localhost:3000/api/apps')
-			.then(res => res.json())
-			.then(res => {
-				setAppList(res);
-			});
-	};
-
+	if (!appList) return null;
 	return (
 		<Grid container direction="column" alignItems="center">
 			<Grid item>
 				<ActivityDonutChart data={appList} />
 			</Grid>
 			<Grid item>
-				<DatePicker onChange={dateOnChange}></DatePicker>
+				<DatePicker
+					label="Date"
+					value={date}
+					onChange={newValue => setDate(newValue)}
+				/>
 			</Grid>
 			<Grid item>
 				<div className="top-used-items">
@@ -52,7 +45,7 @@ export const HomePage = () => {
 							let hourglassIcon;
 							if (app.status == 'red') {
 								hourglassIcon = (
-									<HourglassFullRoundedIcon
+									<HourglassFullRounded
 										style={{
 											fontSize: 35,
 											color: theme.palette.secondary.main,
@@ -61,7 +54,7 @@ export const HomePage = () => {
 								);
 							} else if (app.status == 'green') {
 								hourglassIcon = (
-									<HourglassFullRoundedIcon
+									<HourglassFullRounded
 										style={{
 											fontSize: 35,
 											color: '#8bc34a',
@@ -70,7 +63,7 @@ export const HomePage = () => {
 								);
 							} else {
 								hourglassIcon = (
-									<HourglassEmptyRoundedIcon
+									<HourglassEmptyRounded
 										style={{ fontSize: 35, color: '#8997B1' }}
 									/>
 								);
@@ -96,7 +89,7 @@ export const HomePage = () => {
 											>
 												<Grid item xs={3}>
 													{app.icon ?? (
-														<RedditIcon
+														<Reddit
 															style={{
 																fontSize: 50,
 																color: 'white',
