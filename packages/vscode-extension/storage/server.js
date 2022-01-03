@@ -1,30 +1,35 @@
-// const axios = require('axios');
+const axios = require('axios');
 // const express = require('express');
-const mongoose = require('mongoose');
-const VscodeActivity = require('./models/vscodeActivity');
-mongoose.connect(
-	'mongodb://localhost:27017/activities',
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	},
-	err => {
-		if (err) {
-			console.log(err);
-		}
-		console.log('Mongodb connected');
-	},
-);
 
 const saveActivities = activity => {
-	const newVscodeActivity = new VscodeActivity(activity);
-	newVscodeActivity.save(error => {
-		if (error) {
-			console.log('error');
-		}
-		// BlogPost
-		console.log('Activity Saved');
-	});
+	const {
+		projectname,
+		projectPath,
+		filename,
+		languageId,
+		gitBranch,
+		remoteurl,
+		startTime,
+		endTime,
+	} = activity;
+
+	axios
+		.post('http://localhost:32768/api/vscodeactivities', {
+			projectname,
+			projectPath,
+			filename,
+			languageId,
+			gitBranch,
+			remoteurl,
+			startTime,
+			endTime,
+		})
+		.then(res => {
+			console.log(`StatusCode: ${res.status}`);
+		})
+		.catch(error => {
+			console.log(error);
+		});
 };
 
 module.exports = {
