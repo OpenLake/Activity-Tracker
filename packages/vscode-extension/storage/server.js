@@ -14,7 +14,7 @@ const saveActivities = activity => {
 	} = activity;
 
 	axios
-		.post('http://localhost:32768/api/vscodeactivities', {
+		.post('http://0.0.0.0:32768/api/vscodeactivities', {
 			projectname,
 			projectPath,
 			filename,
