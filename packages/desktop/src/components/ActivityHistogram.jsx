@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
 import Chart from 'react-apexcharts';
-import { durationToString } from '../utils';
 
 export const ActivityHistogram = ({ data, name }) => {
+	/** @type {ApexCharts.ApexOptions} */
 	const defaultOptions = {
 		chart: {
 			height: 100,
@@ -78,16 +77,10 @@ export const ActivityHistogram = ({ data, name }) => {
 		},
 	};
 
-	const series = [,];
-
-	useEffect(() => {}, [data]);
-
 	return (
-		<div className="histogram">
+		<div>
 			<Chart
-				options={{
-					...defaultOptions,
-				}}
+				options={defaultOptions}
 				series={[
 					{
 						name: `Time spent on ${name}`,

@@ -1,20 +1,67 @@
 import { useState } from 'react';
-import { Button, useTheme, Grid, Typography } from '@mui/material';
+import { Grid, List, Typography, useMediaQuery } from '@mui/material';
 import {
-	Reddit,
 	HourglassFullRounded,
 	HourglassEmptyRounded,
+	AppsRounded,
 } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 import { ActivityDonutChart } from '../components/ActivityDonut';
 import { DatePicker } from '../components/DatePicker';
+import { ListItemLink } from '../components/ListItemLink';
 import { durationToString } from '../utils';
 import { useAllAppsUsage } from '../api';
 
+/** @type {import('react').FC<{status:string}>} */
+// eslint-disable-next-line no-unused-vars
+function HourGlassIcon({ status }) {
+	const fontSize = 35;
+	if (status === 'red') {
+		return (
+			<HourglassFullRounded
+				sx={{
+					fontSize,
+					color: 'secondary',
+				}}
+			/>
+		);
+	} else if (status === 'green') {
+		return (
+			<HourglassFullRounded
+				style={{
+					fontSize,
+					color: '#8bc34a',
+				}}
+			/>
+		);
+	} else {
+		return <HourglassEmptyRounded style={{ fontSize, color: '#8997B1' }} />;
+	}
+}
+
+/** @type {import('react').FC<{apps:any[]}>} */
+const AppList = ({ apps }) => {
+	return (
+		<List sx={{ width: '100%', overflow: 'auto' }}>
+			{apps.map((app, idx) => (
+				<ListItemLink
+					key={idx}
+					icon={<AppsRounded />}
+					to={`/usage?name=${app.name}`}
+					primary={app.name}
+					secondary={durationToString(app.duration)}
+				/>
+			))}
+		</List>
+	);
+};
+
 export const HomePage = () => {
-	const theme = useTheme();
+	const isLarge = useMediaQuery(
+		/** @param {import('@mui/material').Theme} theme */
+		theme => theme.breakpoints.up('md'),
+	);
 	const [date, setDate] = useState(dayjs);
 	const appListQuery = useAllAppsUsage({
 		after: date.startOf('day').toISOString(),
@@ -24,108 +71,41 @@ export const HomePage = () => {
 
 	if (!appList) return null;
 	return (
-		<Grid container direction="column" alignItems="center">
-			<Grid item>
+		<Grid
+			container
+			direction="row"
+			alignItems="stretch"
+			justifyContent="center"
+			gap={3}
+			sx={{ height: isLarge ? '100vh' : 'auto', overflow: 'hidden', px: 2 }}
+		>
+			<Grid
+				item
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+					justifyContent: 'center',
+					gap: 2,
+				}}
+			>
 				<ActivityDonutChart data={appList} />
-			</Grid>
-			<Grid item>
 				<DatePicker
 					label="Date"
 					value={date}
 					onChange={newValue => setDate(newValue)}
 				/>
 			</Grid>
-			<Grid item>
-				<div className="top-used-items">
-					<Typography variant="subtitle1" className="top-used-heading">
-						Top Used
-					</Typography>
-					<Grid container direction="column" spacing={1}>
-						{appList.map((app, index) => {
-							let hourglassIcon;
-							if (app.status == 'red') {
-								hourglassIcon = (
-									<HourglassFullRounded
-										style={{
-											fontSize: 35,
-											color: theme.palette.secondary.main,
-										}}
-									/>
-								);
-							} else if (app.status == 'green') {
-								hourglassIcon = (
-									<HourglassFullRounded
-										style={{
-											fontSize: 35,
-											color: '#8bc34a',
-										}}
-									/>
-								);
-							} else {
-								hourglassIcon = (
-									<HourglassEmptyRounded
-										style={{ fontSize: 35, color: '#8997B1' }}
-									/>
-								);
-							}
-
-							return (
-								<Grid item key={index}>
-									<Link
-										to={`/usage?name=${app.name}`}
-										style={{ textDecoration: 'none' }}
-									>
-										<Button
-											style={{
-												textTransform: 'none',
-												minWidth: 400,
-											}}
-										>
-											<Grid
-												container
-												direction="row"
-												justifyContent="flex-start"
-												alignItems="center"
-											>
-												<Grid item xs={3}>
-													{app.icon ?? (
-														<Reddit
-															style={{
-																fontSize: 50,
-																color: 'white',
-															}}
-														/>
-													)}
-												</Grid>
-												<Grid item xs={7}>
-													<div>
-														<Typography
-															variant="h6"
-															color="initial"
-															className="top-app-heading"
-														>
-															{app.name}
-														</Typography>
-														<Typography
-															variant="subtitle1"
-															color="initial"
-															className="top-app-details"
-														>
-															{durationToString(app.duration)}
-														</Typography>
-													</div>
-												</Grid>
-												<Grid item xs={2}>
-													{hourglassIcon}
-												</Grid>
-											</Grid>
-										</Button>
-									</Link>
-								</Grid>
-							);
-						})}
-					</Grid>
-				</div>
+			<Grid
+				item
+				height="100%"
+				xs
+				sx={{ display: 'flex', flexDirection: 'column', pt: 1 }}
+			>
+				<Typography variant="overline" component="h2">
+					Top Used
+				</Typography>
+				<AppList apps={appList} />
 			</Grid>
 		</Grid>
 	);
