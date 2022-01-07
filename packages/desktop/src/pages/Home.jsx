@@ -73,7 +73,7 @@ export const HomePage = () => {
 	return (
 		<Grid
 			container
-			direction="row"
+			direction={isLarge ? 'row' : 'column'}
 			alignItems="stretch"
 			justifyContent="center"
 			gap={3}
