@@ -1,13 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mobile"
-    xmlns:tools="http://schemas.android.com/tools">
-    
-    <uses-permission
-    android:name="android.permission.PACKAGE_USAGE_STATS"
-    tools:ignore="ProtectedPermissions" />
-
+    package="dev.openlake.usage_tracker_example">
    <application
-        android:label="mobile"
+        android:label="usage_tracker_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
