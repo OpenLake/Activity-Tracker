@@ -159,7 +159,7 @@ packages:
   usage_tracker:
     dependency: "direct main"
     description:
-      path: "../usage_tracker"
+      path: ".."
       relative: true
     source: path
     version: "0.0.1"

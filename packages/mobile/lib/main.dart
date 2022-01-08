@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:usage_tracker/usage_tracker.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,6 +50,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List<AppUsageInfo> _infos = [];
 
   void _incrementCounter() {
     setState(() {
@@ -59,6 +61,24 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+    getUsageStats();
+  }
+
+  void getUsageStats() async {
+    try {
+      Duration oneSecond = const Duration(seconds: 1);
+      DateTime endDate = DateTime.now();
+      DateTime startDate = endDate.subtract(oneSecond);
+
+      List<AppUsageInfo> infos =
+          await UsageTracker.getAppUsage(startDate, endDate);
+      setState(() {
+        _infos = infos;
+      });
+    } on AppUsageException catch (exception) {
+      // ignore: avoid_print
+      print(exception);
+    }
   }
 
   @override
