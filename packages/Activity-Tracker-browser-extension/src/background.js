@@ -1,7 +1,9 @@
-let tab=null;
-let url=null;
-let favicon=null;
-class ActiveWindowWatcher {
+// import { saveActivities } from '../storage/server.js';
+
+let tab = null;
+let url = null;
+let favicon = null;
+class ActiveBrowserWatcher {
 	/**
 	 * @param {number} interval Polling interval
 	 * @param {(activity) => void} changeCallback
@@ -27,7 +29,6 @@ class ActiveWindowWatcher {
 		const url = this.url;
 		const favicon = this.favicon;
 
-
 		const data = {
 			title,
 			url,
@@ -37,7 +38,7 @@ class ActiveWindowWatcher {
 		};
 
 		// this.changeCallback(data);
-    console.log(data)
+		console.log(data);
 	}
 
 	/**
@@ -46,25 +47,34 @@ class ActiveWindowWatcher {
 	 */
 	tracker() {
 		setInterval(() => {
-			let queryOptions = { active: true, currentWindow: true}; // to get current active tab
-			chrome.tabs.query(queryOptions,function currentTab(tabs){
+			let queryOptions = { active: true, currentWindow: true }; // to get current active tab from the current window
+			// eslint-disable-next-line no-undef
+			chrome.tabs.query(queryOptions, function currentTab(tabs) {
 				let currentTab = tabs[0]; // take the object from the returned promise
 				let currentTitle = currentTab.title; // take object title
 				let currentUrl = currentTab.url; // take object URL
-				let currentFavIcons = currentTab.favIconUrl
-    			tab = currentTitle;
+				let currentFavIcons = currentTab.favIconUrl;
+				tab = currentTitle;
 				url = currentUrl;
-				favicon = currentFavIcons;  
-		
-    			// Title
-    			// const activityTitle = document.getElementById('activityTitle');
-    			// const activityTitleUrl = document.getElementById('activityTitle');
-    			// activityTitle.innerHTML = "Title: "+currentTitle; //format it in html
-    			// activityTitleUrl.setAttribute("href",currentUrl);
-    			// console.log(activityTitle)
-		
-				
-    		});
+				favicon = currentFavIcons;
+
+				// Title
+				const activityTitle = document.getElementById('activityTitle');
+				const activityTitleUrl = document.getElementById('activityTitle');
+				activityTitle.innerHTML = 'Title: ' + currentTitle; //format it in html
+				activityTitleUrl.setAttribute('href', currentUrl);
+				console.log(activityTitle);
+
+				// URl
+				const activityUrl = document.getElementById('activityUrl');
+				const activityLink = document.getElementById('activityUrl');
+				activityUrl.innerHTML = 'URL: ' + currentUrl; //format it in html
+				activityLink.setAttribute('href', currentUrl);
+
+				// Favicon
+				const activityFavicon = document.getElementById('activityFavicon');
+				activityFavicon.setAttribute('src', currentFavIcons); //format Favicon in html
+			});
 
 			if (tab === undefined) return;
 
@@ -82,8 +92,7 @@ class ActiveWindowWatcher {
 				this.url = null;
 				this.favicon = null;
 			}
-			console.log(tab,url,favicon, this.startTime);
-
+			console.log(tab, url, favicon, this.startTime);
 		}, this.interval);
 	}
 
@@ -92,5 +101,27 @@ class ActiveWindowWatcher {
 	}
 }
 
-const activityTracker = new ActiveWindowWatcher(1000);
+// const activityTracker = new ActiveBrowserWatcher(1000);
+
+// const activityTracker = new ActiveBrowserWatcher(1000, activity => {
+// 	saveActivities(activity);
+// });
+
+// fetch('http://localhost:32768/api/browseractivities',{
+// 	method: 'POST',
+// 	body: activityTracker
+// 	)
+// });
+
+const activityTracker = new ActiveBrowserWatcher(1000, activity => {
+	fetch('http://localhost:32768/api/browseractivities', {
+		method: 'POST',
+		body: activity,
+	})
+		.then(console.log('done'))
+		.catch(err => {
+			console.log(err);
+		});
+});
+
 activityTracker.initialize();

@@ -50,5 +50,9 @@
 			"node14-macos"
 		],
 		"outputPath": "build"
+	},
+	"dependencies": {
+		"axios": "^0.24.0",
+		"mongoose": "^6.1.5"
 	}
 }
