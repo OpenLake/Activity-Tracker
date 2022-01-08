@@ -7,8 +7,8 @@ export const activity_create = (req, res, next) => {
 		filename,
 		gitBranch,
 		languageId,
-		remoteUrl,
-		starttime,
+		remoteurl,
+		startTime,
 		endTime,
 	} = req.body;
 	const vscodeactivity = new VscodeActivity({
@@ -17,8 +17,8 @@ export const activity_create = (req, res, next) => {
 		filename,
 		gitBranch,
 		languageId,
-		remoteUrl,
-		starttime,
+		remoteurl,
+		startTime,
 		endTime,
 	});
 	vscodeactivity.save(err => {

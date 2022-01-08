@@ -1,7 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
-const { saveActivity } = require('./storage/json.js');
 const { saveActivities } = require('./storage/server.js');
 // const json = require('./storage/json');
 
@@ -124,7 +123,6 @@ function activate(context) {
 				// Display a message box to the user
 				vscode.window.showInformationMessage('Activity Tracker Started');
 				const fileWatcher = new ActivefileWatcher(1000, activity => {
-					saveActivity(activity);
 					saveActivities(activity);
 				});
 				fileWatcher.initialize();

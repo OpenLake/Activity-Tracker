@@ -39,6 +39,7 @@
 		"typescript": "^4.4.4"
 	},
 	"dependencies": {
+		"axios": "^0.24.0",
 		"env-paths": "^3.0.0",
 		"mongoose": "^6.1.3"
 	},
