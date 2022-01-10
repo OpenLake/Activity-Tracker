@@ -75,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _infos = infos;
       });
+      print(infos);
     } on AppUsageException catch (exception) {
       // ignore: avoid_print
       print(exception);
