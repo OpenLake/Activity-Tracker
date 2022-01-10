@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:usage_tracker/usage_tracker.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -64,22 +67,37 @@ class _MyHomePageState extends State<MyHomePage> {
     getUsageStats();
   }
 
-  void getUsageStats() async {
-    try {
-      Duration oneSecond = const Duration(seconds: 1);
-      DateTime endDate = DateTime.now();
-      DateTime startDate = endDate.subtract(oneSecond);
 
-      List<AppUsageInfo> infos =
-          await UsageTracker.getAppUsage(startDate, endDate);
-      setState(() {
-        _infos = infos;
-      });
-      print(infos);
-    } on AppUsageException catch (exception) {
-      // ignore: avoid_print
-      print(exception);
-    }
+  void getUsageStats() async {
+    Timer mytimer = Timer.periodic(Duration(seconds: 1), (timer) async {
+
+      try {
+
+        Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+        Duration oneSecond = const Duration(seconds: 1);
+        DateTime endDate = DateTime.now();
+        DateTime startDate = endDate.subtract(oneSecond);
+
+        List<AppUsageInfo> infos =
+            await UsageTracker.getAppUsage(startDate, endDate);
+
+        setState(() {
+          _infos = infos;
+        });
+
+        print(startDate);
+        print(endDate);
+        print(_infos);
+        print(position);
+      }
+
+      on AppUsageException catch (exception) {
+        // ignore: avoid_print
+        print(exception);
+      }
+
+    });
   }
 
   @override
@@ -127,9 +145,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        // onPressed: getUsageStats,
+        onPressed: getUsageStats,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add_alarm_sharp),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
