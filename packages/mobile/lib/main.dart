@@ -145,7 +145,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        // onPressed: getUsageStats,
         onPressed: getUsageStats,
         tooltip: 'Increment',
         child: const Icon(Icons.add_alarm_sharp),
