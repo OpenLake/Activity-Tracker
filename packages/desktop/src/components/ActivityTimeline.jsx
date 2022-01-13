@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Chart from 'react-apexcharts';
-import { durationToString } from '../utils';
 
 export const ActivityTimeline = ({ data }) => {
 	const defaultOptions = {
@@ -158,7 +157,7 @@ export const ActivityTimeline = ({ data }) => {
 	useEffect(() => {}, [data]);
 
 	return (
-		<div className="donut">
+		<div>
 			<Chart
 				options={{
 					...defaultOptions,

@@ -17,17 +17,8 @@ const queryClient = new QueryClient();
 const theme = createTheme({
 	palette: {
 		mode: 'dark',
-		primary: {
-			light: '#757ce8',
-			main: '#3f50b5',
-			dark: '#002884',
-			contrastText: '#fff',
-		},
-		secondary: {
-			light: '#ff7961',
-			main: '#f44336',
-			dark: '#ba000d',
-			contrastText: '#000',
+		background: {
+			default: 'rgb(18, 31, 48)',
 		},
 	},
 });
@@ -47,7 +38,7 @@ function Providers({ children }) {
 function App() {
 	return (
 		<Providers>
-			<CssBaseline />
+			<CssBaseline enableColorScheme />
 			<HashRouter>
 				<Routes>
 					<Route path="/" element={<HomePage />} />
