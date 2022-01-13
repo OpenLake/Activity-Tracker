@@ -29,7 +29,7 @@ function getFilePath(date) {
 function getActivities(date) {
 	let data = [];
 	try {
-		data = JSON.parse(fs.readFileSync(getFilePath(date)));
+		data = JSON.parse(fs.readFileSync(getFilePath(date), 'utf-8'));
 	} catch (error) {
 		if (error.code === 'ENOENT') {
 			data = [];
@@ -49,7 +49,7 @@ const getDataFromJson = (start, end) => {
 
 	while (date <= end) {
 		try {
-			result.push(...JSON.parse(fs.readFileSync(getFilePath(date))));
+			result.push(...JSON.parse(fs.readFileSync(getFilePath(date), 'utf-8')));
 		} catch (error) {
 			console.log(`No data for ${getISODateString(date)}`);
 		}
