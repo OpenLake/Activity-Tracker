@@ -4,6 +4,8 @@ const vscode = require('vscode');
 const { saveActivities } = require('./storage/server.js');
 // const json = require('./storage/json');
 
+let intervalId;
+
 class ActivefileWatcher {
 	/**
 	 * @param {number} interval Polling interval
@@ -23,19 +25,19 @@ class ActivefileWatcher {
 	storeTime() {
 		const endTime = Date.now();
 		const startTime = this.startTime;
-		const projectname = this.activeProject;
-		const filename = this.activefile;
+		const projectName = this.activeProject;
+		const fileName = this.activefile;
 		const languageId = this.language;
 		const gitBranch = this.gitBranch;
-		const remoteurl = this.remoteUrl;
+		const remoteUrl = this.remoteUrl;
 		const projectPath = this.projectPath;
 		const data = {
-			projectname,
+			projectName,
 			projectPath,
-			filename,
+			fileName,
 			languageId,
 			gitBranch,
-			remoteurl,
+			remoteUrl,
 			startTime,
 			endTime,
 		};
@@ -43,10 +45,13 @@ class ActivefileWatcher {
 		this.changeCallback(data);
 	}
 	tracker() {
-		setInterval(() => {
+		intervalId = setInterval(() => {
 			let currentProject = vscode.workspace.name;
 			let currentProjectPath = vscode.workspace.workspaceFolders[0].uri.path;
 			let currentFile = vscode.window.activeTextEditor.document.fileName;
+
+			if (currentFile === undefined) return;
+
 			let currentLanguageId =
 				vscode.window.activeTextEditor.document.languageId;
 
@@ -64,8 +69,6 @@ class ActivefileWatcher {
 			} else {
 				remoteUrl = remotes[0].fetchUrl;
 			}
-
-			if (currentFile === undefined) return;
 
 			if (!this.activefile) {
 				this.startTime = Date.now();
@@ -137,7 +140,9 @@ function activate(context) {
 }
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() {
+	clearInterval(intervalId);
+}
 
 module.exports = {
 	activate,

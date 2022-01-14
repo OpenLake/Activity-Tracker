@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import envPaths from 'env-paths';
-// import { getDataFromJson } from './utils.js';
+import { extract } from './utils.js';
 
 const dirname = envPaths('ActivityTracker').data;
 const vscodeActivityDir = path.join(dirname, '/vscode-activity');
@@ -59,26 +59,16 @@ const getDataFromJson = (start, end) => {
 };
 
 export const activity_create = (req, res) => {
-	const {
-		projectPath,
-		projectname,
-		filename,
-		gitBranch,
-		languageId,
-		remoteurl,
-		startTime,
-		endTime,
-	} = req.body;
-	const packet = {
-		projectPath,
-		projectname,
-		filename,
-		gitBranch,
-		languageId,
-		remoteurl,
-		startTime,
-		endTime,
-	};
+	const packet = extract(req.body, [
+		'projectPath',
+		'projectName',
+		'fileName',
+		'gitBranch',
+		'languageId',
+		'remoteUrl',
+		'startTime',
+		'endTime',
+	]);
 	const filepath = getFilePath(new Date(packet.endTime));
 	const data = getActivities(new Date(packet.endTime));
 	data.push(packet);

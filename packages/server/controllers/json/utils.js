@@ -39,3 +39,6 @@ export const groupBy = (array, key) => {
 		return result;
 	}, {}); // empty object is the initial value for result object
 };
+
+export const extract = (obj, keys) =>
+	Object.fromEntries(keys.map(k => [k, obj[k]]));

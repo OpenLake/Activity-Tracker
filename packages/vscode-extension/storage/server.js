@@ -3,24 +3,24 @@ const axios = require('axios');
 
 const saveActivities = activity => {
 	const {
-		projectname,
 		projectPath,
-		filename,
+		projectName,
+		fileName,
 		languageId,
 		gitBranch,
-		remoteurl,
+		remoteUrl,
 		startTime,
 		endTime,
 	} = activity;
 
 	axios
 		.post('http://localhost:32768/api/vscodeactivities', {
-			projectname,
 			projectPath,
-			filename,
+			projectName,
+			fileName,
 			languageId,
 			gitBranch,
-			remoteurl,
+			remoteUrl,
 			startTime,
 			endTime,
 		})

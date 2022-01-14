@@ -1,26 +1,18 @@
 import VscodeActivity from '../../models/vscodeActivity.model.js';
+import { extract } from '../json/utils.js';
 
 export const activity_create = (req, res, next) => {
-	const {
-		projectPath,
-		projectname,
-		filename,
-		gitBranch,
-		languageId,
-		remoteurl,
-		startTime,
-		endTime,
-	} = req.body;
-	const vscodeactivity = new VscodeActivity({
-		projectPath,
-		projectname,
-		filename,
-		gitBranch,
-		languageId,
-		remoteurl,
-		startTime,
-		endTime,
-	});
+	const packet = extract(req.body, [
+		'projectPath',
+		'projectName',
+		'fileName',
+		'gitBranch',
+		'languageId',
+		'remoteUrl',
+		'startTime',
+		'endTime',
+	]);
+	const vscodeactivity = new VscodeActivity(packet);
 	vscodeactivity.save(err => {
 		if (err) return next(err);
 	});
