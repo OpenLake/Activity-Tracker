@@ -47,7 +47,7 @@ export const ActivityDonutChart = ({ data }) => {
 	};
 
 	return (
-		<div className="donut">
+		<div>
 			<Chart
 				options={{
 					...defaultOptions,
