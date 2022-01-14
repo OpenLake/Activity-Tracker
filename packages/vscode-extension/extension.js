@@ -1,9 +1,7 @@
 const vscode = require('vscode');
 const { saveActivities } = require('./storage/server.js');
 
-let intervalId;
-
-class ActivefileWatcher {
+class ActiveFileWatcher {
 	/**
 	 * @param {number} interval Polling interval
 	 */
@@ -17,6 +15,7 @@ class ActivefileWatcher {
 		this.projectPath = null;
 		this.changeCallback = changeCallback;
 		this.interval = interval;
+		this.intervalId = null;
 	}
 
 	storeTime() {
@@ -42,7 +41,7 @@ class ActivefileWatcher {
 		this.changeCallback(data);
 	}
 	tracker() {
-		intervalId = setInterval(() => {
+		this.intervalId = setInterval(() => {
 			let currentProject = vscode.workspace.name;
 			let currentProjectPath = vscode.workspace.workspaceFolders[0].uri.path;
 			let currentFile = vscode.window.activeTextEditor.document.fileName;
@@ -92,9 +91,16 @@ class ActivefileWatcher {
 	}
 
 	initialize() {
-		this.tracker();
+		!this.intervalId && this.tracker();
+	}
+
+	stop() {
+		this.intervalId && clearInterval(this.intervalId);
 	}
 }
+
+/** @type {ActiveFileWatcher} */
+let fileWatcher = null;
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -111,13 +117,12 @@ function activate(context) {
 		vscode.commands.registerCommand(
 			'activity-tracker-vscode-extension.activitytracker',
 			function () {
-				// The code you place here will be executed every time your command is executed
-
-				// Display a message box to the user
 				vscode.window.showInformationMessage('Activity Tracker Started');
-				const fileWatcher = new ActivefileWatcher(1000, activity => {
-					saveActivities(activity);
-				});
+				if (!fileWatcher) {
+					fileWatcher = new ActiveFileWatcher(1000, activity => {
+						saveActivities(activity);
+					});
+				}
 				fileWatcher.initialize();
 			},
 		),
@@ -131,7 +136,7 @@ function activate(context) {
 
 // this method is called when your extension is deactivated
 function deactivate() {
-	clearInterval(intervalId);
+	fileWatcher && fileWatcher.stop();
 }
 
 module.exports = {
