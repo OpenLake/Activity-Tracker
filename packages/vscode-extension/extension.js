@@ -20,7 +20,7 @@ class ActivefileWatcher {
 	}
 
 	storeTime() {
-		const endTime = Date.now();
+		const endTime = Date();
 		const startTime = this.startTime;
 		const projectName = this.activeProject;
 		const fileName = this.activefile;
@@ -67,25 +67,31 @@ class ActivefileWatcher {
 				remoteUrl = remotes[0].fetchUrl;
 			}
 
-			if (!this.activefile) {
-				this.startTime = Date.now();
+			// if (!this.activefile) {
+			// 	this.startTime = Date.now();
+			// 	this.activefile = currentFile;
+			// 	this.activeProject = currentProject;
+			// 	this.projectPath = currentProjectPath;
+			// 	this.language = currentLanguageId;
+			// 	this.gitBranch = gitBranch;
+			// 	this.remoteUrl = remoteUrl;
+			// }
+
+			//If the active file is changed store the used time data.
+			if (currentFile !== this.activefile) {
+				this.storeTime();
 				this.activefile = currentFile;
+				// this.activeProject = null;
+				// this.language = null;
+				// this.gitBranch = null;
+				// this.remoteUrl = null;
+				// this.projectPath = null;
 				this.activeProject = currentProject;
 				this.projectPath = currentProjectPath;
 				this.language = currentLanguageId;
 				this.gitBranch = gitBranch;
 				this.remoteUrl = remoteUrl;
-			}
-
-			//If the active file is changed store the used time data.
-			if (currentFile !== this.activefile) {
-				this.storeTime();
-				this.activefile = null;
-				this.activeProject = null;
-				this.language = null;
-				this.gitBranch = null;
-				this.remoteUrl = null;
-				this.projectPath = null;
+				this.startTime = Date();
 			}
 			// console.log(file);
 		}, this.interval);
