@@ -42,7 +42,7 @@ class ActivefileWatcher {
 		this.changeCallback(data);
 	}
 	tracker() {
-		intervalId = setInterval(() => {
+		this.intervalId = setInterval(() => {
 			let currentProjectPath = vscode.workspace.workspaceFolders[0].uri.path;
 			let currentProject = vscode.workspace.name;
 			let currentFile = null;
@@ -84,7 +84,10 @@ class ActivefileWatcher {
 	}
 
 	initialize() {
-		this.tracker();
+		!this.intervalId && this.tracker();
+	}
+	stop() {
+		this.intervalId && clearInterval(this.intervalId);
 	}
 }
 
