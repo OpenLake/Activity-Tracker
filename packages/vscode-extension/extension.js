@@ -1,8 +1,6 @@
 const vscode = require('vscode');
 const { saveActivities } = require('./storage/server.js');
 
-let intervalId;
-
 class ActivefileWatcher {
 	/**
 	 * @param {number} interval Polling interval
@@ -17,6 +15,7 @@ class ActivefileWatcher {
 		this.projectPath = null;
 		this.changeCallback = changeCallback;
 		this.interval = interval;
+		this.intervalId = null;
 	}
 
 	storeTime() {
@@ -91,6 +90,9 @@ class ActivefileWatcher {
 	}
 }
 
+/** @type {ActiveFileWatcher} */
+let fileWatcher = null;
+
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -110,9 +112,12 @@ function activate(context) {
 
 				// Display a message box to the user
 				vscode.window.showInformationMessage('Activity Tracker Started');
-				const fileWatcher = new ActivefileWatcher(1000, activity => {
-					saveActivities(activity);
-				});
+
+				if (!fileWatcher) {
+					fileWatcher = new ActivefileWatcher(1000, activity => {
+						saveActivities(activity);
+					});
+				}
 				fileWatcher.initialize();
 			},
 		),
@@ -126,7 +131,7 @@ function activate(context) {
 
 // this method is called when your extension is deactivated
 function deactivate() {
-	clearInterval(intervalId);
+	fileWatcher && fileWatcher.stop();
 }
 
 module.exports = {
