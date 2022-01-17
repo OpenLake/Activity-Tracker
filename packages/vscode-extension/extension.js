@@ -20,7 +20,7 @@ class ActivefileWatcher {
 	}
 
 	storeTime() {
-		const endTime = Date();
+		const endTime = Date.now();
 		const startTime = this.startTime;
 		const projectName = this.activeProject;
 		const fileName = this.activefile;
@@ -43,14 +43,14 @@ class ActivefileWatcher {
 	}
 	tracker() {
 		intervalId = setInterval(() => {
-			let currentProject = vscode.workspace.name;
 			let currentProjectPath = vscode.workspace.workspaceFolders[0].uri.path;
-			let currentFile = vscode.window.activeTextEditor.document.fileName;
-
-			if (currentFile === undefined) return;
-
-			let currentLanguageId =
-				vscode.window.activeTextEditor.document.languageId;
+			let currentProject = vscode.workspace.name;
+			let currentFile = null;
+			let currentLanguageId = null;
+			if (vscode.window.activeTextEditor !== undefined) {
+				currentFile = vscode.window.activeTextEditor.document.fileName;
+				currentLanguageId = vscode.window.activeTextEditor.document.languageId;
+			}
 
 			// git data
 			let gitExtension = vscode.extensions.getExtension('vscode.git').exports;
@@ -67,31 +67,17 @@ class ActivefileWatcher {
 				remoteUrl = remotes[0].fetchUrl;
 			}
 
-			// if (!this.activefile) {
-			// 	this.startTime = Date.now();
-			// 	this.activefile = currentFile;
-			// 	this.activeProject = currentProject;
-			// 	this.projectPath = currentProjectPath;
-			// 	this.language = currentLanguageId;
-			// 	this.gitBranch = gitBranch;
-			// 	this.remoteUrl = remoteUrl;
-			// }
-
-			//If the active file is changed store the used time data.
+			// If the active file is changed store the used time data.
+			// And store the new data.
 			if (currentFile !== this.activefile) {
 				this.storeTime();
 				this.activefile = currentFile;
-				// this.activeProject = null;
-				// this.language = null;
-				// this.gitBranch = null;
-				// this.remoteUrl = null;
-				// this.projectPath = null;
 				this.activeProject = currentProject;
 				this.projectPath = currentProjectPath;
 				this.language = currentLanguageId;
 				this.gitBranch = gitBranch;
 				this.remoteUrl = remoteUrl;
-				this.startTime = Date();
+				this.startTime = Date.now();
 			}
 			// console.log(file);
 		}, this.interval);
