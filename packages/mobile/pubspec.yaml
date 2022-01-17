@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   usage_tracker:
     path: ../usage_tracker
+  geolocator: ^8.0.1
 
 dev_dependencies:
   flutter_test:
