@@ -1,6 +1,6 @@
 // import { saveActivities } from '../storage/server.js';
 
-let tab = null;
+let title = null;
 let url = null;
 let favicon = null;
 class ActiveBrowserWatcher {
@@ -10,7 +10,7 @@ class ActiveBrowserWatcher {
 	 */
 	constructor(interval = 1000) {
 		this.startTime = null;
-		this.tab = null; //Title
+		this.title = null; //Title
 		this.url = null;
 		this.favicon = null;
 		// this.changeCallback = changeCallback;
@@ -25,7 +25,7 @@ class ActiveBrowserWatcher {
 		const endTime = Date.now();
 		const startTime = this.startTime;
 
-		const title = this.tab;
+		const title = this.title;
 		const url = this.url;
 		const favicon = this.favicon;
 
@@ -37,6 +37,14 @@ class ActiveBrowserWatcher {
 			endTime,
 		};
 
+		fetch('http://localhost:32768/api/browseractivities', {
+			method: 'POST',
+			body: data,
+		})
+			.then(console.log('data Stored'))
+			.catch(err => {
+				console.log(err);
+			});
 		// this.changeCallback(data);
 		console.log(data);
 	}
@@ -54,7 +62,7 @@ class ActiveBrowserWatcher {
 				let currentTitle = currentTab.title; // take object title
 				let currentUrl = currentTab.url; // take object URL
 				let currentFavIcons = currentTab.favIconUrl;
-				tab = currentTitle;
+				title = currentTitle;
 				url = currentUrl;
 				favicon = currentFavIcons;
 
@@ -76,23 +84,28 @@ class ActiveBrowserWatcher {
 				activityFavicon.setAttribute('src', currentFavIcons); //format Favicon in html
 			});
 
-			if (tab === undefined) return;
+			if (title === undefined) {
+				this.title = null;
+				this.url = null;
+				this.favicon = null;
+				return;
+			}
 
-			if (!this.tab) {
+			if (!this.title) {
 				this.startTime = Date.now();
-				this.tab = tab;
+				this.title = title;
 				this.url = url;
 				this.favicon = favicon;
 			}
 
 			//If the active window is changed store the used time data.
-			if (tab !== this.tab) {
+			if (title !== this.title) {
 				this.storeTime();
-				this.tab = null;
+				this.title = null;
 				this.url = null;
 				this.favicon = null;
 			}
-			console.log(tab, url, favicon, this.startTime);
+			console.log(title, url, favicon, this.startTime);
 		}, this.interval);
 	}
 
@@ -102,16 +115,6 @@ class ActiveBrowserWatcher {
 }
 
 // const activityTracker = new ActiveBrowserWatcher(1000);
-
-// const activityTracker = new ActiveBrowserWatcher(1000, activity => {
-// 	saveActivities(activity);
-// });
-
-// fetch('http://localhost:32768/api/browseractivities',{
-// 	method: 'POST',
-// 	body: activityTracker
-// 	)
-// });
 
 const activityTracker = new ActiveBrowserWatcher(1000, activity => {
 	fetch('http://localhost:32768/api/browseractivities', {

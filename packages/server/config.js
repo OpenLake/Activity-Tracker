@@ -12,4 +12,4 @@ try {
 dotenv.config({ path: dirname + `/dev.env` });
 
 export const useLocal =
-	process.env.LOCAL_STORAGE && process.env.LOCAL_STORAGE === 'true';
+	process.env.LOCAL_STORAGE && process.env.LOCAL_STORAGE === 'true'; // true

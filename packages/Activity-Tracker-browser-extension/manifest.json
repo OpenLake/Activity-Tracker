@@ -1,6 +1,6 @@
 {
 	"name": "Browser Activity Tracker",
-	"description": "Shows you your digital time based on your browser activity",
+	"description": "Discover how you spend your time digitally",
 	"version": "1.0.0",
 	"manifest_version": 3,
 
@@ -20,7 +20,7 @@
 	},
 
 	"author": "",
-	"homepage_url": "https://github.com/OpenLake/Activity-Tracker#readme",
+	"homepage_url": "https://github.com/OpenLake/Activity-Tracker",
 
 	"permissions": ["tabs", "activeTab", "storage"]
 }

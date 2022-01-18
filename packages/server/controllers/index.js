@@ -18,6 +18,4 @@ export const app_controller = useLocal
 
 export const user_controller = mongo_user_controller;
 
-export const browser_activity_controller = useLocal
-	? json_activity_controller
-	: mongo_browser_activity_controller;
+export const browser_activity_controller = mongo_browser_activity_controller;

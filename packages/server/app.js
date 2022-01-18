@@ -9,7 +9,7 @@ import root from './routes/root.routes.js';
 import user from './routes/user.routes.js';
 import activity from './routes/activity.routes.js';
 import app_usage from './routes/app.routes.js';
-import browser_activity from './routes/browseractivity.routes';
+import browser_activity from './routes/browseractivity.routes.js';
 
 const app = express();
 
@@ -17,7 +17,7 @@ const hostname = process.env.HOSTNAME || '0.0.0.0';
 const port = process.env.PORT || 8080;
 const mongoUrl = process.env.mongodb || 'mongodb://127.0.0.1:27017';
 
-if (!useLocal) {
+if (useLocal) {
 	// Connect to the database
 	mongoose.connect(
 		mongoUrl,
