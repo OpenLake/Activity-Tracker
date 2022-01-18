@@ -6,7 +6,7 @@
 	"bin": "main.js",
 	"scripts": {
 		"dev": "pnpm dev --prefix packages/desktop",
-		"test": "pnpm -r test",
+		"test": "pnpm -r test --filter=!./packages/vscode-extension",
 		"server": "cd packages/server/ && pnpm run server",
 		"tracker": "cd packages/desktop/ && pnpm run tracker",
 		"ui:dev": "pnpm vite:dev --prefix packages/desktop",

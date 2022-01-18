@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+env:
+  CI: true
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.26.1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+  Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.26.1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          cache: pnpm
+      - run: pnpm install -r --frozen-lockfile
+      - run: pnpm test
