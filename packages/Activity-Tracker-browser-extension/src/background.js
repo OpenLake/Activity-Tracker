@@ -6,12 +6,12 @@ class ActiveBrowserWatcher {
 	 * @param {number} interval Polling interval
 	 * @param {(activity) => void} changeCallback
 	 */
-	constructor(interval = 1000) {
+	constructor(interval = 1000, changeCallback) {
 		this.startTime = null;
 		this.title = null; //Title
 		this.url = null;
 		this.favicon = null;
-		// this.changeCallback = changeCallback;
+		this.changeCallback = changeCallback;
 		this.interval = interval;
 	}
 
@@ -43,7 +43,7 @@ class ActiveBrowserWatcher {
 			.catch(err => {
 				console.log(err);
 			});
-		// this.changeCallback(data);
+		this.changeCallback(data);
 		console.log(data);
 	}
 
