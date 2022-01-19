@@ -9,7 +9,7 @@ import root from './routes/root.routes.js';
 import user from './routes/user.routes.js';
 import activity from './routes/activity.routes.js';
 import app_usage from './routes/app.routes.js';
-import browser_activity from './routes/browseractivity.routes';
+import browser_activity from './routes/browseractivity.routes.js';
 
 const app = express();
 
