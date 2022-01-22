@@ -46,7 +46,7 @@ class ActivefileWatcher {
 			let currentProject = vscode.workspace.name;
 			let currentFile = null;
 			let currentLanguageId = null;
-			if (vscode.window.activeTextEditor !== undefined) {
+			if (vscode.window.activeTextEditor !== undefined || null) {
 				currentFile = vscode.window.activeTextEditor.document.fileName;
 				currentLanguageId = vscode.window.activeTextEditor.document.languageId;
 			}

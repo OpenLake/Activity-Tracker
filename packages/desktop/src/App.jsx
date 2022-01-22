@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { HomePage, AppUsagePage, UsageTimeline } from './pages';
+import { VscodeUsage } from './pages/VscodeUsage';
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,7 @@ const theme = createTheme({
 	palette: {
 		mode: 'dark',
 		background: {
-			default: 'rgb(18, 31, 48)',
+			default: '#021E48',
 		},
 	},
 });
@@ -45,6 +46,7 @@ function App() {
 					<Route path="about" element={<h1>About</h1>} />
 					<Route path="usage" element={<AppUsagePage />} />
 					<Route path="timeline" element={<UsageTimeline />} />
+					<Route path="vscode" element={<VscodeUsage />} />
 				</Routes>
 			</HashRouter>
 

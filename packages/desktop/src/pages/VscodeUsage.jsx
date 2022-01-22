@@ -1,12 +1,5 @@
 import { useState } from 'react';
-import {
-	Grid,
-	List,
-	Typography,
-	useMediaQuery,
-	Button,
-	Link,
-} from '@mui/material';
+import { Grid, List, Typography, useMediaQuery } from '@mui/material';
 import {
 	HourglassFullRounded,
 	HourglassEmptyRounded,
@@ -18,7 +11,7 @@ import { ActivityDonutChart } from '../components/ActivityDonut';
 import { DatePicker } from '../components/DatePicker';
 import { ListItemLink } from '../components/ListItemLink';
 import { durationToString } from '../utils';
-import { useAllAppsUsage } from '../api';
+import { useVscodeAllProjectsUsage, useVscodeAllLanguagesUsage } from '../api';
 
 /** @type {import('react').FC<{status:string}>} */
 // eslint-disable-next-line no-unused-vars
@@ -48,14 +41,14 @@ function HourGlassIcon({ status }) {
 }
 
 /** @type {import('react').FC<{apps:any[]}>} */
-const AppList = ({ apps }) => {
+const ProjectList = ({ apps }) => {
 	return (
 		<List sx={{ width: '100%', overflow: 'auto' }}>
 			{apps.map((app, idx) => (
 				<ListItemLink
 					key={idx}
 					icon={<AppsRounded />}
-					to={`/usage?name=${app.name}`}
+					to={`/#`}
 					primary={app.name}
 					secondary={durationToString(app.duration)}
 				/>
@@ -64,19 +57,25 @@ const AppList = ({ apps }) => {
 	);
 };
 
-export const HomePage = () => {
+export const VscodeUsage = () => {
 	const isLarge = useMediaQuery(
 		/** @param {import('@mui/material').Theme} theme */
 		theme => theme.breakpoints.up('md'),
 	);
 	const [date, setDate] = useState(dayjs);
-	const appListQuery = useAllAppsUsage({
+	const projectListQuery = useVscodeAllProjectsUsage({
 		after: date.startOf('day').toISOString(),
 		before: date.endOf('day').toISOString(),
 	});
-	const appList = appListQuery.data;
+	const projectList = projectListQuery.data;
 
-	if (!appList) return null;
+	const LanguageListQuery = useVscodeAllLanguagesUsage({
+		after: date.startOf('day').toISOString(),
+		before: date.endOf('day').toISOString(),
+	});
+	const languageList = LanguageListQuery.data;
+
+	if (!projectList || !languageList) return null;
 	return (
 		<Grid
 			container
@@ -86,42 +85,6 @@ export const HomePage = () => {
 			gap={3}
 			sx={{ height: isLarge ? '100vh' : 'auto', overflow: 'hidden', px: 2 }}
 		>
-			<Grid item xs={12} container spacing={3}>
-				<Grid
-					item
-					xs={8}
-					sx={{
-						marginTop: 2,
-					}}
-				>
-					<Typography variant="h5" component="h1" style={{ color: '#B1BAED' }}>
-						Activity Tracker
-					</Typography>
-				</Grid>
-				<Grid container item xs={4}>
-					<Grid
-						item
-						sx={{
-							marginTop: 2,
-						}}
-					>
-						<Button>
-							<Link href="/#/vscode" underline="none">
-								VS Code
-							</Link>
-						</Button>
-					</Grid>
-					<Grid
-						item
-						sx={{
-							marginTop: 2,
-							gap: 0,
-						}}
-					>
-						<Button>Browser</Button>
-					</Grid>
-				</Grid>
-			</Grid>
 			<Grid
 				item
 				sx={{
@@ -132,7 +95,7 @@ export const HomePage = () => {
 					gap: 2,
 				}}
 			>
-				<ActivityDonutChart data={appList} />
+				<ActivityDonutChart data={projectList} />
 				<DatePicker
 					label="Date"
 					value={date}
@@ -148,7 +111,20 @@ export const HomePage = () => {
 				<Typography variant="overline" component="h2">
 					Top Used
 				</Typography>
-				<AppList apps={appList} />
+				<ProjectList apps={projectList} />
+			</Grid>
+			<Grid
+				item
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+					justifyContent: 'center',
+					gap: 2,
+				}}
+			>
+				<Typography>TOP LANGAUGES</Typography>
+				<ActivityDonutChart data={languageList} />
 			</Grid>
 		</Grid>
 	);
