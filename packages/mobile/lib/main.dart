@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:usage_tracker/usage_tracker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+
+
 
 void main() {
   runApp(const MyApp());
@@ -35,18 +38,21 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+
+
 class _MyHomePageState extends State<MyHomePage> {
+
   List<AppUsageInfo> _infos = [];
-
-
-
+  String _position = "";
+  String _output = "";
 
   void getUsageStats() async {
     Timer mytimer = Timer.periodic(Duration(seconds: 1), (timer) async {
 
       try {
 
-        Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        String position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).toString();
+
 
         Duration oneSecond = const Duration(seconds: 1);
         DateTime endDate = DateTime.now();
@@ -55,14 +61,26 @@ class _MyHomePageState extends State<MyHomePage> {
         List<AppUsageInfo> infos =
             await UsageTracker.getAppUsage(startDate, endDate);
 
+        String output = (infos == []) ? "No app" : infos[4].appName;
+
         setState(() {
-          _infos = infos;
+          _output = output;
+          _position = position;
+          final url = Uri.parse("http://10.0.0.6:32768/api/mobile-activity/");
+          final response = http.post(
+              url,
+              headers: {
+              'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode({
+              'name': _output,
+              'location': _position,
+              'startTime': startDate.toString(),
+              'endTime': endDate.toString()
+              }),
+          );
         });
 
-        print(startDate);
-        print(endDate);
-        print(_infos);
-        print(position);
       }
 
       on AppUsageException catch (exception) {
@@ -71,7 +89,12 @@ class _MyHomePageState extends State<MyHomePage> {
       }
 
     });
+    
+
+
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getUsageStats,
-        tooltip: 'Increment',
+        tooltip: 'Start Logging App Usage Data',
         child: const Icon(Icons.add_alarm_sharp),
       ),
     );
