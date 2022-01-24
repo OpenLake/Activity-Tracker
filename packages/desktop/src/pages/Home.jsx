@@ -1,12 +1,5 @@
 import { useState } from 'react';
-import {
-	Grid,
-	List,
-	Typography,
-	useMediaQuery,
-	Button,
-	Link,
-} from '@mui/material';
+import { Grid, List, Typography, useMediaQuery } from '@mui/material';
 import {
 	HourglassFullRounded,
 	HourglassEmptyRounded,
@@ -79,49 +72,15 @@ export const HomePage = () => {
 	if (!appList) return null;
 	return (
 		<Grid
+			item
 			container
 			direction={isLarge ? 'row' : 'column'}
 			alignItems="stretch"
-			justifyContent="center"
 			gap={3}
-			sx={{ height: isLarge ? '100vh' : 'auto', overflow: 'hidden', px: 2 }}
+			flex={1}
+			flexWrap="nowrap"
+			sx={{ overflow: isLarge ? 'hidden' : 'auto', px: 2 }}
 		>
-			<Grid item xs={12} container spacing={3}>
-				<Grid
-					item
-					xs={8}
-					sx={{
-						marginTop: 2,
-					}}
-				>
-					<Typography variant="h5" component="h1" style={{ color: '#B1BAED' }}>
-						Activity Tracker
-					</Typography>
-				</Grid>
-				<Grid container item xs={4}>
-					<Grid
-						item
-						sx={{
-							marginTop: 2,
-						}}
-					>
-						<Button>
-							<Link href="/#/vscode" underline="none">
-								VS Code
-							</Link>
-						</Button>
-					</Grid>
-					<Grid
-						item
-						sx={{
-							marginTop: 2,
-							gap: 0,
-						}}
-					>
-						<Button>Browser</Button>
-					</Grid>
-				</Grid>
-			</Grid>
 			<Grid
 				item
 				sx={{
@@ -139,12 +98,7 @@ export const HomePage = () => {
 					onChange={newValue => setDate(newValue)}
 				/>
 			</Grid>
-			<Grid
-				item
-				height="100%"
-				xs
-				sx={{ display: 'flex', flexDirection: 'column', pt: 1 }}
-			>
+			<Grid item xs sx={{ display: 'flex', flexDirection: 'column', pt: 1 }}>
 				<Typography variant="overline" component="h2">
 					Top Used
 				</Typography>
