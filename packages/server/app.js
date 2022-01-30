@@ -9,6 +9,7 @@ import root from './routes/root.routes.js';
 import user from './routes/user.routes.js';
 import activity from './routes/activity.routes.js';
 import app_usage from './routes/app.routes.js';
+import browser_activity from './routes/browseractivity.routes.js';
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use('/api/', root);
 app.use('/api/users', user);
 app.use('/api/activities', activity);
 app.use('/api/apps', app_usage);
+app.use('/api/browseractivities', browser_activity);
 
 app.listen(port, hostname, function () {
 	console.log(`Nodejs server running at http://${hostname}:${port}/`);

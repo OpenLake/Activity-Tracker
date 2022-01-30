@@ -36,5 +36,19 @@
 	"lint-staged": {
 		"*.{js,jsx}": "eslint --cache --fix",
 		"*.{js,css,md}": "prettier --write"
+	},
+	"pkg": {
+		"assets": [
+			"./node_modules/**/*.node",
+			"./packages/**/.babel/*.env",
+			"./packages/server/.babel/static/",
+			"./packages/desktop/node_modules/active-win/main"
+		],
+		"targets": [
+			"node14-win-x64",
+			"node14-linux-x64",
+			"node14-macos"
+		],
+		"outputPath": "build"
 	}
 }
