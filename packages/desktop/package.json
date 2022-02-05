@@ -7,7 +7,8 @@
 		"dev": "concurrently pnpm:dev:vite pnpm:dev:electron",
 		"dev:vite": "vite",
 		"dev:electron": "node build.js && electron .",
-		"test": "vitest",
+		"test": "vitest run",
+		"test:watch": "vitest watch",
 		"build": "pnpm build:vite && pnpm build:electron",
 		"build:vite": "vite build",
 		"build:electron": "node build.js --prod",
@@ -16,7 +17,7 @@
 		"postinstall": "electron-rebuild"
 	},
 	"dependencies": {
-		"active-win": "^7.6.1"
+		"active-win": "^7.7.1"
 	},
 	"devDependencies": {
 		"@emotion/react": "^11.7.0",
@@ -47,7 +48,7 @@
 		"react-query": "^3.34.7",
 		"react-router-dom": "^6.0.2",
 		"vite": "^2.7.4",
-		"vitest": "^0.0.125"
+		"vitest": "^0.2.4"
 	},
 	"build": {
 		"appId": "com.openlake.activity-tracker",

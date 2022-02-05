@@ -7,7 +7,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -92,6 +91,36 @@ class _MyHomePageState extends State<MyHomePage> {
     
 
 
+  void getUsageStats() async {
+    Timer mytimer = Timer.periodic(Duration(seconds: 1), (timer) async {
+
+      try {
+
+        Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+        Duration oneSecond = const Duration(seconds: 1);
+        DateTime endDate = DateTime.now();
+        DateTime startDate = endDate.subtract(oneSecond);
+
+        List<AppUsageInfo> infos =
+            await UsageTracker.getAppUsage(startDate, endDate);
+
+        setState(() {
+          _infos = infos;
+        });
+
+        print(startDate);
+        print(endDate);
+        print(_infos);
+        print(position);
+      }
+
+      on AppUsageException catch (exception) {
+        // ignore: avoid_print
+        print(exception);
+      }
+
+    });
   }
 
   
@@ -121,6 +150,6 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Start Logging App Usage Data',
         child: const Icon(Icons.add_alarm_sharp),
       ),
-    );
+  );
   }
 }
