@@ -37,6 +37,7 @@ dependencies:
   usage_tracker:
     path: ../usage_tracker
   geolocator: ^8.0.1
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
