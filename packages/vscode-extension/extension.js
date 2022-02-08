@@ -42,10 +42,14 @@ class ActivefileWatcher {
 	}
 	tracker() {
 		this.intervalId = setInterval(() => {
-			let currentProjectPath = vscode.workspace.workspaceFolders[0].uri.path;
-			let currentProject = vscode.workspace.name;
+			let currentProjectPath = null;
+			let currentProject = null;
 			let currentFile = null;
 			let currentLanguageId = null;
+			if (vscode.workspace !== undefined || null) {
+				currentProjectPath = vscode.workspace.workspaceFolders[0].uri.path;
+				currentProject = vscode.workspace.name;
+			}
 			if (vscode.window.activeTextEditor !== undefined || null) {
 				currentFile = vscode.window.activeTextEditor.document.fileName;
 				currentLanguageId = vscode.window.activeTextEditor.document.languageId;
