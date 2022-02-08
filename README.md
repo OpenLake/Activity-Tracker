@@ -1,4 +1,6 @@
-<h1 align="center">Welcome to the Digital Life Tracker 👋</h1>
+<h1 align="center">Welcome to the Activity Tracker 👋</h1>
+
+![image](https://user-images.githubusercontent.com/44284655/152636848-e237da4b-553d-448c-bc99-902ab6470f8c.png)
 
 ## 🤔 Problem
 
@@ -6,11 +8,11 @@ We spend a lot of their time on screens and it's quite easy to lose track of the
 
 ## ✨ Features
 
-- PWA Dashboard to display all the collected data from different devices.
-- Background application for data collection from Desktop using NodeJS and from Mobiles using Flutter/Kotlin(To be decided).
+- Dashboard to display all the collected data from different devices.
+- Background application for data collection from Desktop using NodeJS and from Mobiles using Flutter.
 - NodeJS in the backend with MongoDB as the database
 - Once a simple product is ready, we'll work on features to summarize our weeks and discover patterns in our behaviour.
-- Tech Stack : React, NodeJS, Flutter/Kotlin
+- Tech Stack : React, NodeJS, Flutter
 
 ## How to contribute?
 
@@ -19,7 +21,7 @@ Please read the [contributing guidelines](https://github.com/OpenLake/Cross-Plat
 ## Maintainers
 
 - 👤 **Kumar Shivendu** [@KShivendu](https://github.com/KShivendu)
-- 👤 **Ambar Mutha** [@supercoww](https://github.com/supercoww)
+- 👤 **Ambar Mutha** [@ambarvm](https://github.com/ambarvm)
 - 👤 **Battu Ashita** [@battuAshita](https://github.com/battuAshita)
 
 ---

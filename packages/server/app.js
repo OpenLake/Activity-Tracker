@@ -10,6 +10,7 @@ import user from './routes/user.routes.js';
 import activity from './routes/activity.routes.js';
 import app_usage from './routes/app.routes.js';
 import vscode_activity from './routes/vscodeactivity.routes.js';
+import mobile_app_usage from './routes/mobileActivity.routes.js';
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use('/', root);
 app.use('/api/', root);
 app.use('/api/users', user);
 app.use('/api/activities', activity);
+app.use('/api/mobile-activity', mobile_app_usage);
 app.use('/api/apps', app_usage);
 app.use('/api/vscodeactivities', vscode_activity);
 

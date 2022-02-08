@@ -7,7 +7,8 @@
     tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
         android:label="mobile"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
