@@ -1,5 +1,4 @@
 import express from 'express';
-import auth from '../middlewares/auth.js';
 import { mobile_activity_controller } from '../controllers/index.js';
 
 const router = express.Router();
