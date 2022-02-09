@@ -67,7 +67,7 @@ export class ServerStorage {
 
 	saveActivity(activity) {
 		if (!this.jwtToken) {
-			// console.log('NO_JWT'); // User not authenticated, unable to store data on server
+			console.log('User not authenticated, unable to store data on server');
 			// TODO: Open authentication page in browser (and local express server)
 			return;
 		}
