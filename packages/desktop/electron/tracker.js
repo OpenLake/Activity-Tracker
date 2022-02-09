@@ -5,7 +5,7 @@ import getIcon from './getIcon.js';
 import { ignoreList } from './ignorelist.js';
 
 export function startTracker() {
-	const interval = 2000;
+	const interval = 500;
 
 	const storages = [
 		new JSONStorage(),
