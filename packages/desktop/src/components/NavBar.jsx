@@ -23,7 +23,7 @@ export const NavBar = () => {
 	const currentTab = routeMatch?.pattern?.path;
 
 	return (
-		<Grid container alignItems="center" justifyContent="space-between">
+		<Grid item container alignItems="center" justifyContent="space-between">
 			<Typography
 				variant="h5"
 				component="h1"

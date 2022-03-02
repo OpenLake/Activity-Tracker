@@ -1,57 +1,35 @@
 import { useState } from 'react';
-import { Grid, List, Typography, useMediaQuery } from '@mui/material';
 import {
-	HourglassFullRounded,
-	HourglassEmptyRounded,
-	AppsRounded,
-} from '@mui/icons-material';
+	Grid,
+	List,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+	Typography,
+	useMediaQuery,
+} from '@mui/material';
+import { AppsRounded } from '@mui/icons-material';
 import dayjs from 'dayjs';
 
 import { ActivityDonutChart } from '../components/ActivityDonut';
 import { DatePicker } from '../components/DatePicker';
-import { ListItemLink } from '../components/ListItemLink';
 import { durationToString } from '../utils';
 import { useVscodeAllProjectsUsage, useVscodeAllLanguagesUsage } from '../api';
-
-/** @type {import('react').FC<{status:string}>} */
-// eslint-disable-next-line no-unused-vars
-function HourGlassIcon({ status }) {
-	const fontSize = 35;
-	if (status === 'red') {
-		return (
-			<HourglassFullRounded
-				sx={{
-					fontSize,
-					color: 'secondary',
-				}}
-			/>
-		);
-	} else if (status === 'green') {
-		return (
-			<HourglassFullRounded
-				style={{
-					fontSize,
-					color: '#8bc34a',
-				}}
-			/>
-		);
-	} else {
-		return <HourglassEmptyRounded style={{ fontSize, color: '#8997B1' }} />;
-	}
-}
 
 /** @type {import('react').FC<{apps:any[]}>} */
 const ProjectList = ({ apps }) => {
 	return (
 		<List sx={{ width: '100%', overflow: 'auto' }}>
 			{apps.map((app, idx) => (
-				<ListItemLink
-					key={idx}
-					icon={<AppsRounded />}
-					to={`/#`}
-					primary={app.name}
-					secondary={durationToString(app.duration)}
-				/>
+				<ListItem key={idx}>
+					<ListItemIcon>
+						<AppsRounded />
+					</ListItemIcon>
+					<ListItemText
+						primary={app.name}
+						secondary={durationToString(app.duration)}
+					/>
+				</ListItem>
 			))}
 		</List>
 	);
@@ -78,53 +56,49 @@ export const VscodeUsage = () => {
 	if (!projectList || !languageList) return null;
 	return (
 		<Grid
+			item
 			container
-			direction={isLarge ? 'row' : 'column'}
+			direction="column"
 			alignItems="stretch"
-			justifyContent="center"
 			gap={3}
-			sx={{ height: isLarge ? '100vh' : 'auto', overflow: 'hidden', px: 2 }}
+			flex={1}
+			flexWrap="nowrap"
+			sx={{
+				overflow: isLarge ? 'hidden' : 'auto',
+				px: 2,
+				pt: 2,
+				overflowY: 'auto',
+			}}
 		>
-			<Grid
-				item
-				sx={{
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-					justifyContent: 'center',
-					gap: 2,
-				}}
-			>
-				<ActivityDonutChart data={projectList} />
+			<Grid item>
 				<DatePicker
 					label="Date"
 					value={date}
 					onChange={newValue => setDate(newValue)}
 				/>
 			</Grid>
-			<Grid
-				item
-				height="100%"
-				xs
-				sx={{ display: 'flex', flexDirection: 'column', pt: 1 }}
-			>
-				<Typography variant="overline" component="h2">
-					Top Used
-				</Typography>
-				<ProjectList apps={projectList} />
-			</Grid>
-			<Grid
-				item
-				sx={{
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-					justifyContent: 'center',
-					gap: 2,
-				}}
-			>
-				<Typography>TOP LANGAUGES</Typography>
-				<ActivityDonutChart data={languageList} />
+
+			<Grid item xs container direction="column" wrap="nowrap">
+				<Grid container>
+					<ActivityDonutChart data={projectList} />
+					<Grid
+						item
+						xs
+						sx={{ display: 'flex', flexDirection: 'column', pt: 1 }}
+					>
+						<Typography variant="overline" component="h2">
+							Top Projects
+						</Typography>
+						<ProjectList apps={projectList} />
+					</Grid>
+				</Grid>
+
+				<div>
+					<Typography variant="overline" component="h2">
+						Top Languages
+					</Typography>
+					<ActivityDonutChart data={languageList} />
+				</div>
 			</Grid>
 		</Grid>
 	);
