@@ -23,3 +23,35 @@ export function useAppUsage(appName) {
 		enabled: !!appName,
 	});
 }
+
+export function useVscodeAllProjectsUsage({ before, after }) {
+	const url = new URL(`${BASE_URL}/api/vscodeactivities/projects`);
+	url.searchParams.append('before', before);
+	url.searchParams.append('after', after);
+
+	return useQuery(['VscodeAllProjectsUsage', before, after], {
+		queryFn: () => fetch(url.href).then(res => res.json()),
+		keepPreviousData: true,
+	});
+}
+
+export function useVscodeProjectUsage(appName) {
+	return useQuery(['ProjectUsage', appName], {
+		queryFn: () =>
+			fetch(`${BASE_URL}/api/vscodeactivities/usage?name=${appName}`).then(
+				res => res.json(),
+			),
+		enabled: !!appName,
+	});
+}
+
+export function useVscodeAllLanguagesUsage({ before, after }) {
+	const url = new URL(`${BASE_URL}/api/vscodeactivities/languages`);
+	url.searchParams.append('before', before);
+	url.searchParams.append('after', after);
+
+	return useQuery(['VscodeAllLanguagesUsage', before, after], {
+		queryFn: () => fetch(url.href).then(res => res.json()),
+		keepPreviousData: true,
+	});
+}

@@ -72,12 +72,14 @@ export const HomePage = () => {
 	if (!appList) return null;
 	return (
 		<Grid
+			item
 			container
 			direction={isLarge ? 'row' : 'column'}
 			alignItems="stretch"
-			justifyContent="center"
 			gap={3}
-			sx={{ height: isLarge ? '100vh' : 'auto', overflow: 'hidden', px: 2 }}
+			flex={1}
+			flexWrap="nowrap"
+			sx={{ overflow: isLarge ? 'hidden' : 'auto', px: 2 }}
 		>
 			<Grid
 				item
@@ -96,12 +98,7 @@ export const HomePage = () => {
 					onChange={newValue => setDate(newValue)}
 				/>
 			</Grid>
-			<Grid
-				item
-				height="100%"
-				xs
-				sx={{ display: 'flex', flexDirection: 'column', pt: 1 }}
-			>
+			<Grid item xs sx={{ display: 'flex', flexDirection: 'column', pt: 1 }}>
 				<Typography variant="overline" component="h2">
 					Top Used
 				</Typography>
