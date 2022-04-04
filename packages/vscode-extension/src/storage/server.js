@@ -1,7 +1,6 @@
-const axios = require('axios');
-// const express = require('express');
+import axios from 'axios';
 
-const saveActivities = activity => {
+export function saveActivities(activity) {
 	const {
 		projectPath,
 		projectName,
@@ -30,8 +29,4 @@ const saveActivities = activity => {
 		.catch(error => {
 			console.log(error);
 		});
-};
-
-module.exports = {
-	saveActivities,
-};
+}
