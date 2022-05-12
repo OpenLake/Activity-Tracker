@@ -11,6 +11,7 @@ let tray;
 
 /** @type {BrowserWindow} */
 let mainWindow;
+let isQuitting = false;
 
 function createWindow() {
 	if (mainWindow) {
@@ -34,6 +35,9 @@ function createWindow() {
 	});
 
 	mainWindow.on('close', e => {
+		if (isQuitting) {
+			return;
+		}
 		e.preventDefault();
 		mainWindow.hide();
 	});
@@ -53,6 +57,10 @@ function createWindow() {
 		mainWindow?.loadFile(url);
 	}
 }
+
+app.on('before-quit', () => {
+	isQuitting = true;
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
