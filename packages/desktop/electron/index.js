@@ -9,9 +9,17 @@ const width = 800;
 /** @type {Tray} */
 let tray;
 
+/** @type {BrowserWindow} */
+let mainWindow;
+
 function createWindow() {
+	if (mainWindow) {
+		mainWindow.show();
+		return;
+	}
+
 	// Create the browser window.
-	const window = new BrowserWindow({
+	mainWindow = new BrowserWindow({
 		title: appName,
 		width,
 		height,
@@ -25,6 +33,14 @@ function createWindow() {
 		},
 	});
 
+	mainWindow.on('close', e => {
+		e.preventDefault();
+		mainWindow.hide();
+	});
+	mainWindow.on('closed', () => {
+		mainWindow = null;
+	});
+
 	const port = process.env.UI_PORT || 3000;
 	const url = isDev
 		? `http://localhost:${port}`
@@ -32,9 +48,9 @@ function createWindow() {
 
 	// and load the index.html of the app.
 	if (isDev) {
-		window?.loadURL(url);
+		mainWindow?.loadURL(url);
 	} else {
-		window?.loadFile(url);
+		mainWindow?.loadFile(url);
 	}
 }
 
@@ -50,7 +66,12 @@ app.whenReady().then(() => {
 	tray.on('click', () => createWindow());
 	const contextMenu = Menu.buildFromTemplate([
 		{ label: 'Open', click: () => createWindow() },
-		{ label: 'Close', click: () => app.quit() },
+		{
+			label: 'Close',
+			click: () => {
+				app.quit();
+			},
+		},
 	]);
 
 	tray.setContextMenu(contextMenu);
