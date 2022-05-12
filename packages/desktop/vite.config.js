@@ -8,7 +8,7 @@ const dir = dirname(fileURLToPath(import.meta.url));
 const srcRoot = join(dir, 'src');
 
 export default defineConfig(({ command }) => ({
-	base: command === 'serve' ? '/' : `${dir}/src/out/`,
+	base: command === 'serve' ? '/' : `./`,
 	plugins: [react()],
 	resolve: {
 		alias: {
