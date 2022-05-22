@@ -1,30 +1,42 @@
 import fs from 'fs';
 import path from 'path';
 import envPaths from 'env-paths';
+import dayjs from 'dayjs';
 
+const DATA_DIR = envPaths('ActivityTracker').data;
+const ACTIVITY_DIR = path.join(DATA_DIR, 'activity');
+
+/** @param {Date} date */
 const getISODateString = date => date.toISOString().slice(0, 10);
 
+/** @param {Date} date */
 const getFilePath = date => {
-	const dir = envPaths('ActivityTracker').data;
-	const activityDir = path.join(dir, 'activity');
 	const filename = `${getISODateString(date)}.json`;
-	return path.join(activityDir, filename);
+	return path.join(ACTIVITY_DIR, filename);
 };
 
-export const getDataFromJson = (start, end) => {
-	start = new Date(getISODateString(new Date(start)));
-	end = new Date(getISODateString(new Date(end)));
-
-	let result = [];
-	let date = start;
-
-	while (date <= end) {
+export const getDataFromJson = (
+	/** @type {dayjs.Dayjs} */ start,
+	/** @type {dayjs.Dayjs} */ end,
+) => {
+	const result = [];
+	for (
+		let day = start.utc();
+		day.isBetween(start, end, 'date', '[]');
+		day = day.add(1, 'day')
+	) {
+		const filepath = getFilePath(day.toDate());
 		try {
-			result.push(...JSON.parse(fs.readFileSync(getFilePath(date))));
-		} catch (error) {
-			console.log(`No data for ${getISODateString(date)}`);
+			const data = JSON.parse(fs.readFileSync(filepath, 'utf8'));
+			result.push(
+				...data.filter(a =>
+					dayjs(a.startTime).isBetween(start, end, 's', '[]'),
+				),
+			);
+		} catch (e) {
+			console.log({ filepath });
+			console.error(e);
 		}
-		date.setDate(date.getDate() + 1);
 	}
 	return result;
 };

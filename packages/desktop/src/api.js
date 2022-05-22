@@ -1,23 +1,27 @@
 import { useQuery } from 'react-query';
+import dayjs from 'dayjs';
 
 const BASE_URL = import.meta.env.VITE_SERVER_URL;
 
-/** @param {{before:string, after:string}} */
-export function useAllAppsUsage({ before, after }) {
+/** @param {{start:string, end:string}} params */
+export function useAllAppsUsage({ start, end }) {
+	const tz = dayjs.tz.guess();
 	const url = new URL(`${BASE_URL}/api/apps`);
-	url.searchParams.append('before', before);
-	url.searchParams.append('after', after);
+	url.searchParams.append('end', end);
+	url.searchParams.append('start', start);
+	url.searchParams.append('tz', tz);
 
-	return useQuery(['AllAppsUsage', before, after], {
+	return useQuery(['AllAppsUsage', end, start], {
 		queryFn: () => fetch(url.href).then(res => res.json()),
 		keepPreviousData: true,
 	});
 }
 
 export function useAppUsage(appName) {
-	return useQuery(['AppUsage', appName], {
+	const tz = dayjs.tz.guess();
+	return useQuery(['AppUsage', appName, tz], {
 		queryFn: () =>
-			fetch(`${BASE_URL}/api/apps/usage?name=${appName}`).then(res =>
+			fetch(`${BASE_URL}/api/apps/usage?name=${appName}&tz=${tz}`).then(res =>
 				res.json(),
 			),
 		enabled: !!appName,

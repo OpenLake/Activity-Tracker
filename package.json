@@ -5,13 +5,9 @@
 	"main": "index.js",
 	"bin": "main.js",
 	"scripts": {
-		"dev": "pnpm dev --prefix packages/desktop",
-		"test": "pnpm -r test --filter=!./packages/vscode-extension",
-		"server": "cd packages/server/ && pnpm run server",
-		"tracker": "cd packages/desktop/ && pnpm run tracker",
-		"ui:dev": "pnpm vite:dev --prefix packages/desktop",
-		"ui": "pnpm run ui:dev",
-		"build": "pnpm dist --prefix packages/desktop",
+		"dev": "pnpm --filter desktop dev",
+		"test": "pnpm -r --filter=!./packages/vscode-extension test",
+		"build": "pnpm --filter desktop dist",
 		"lint": "eslint --ext js,jsx .",
 		"format": "prettier . --write",
 		"prepare": "husky install"

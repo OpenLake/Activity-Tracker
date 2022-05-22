@@ -64,8 +64,8 @@ export const HomePage = () => {
 	);
 	const [date, setDate] = useState(dayjs);
 	const appListQuery = useAllAppsUsage({
-		after: date.startOf('day').toISOString(),
-		before: date.endOf('day').toISOString(),
+		start: date.startOf('day').toISOString(),
+		end: date.endOf('day').toISOString(),
 	});
 	const appList = appListQuery.data;
 
