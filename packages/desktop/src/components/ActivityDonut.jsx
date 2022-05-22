@@ -33,7 +33,7 @@ export const ActivityDonutChart = ({ data }) => {
 						},
 						total: {
 							show: true,
-							label: 'Today',
+							label: 'All Apps',
 							color: '#AFBDD1',
 							formatter: w =>
 								durationToString(
