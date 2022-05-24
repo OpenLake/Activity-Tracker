@@ -7,6 +7,7 @@ on:
   pull_request:
 env:
   CI: true
+  PNPM_VER: 7.x.x
 
 jobs:
   Lint:
@@ -15,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.26.1
+          version: ${{ env.PNPM_VER }}
       - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
@@ -28,10 +29,39 @@ jobs:
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.26.1
+          version: ${{ env.PNPM_VER }}
       - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
           cache: pnpm
       - run: pnpm install -r --frozen-lockfile
       - run: pnpm test
+  Build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: ${{ env.PNPM_VER }}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          cache: pnpm
+      - run: pnpm install -r --frozen-lockfile
+      - run: pnpm build
+      - uses: actions/upload-artifact@v3.1.0
+        if: ${{ matrix.os == 'windows-latest' }}
+        with:
+          name: Activity Tracker Windows Setup
+          path: packages/desktop/dist/Activity Tracker Setup *.exe
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v3.1.0
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        with:
+          name: Activity Tracker AppImage
+          path: packages/desktop/dist/*.AppImage
+          if-no-files-found: error
