@@ -1,4 +1,5 @@
 import Chart from 'react-apexcharts';
+import { durationToString } from '../utils';
 
 export const ActivityHistogram = ({ data, name }) => {
 	/** @type {ApexCharts.ApexOptions} */
@@ -6,74 +7,31 @@ export const ActivityHistogram = ({ data, name }) => {
 		chart: {
 			height: 100,
 			type: 'bar',
+			background: 'transparent',
 		},
 		plotOptions: {
-			bar: {
-				borderRadius: 10,
-				dataLabels: {
-					position: 'top', // top, center, bottom
-				},
-			},
+			bar: { borderRadius: 10 },
 		},
-		dataLabels: {
-			enabled: false,
-			formatter: function (val) {
-				return val + '%';
-			},
-			offsetY: -20,
-			style: {
-				fontSize: '12px',
-				colors: ['#304758'],
-			},
-		},
-
+		dataLabels: { enabled: false },
 		xaxis: {
-			categories: ['7', '6', '5', '4', '3', '2', '1'],
-			position: 'top',
-			axisBorder: {
-				show: false,
-			},
-			axisTicks: {
-				show: false,
-			},
-			crosshairs: {
-				fill: {
-					type: 'gradient',
-					gradient: {
-						colorFrom: '#D8E3F0',
-						colorTo: '#BED1E6',
-						stops: [0, 100],
-						opacityFrom: 0.4,
-						opacityTo: 0.5,
-					},
-				},
-			},
-			tooltip: {
-				enabled: true,
-			},
+			categories: data.map(d => d.day),
+			axisBorder: { show: false },
+			axisTicks: { show: false },
 		},
 		yaxis: {
-			axisBorder: {
-				show: false,
-			},
-			axisTicks: {
-				show: false,
-			},
+			axisBorder: { show: false },
+			axisTicks: { show: false },
 			labels: {
-				show: false,
-				formatter: function (val) {
-					return val + '%';
-				},
+				show: true,
+				formatter: durationToString,
 			},
 		},
+		theme: { mode: 'dark' },
 		title: {
 			text: `Time spent on ${name}`,
 			floating: true,
 			offsetY: 330,
 			align: 'center',
-			style: {
-				color: '#444',
-			},
 		},
 	};
 
@@ -84,7 +42,7 @@ export const ActivityHistogram = ({ data, name }) => {
 				series={[
 					{
 						name: `Time spent on ${name}`,
-						data: data,
+						data: data.map(d => d.duration),
 					},
 				]}
 				type="bar"

@@ -1,30 +1,39 @@
-import { useState } from 'react';
-import dayjs from 'dayjs';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Grid, IconButton, Typography } from '@mui/material';
-import { AppsRounded, ArrowBack } from '@mui/icons-material';
+import { useSearchParams } from 'react-router-dom';
+import { Grid, Typography } from '@mui/material';
+import { AppsRounded } from '@mui/icons-material';
 
 import { ActivityHistogram } from '../components/ActivityHistogram';
 import { durationToString } from '../utils';
-import { DatePicker } from '../components/DatePicker';
 import { useAppUsage } from '../api';
 import { features } from '../config';
+import dayjs from 'dayjs';
+
+const padDataToWeek = data => {
+	const lastDay = dayjs(data.at(-1).date);
+	const padding = Array.from(
+		{ length: Math.max(0, 7 - data.length) },
+		(_, i) => ({
+			date: lastDay.add(i + 1, 'day').format('YYYY-MM-DD'),
+			duration: 0,
+		}),
+	);
+	return [...data, ...padding];
+};
 
 export const AppUsagePage = () => {
-	const navigate = useNavigate();
 	const [query] = useSearchParams();
 	const appName = query.get('name');
-	const [date, setDate] = useState(dayjs);
 
 	const timeRemaining = 0;
 	const data = useAppUsage(appName).data;
-
 	if (!data) return null;
+	const paddedData = padDataToWeek(data).map(d => ({
+		day: dayjs(d.date).format('ddd'),
+		duration: d.duration,
+	}));
+
 	return (
 		<>
-			<IconButton onClick={() => navigate(-1)} sx={{ m: 2 }}>
-				<ArrowBack />
-			</IconButton>
 			<Grid
 				container
 				direction="column"
@@ -65,18 +74,8 @@ export const AppUsagePage = () => {
 
 				<Grid item>
 					<Typography variant="h4" color="black">
-						<ActivityHistogram
-							data={data?.map(weekDay => weekDay.duration)}
-							name={appName}
-						/>
+						<ActivityHistogram data={paddedData} name={appName} />
 					</Typography>
-				</Grid>
-				<Grid item>
-					<DatePicker
-						label="Date"
-						value={date}
-						onChange={newDate => setDate(newDate)}
-					/>
 				</Grid>
 			</Grid>
 		</>

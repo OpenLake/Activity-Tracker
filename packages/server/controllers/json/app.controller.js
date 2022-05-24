@@ -1,25 +1,24 @@
 import { getDataFromJson, groupBy } from './utils.js';
+import dayjs from 'dayjs';
 
+/**
+ * @type {import('express').RequestHandler<{}, any, any, {tz: string, start: string, end: string, name?: string}>}
+ */
 export const all_apps = async (req, res) => {
-	const today = new Date();
-	const yesterday = new Date(today);
-	yesterday.setDate(yesterday.getDate() - 1);
+	const tz = req.query.tz || dayjs.tz.guess();
+	const start = req.query.start
+		? dayjs(req.query.start).tz(tz)
+		: dayjs().tz(tz).startOf('day');
+	const end = req.query.end
+		? dayjs(req.query.end).tz(tz)
+		: dayjs().tz(tz).endOf('day');
 
-	const after = new Date(req.query.after ?? yesterday.toISOString());
-	const before = new Date(req.query.before ?? today.toISOString());
-	const name = req.query.name;
+	const { name } = req.query;
 
-	let activities = getDataFromJson(after, before);
+	let activities = getDataFromJson(start, end);
+	console.log(activities.length);
 
-	const filterActivities = a => {
-		return (
-			(!name || a.name === name) &&
-			(!before || a.startTime < before) &&
-			(!after || a.startTime >= after)
-		);
-	};
-
-	activities = activities.filter(filterActivities);
+	activities = activities.filter(a => !name || a.name === name);
 
 	let apps = groupBy(activities, 'name');
 	apps = Object.keys(apps)
@@ -39,33 +38,38 @@ export const all_apps = async (req, res) => {
 	res.json(apps);
 };
 
+/**
+ * @type {import('express').RequestHandler<{}, any, any, {tz: string, start: string, end: string, name: string}>}
+ */
 export const app_usage = async (req, res) => {
-	const today = new Date();
+	const tz = req.query.tz || dayjs.tz.guess();
+	const start = req.query.start
+		? dayjs(req.query.start).tz(tz)
+		: dayjs().tz(tz).startOf('week');
+	const end = req.query.end
+		? dayjs(req.query.end).tz(tz)
+		: dayjs().tz(tz).endOf('day');
 
-	const after = new Date(req.query.after ?? today.toISOString());
-	const before = new Date(req.query.before ?? today.toISOString());
-
-	let activities = getDataFromJson(after, before); // get this list from json file as per the date
+	let activities = getDataFromJson(start, end); // get this list from json file as per the date
 
 	if (req.query.name) {
 		activities = activities.filter(a => a.name === req.query.name);
 	}
 	activities = activities.map(a => ({
 		...a,
-		dayOfWeek: new Date(a.startTime).getDay(),
+		date: dayjs(a.startTime).tz(tz).format('YYYY-MM-DD'),
 	}));
 
-	let activityByDayOfWeek = groupBy(activities, 'dayOfWeek');
-	const usageByDayOfWeek = Object.keys(activityByDayOfWeek).map(dayOfWeek => {
-		const dayActivities = activityByDayOfWeek[dayOfWeek];
-		const durations = dayActivities.map(a => a.endTime - a.startTime);
+	let activityByDate = groupBy(activities, 'date');
+	const usageByDate = Object.keys(activityByDate).map(date => {
+		const dayActivities = activityByDate[date];
+		const duration = dayActivities.reduce(
+			(a, curr) => a + curr.endTime - curr.startTime,
+			0,
+		);
 
-		return {
-			_id: dayOfWeek,
-			name: [...new Set(dayActivities.map(a => a.name))],
-			duration: durations.reduce((a, b) => a + b),
-		};
+		return { date, duration };
 	});
 
-	res.json(usageByDayOfWeek);
+	res.json(usageByDate);
 };
