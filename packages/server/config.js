@@ -11,5 +11,5 @@ try {
 
 dotenv.config({ path: dirname + `/dev.env` });
 
-export const useLocal =
-	process.env.LOCAL_STORAGE && process.env.LOCAL_STORAGE === 'true';
+export const DEBUG = process.env.DEBUG === 'true';
+export const useLocal = process.env.LOCAL_STORAGE === 'true';
